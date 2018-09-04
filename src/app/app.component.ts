@@ -11,7 +11,7 @@ import {MediaMatcher} from "@angular/cdk/layout";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'wedd-site';
+  title = 'Taylor and Michael\'s Wedding';
   mobileQuery: MediaQueryList;
 
 
