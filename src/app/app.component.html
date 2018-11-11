@@ -3,21 +3,22 @@
     <button mat-flat-button>RSVP</button>
     <button mat-flat-button>Info</button>
   </mat-toolbar>
-  <mat-sidenav-container class="content"
-                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
-                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
-      <mat-nav-list>
-        <mat-list-item><button class="mat-button">About Us</button></mat-list-item>
-        <mat-list-item><button class="mat-button">RSVP</button></mat-list-item>
-        <mat-list-item><button class="mat-button">Wedding Info</button></mat-list-item>
-      </mat-nav-list>
-    </mat-sidenav>
+  <router-outlet></router-outlet>
 
-    <mat-sidenav-content>
-      <h1>
-        Welcome to {{ title }}!
-      </h1>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+  <!--<mat-sidenav-container class="content"-->
+                         <!--[style.marginTop.px]="mobileQuery.matches ? 56 : 0">-->
+    <!--<mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"-->
+                 <!--[fixedInViewport]="mobileQuery.matches" fixedTopGap="56">-->
+      <!--<mat-nav-list>-->
+        <!--<mat-list-item><button class="mat-button">About Us</button></mat-list-item>-->
+        <!--<mat-list-item><button class="mat-button">RSVP</button></mat-list-item>-->
+        <!--<mat-list-item><button class="mat-button">Wedding Info</button></mat-list-item>-->
+      <!--</mat-nav-list>-->
+    <!--</mat-sidenav>-->
+
+    <!--<mat-sidenav-content>-->
+      <!--<h1>-->
+      <!--</h1>-->
+    <!--</mat-sidenav-content>-->
+  <!--</mat-sidenav-container>-->
 
