@@ -1,3 +1,94 @@
-<p>
-  rsvp-form works!
-</p>
+<mat-card>
+  Hey Fleetwood Mac!
+  <!--<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">-->
+    <!--{{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}-->
+  <!--</button>-->
+  <mat-vertical-stepper [linear]="false" #stepper>
+    <mat-step [stepControl]="attendance">
+      <form [formGroup]="attendance">
+        <ng-template matStepLabel>Who's able to make it?</ng-template>
+        <mat-list>
+          <mat-list-item *ngFor="let member of household.members" >
+            <mat-checkbox formControlName="{{member.first}}">
+              {{member.first + ' ' + member.last}}
+            </mat-checkbox>
+          </mat-list-item>
+        </mat-list>
+      </form>
+    </mat-step>
+    <mat-step *ngIf="householdHasPlusOnes(household)" [stepControl]="plusOnes">
+      <form [formGroup]="plusOnes">
+        <ng-template matStepLabel>Anyone Bringing a Plus One?</ng-template>
+        <mat-list>
+          <ng-container *ngFor="let member of household.members">
+            <mat-list-item *ngIf="member.allowedPlusOne">
+              <mat-checkbox formControlName="{{member.first}}">
+               {{member.first + ' ' + member.last}}
+              </mat-checkbox>
+            </mat-list-item>
+          </ng-container>
+        </mat-list>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="personalRequests">
+      <form [formGroup]="personalRequests">
+        <ng-template matStepLabel>Tell us some stuff we don't know</ng-template>
+        <p>
+          We will be providing group camping nearby for anyone and everyone coming to party with us.
+          It will probably be about 20 minutes away from the reception, and cost about $10 a person.
+          Would you be interested in that?
+        </p>
+        <mat-list>
+          <mat-list-item>
+            <mat-checkbox formControlName="isCamping">
+              Camping is my favourite, I'm a greasy bear
+            </mat-checkbox>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-checkbox formControlName="isHoteling">
+              I have sophisticated taste, I'll grab a hotel
+            </mat-checkbox>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-checkbox formControlName="otherLodging">
+              Stay near you people?! I'm headed home as soon as I grab the bouquet
+            </mat-checkbox>
+          </mat-list-item>
+        </mat-list>
+        <br>
+        <p>
+          Both Taylor and Michael like to refer to themselves in the 3rd person (So you can't tell who wrote this form).
+          They also have a great taste in music. Unfortunately, concessions must be made for people with less gifted ear holes.
+          Any songs in particular you think would be perfect for the occasion?
+        </p>
+        <app-chip-list formControlName="songs" [placeholder]="'Song Requests'"></app-chip-list>
+        <br>
+        <p>
+          There will of course be a toonie bar serving liquid dancing shoes.
+          We've picked out some liquor that appeals to us (NOTE: insert our choices somewhere here),
+          But nobody wants the Bride and Groom to be the only ones with a drink in their hands.
+          What's your favourite concoction? (If its popular among others, we might just include it)
+        </p>
+        <app-chip-list formControlName="drinks" [placeholder]="'Drink Requests'"></app-chip-list>
+        <p>
+          Lets be honest, we all know that the low buck liquor and the free food are some of the biggest draws to a well executed wedding.
+          Confident that we have the liquor part covered, we also wanna be sure we don't get any anaphylactic responses during the toasts.
+          (it's very inconvenient, and those poor people probably stood in front of the mirror for hours preparing their speeches).
+          This is your chance to stand up and say NO to peanuts, meat or any other ingredient that doesn't need to be there.
+          We salute your dietary needs, and so do our caterers!
+        </p>
+        <mat-form-field class="full-width" >
+          <input matInput placeholder="Dietary Restrictions" value="Meatitarian" formControlName="dietaryRestrictions">
+        </mat-form-field>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      You are now done.
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</mat-card>
