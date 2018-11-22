@@ -1,0 +1,18 @@
+<mat-form-field class="full-width">
+  <mat-chip-list #chipList>
+    <mat-chip *ngFor="let value of _values"
+              [selectable]=true
+              [removable]=true (removed)="remove(value)"
+              (change)="_onChange()">
+      {{value}}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <input [placeholder]="placeholder"
+           label="placeholder"
+           [matChipInputFor]="chipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]=true
+           (matChipInputTokenEnd)="add($event)"
+           (blur)="_onTouched()">
+  </mat-chip-list>
+</mat-form-field>
