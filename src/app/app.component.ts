@@ -25,15 +25,16 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const config = {
-      apiKey: 'AIzaSyCBdWiutvUMnzw-uqEtRt1RsGrc9MPzqDk',
-      authDomain: 'wedd-site.firebaseapp.com',
-      databaseURL: 'https://wedd-site.firebaseio.com',
-      projectId: 'wedd-site',
-      storageBucket: 'wedd-site.appspot.com',
-      messagingSenderId: '469140619713',
+      apiKey: 'AIzaSyDMkKlFGyTslQ8Yo30mpO2vhXwirpkv2hE',
+      authDomain: 'wedding-49e7e.firebaseapp.com',
+      databaseURL: 'https://wedding-49e7e.firebaseio.com',
+      projectId: 'wedding-49e7e',
+      storageBucket: 'wedding-49e7e.appspot.com',
+      messagingSenderId: '995005427485'
     };
     firebase.initializeApp(config);
     const db = firebase.firestore();
+    db.settings({timestampsInSnapshots: true}); // To avoid breaking changes
     this.firestoreService.initialize(db);
 
   }

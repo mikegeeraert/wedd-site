@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Household } from '../household';
 import { FirestoreService } from '../firestore.service';
 import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 
 @Component({
@@ -22,36 +23,26 @@ export class RsvpFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private storage: FirestoreService) { }
 
   ngOnInit() {
-    const stevieNicks = {
-      first: 'Stevie',
-      last: 'Nicks',
-      isComing: false,
-      allowedPlusOne: false,
-      hasPlusOne: false,
-    };
-    const lindseyBuckingham = {
-      first: 'Lindsey',
-      last: 'BuckingHam',
-      isComing: false,
-      allowedPlusOne: true,
-      hasPlusOne: false,
-    };
-    const micFleetwood = {
-      first: 'Mic',
-      last: 'Fleetwood',
-      isComing: false,
-      allowedPlusOne: true,
-      hasPlusOne: false,
-    };
-
-    // this.household = {
-    //   name: 'Fleetwood Mac',
-    //   greeting: 'Fleetwood Mac',
-    //   members: [lindseyBuckingham, micFleetwood, stevieNicks],
-    //   accommodation: null,
-    //   songs: [],
-    //   drinks: [],
-    //   dietaryRestrictions: [],
+    // const stevieNicks = {
+    //   first: 'Stevie',
+    //   last: 'Nicks',
+    //   isComing: false,
+    //   allowedPlusOne: false,
+    //   hasPlusOne: false,
+    // };
+    // const lindseyBuckingham = {
+    //   first: 'Lindsey',
+    //   last: 'BuckingHam',
+    //   isComing: false,
+    //   allowedPlusOne: true,
+    //   hasPlusOne: false,
+    // };
+    // const micFleetwood = {
+    //   first: 'Mic',
+    //   last: 'Fleetwood',
+    //   isComing: false,
+    //   allowedPlusOne: true,
+    //   hasPlusOne: false,
     // };
 
     this.household = this.storage.getHousehold('fleetwoodmac');
