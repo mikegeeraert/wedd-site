@@ -4,11 +4,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material';
 
+enum Accommodation {
+  camping = 'camping',
+  hotel = 'hotel',
+  home = 'home',
+}
+
 interface Household {
   members: Member[];
-  isCamping: boolean;
-  isHoteling: boolean;
-  otherLodging: boolean;
+  accommodation: Accommodation;
   songs: string[];
   drinks: string[];
   dietaryRestrictions: string[];
@@ -63,9 +67,7 @@ export class RsvpFormComponent implements OnInit {
 
     this.household = {
       members: [lindseyBuckingham, micFleetwood, stevieNicks],
-      isCamping: false,
-      isHoteling: false,
-      otherLodging: false,
+      accommodation: null,
       songs: [],
       drinks: [],
       dietaryRestrictions: [],
@@ -87,9 +89,7 @@ export class RsvpFormComponent implements OnInit {
     this.plusOnes = this.fb.group(plusOneControls);
 
     this.personalRequests = this.fb.group({
-      isCamping: [this.household.isCamping],
-      isHoteling: [this.household.isHoteling],
-      otherLodging: [this.household.otherLodging],
+      accommodation: [this.household.accommodation],
       songs: [this.household.songs],
       drinks: [this.household.drinks],
       dietaryRestrictions: [this.household.dietaryRestrictions],
