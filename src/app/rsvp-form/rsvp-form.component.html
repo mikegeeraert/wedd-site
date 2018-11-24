@@ -6,7 +6,7 @@
       <form [formGroup]="attendance">
         <ng-template matStepLabel>Who's able to make it?</ng-template>
         <mat-list>
-          <mat-list-item *ngFor="let member of (household | async).members" >
+          <mat-list-item *ngFor="let member of (household | async)?.members" >
             <mat-checkbox formControlName="{{member.first}}">
               {{member.first + ' ' + member.last}}
             </mat-checkbox>
@@ -14,13 +14,13 @@
         </mat-list>
       </form>
     </mat-step>
-    <mat-step *ngIf="(household | async).hasPlusOnes()" [stepControl]="plusOnes">
+    <mat-step *ngIf="(household | async)?.hasPlusOnes()" [stepControl]="plusOnes">
       <form [formGroup]="plusOnes">
         <ng-template matStepLabel>Anyone Bringing a Plus One?</ng-template>
         <mat-list>
-          <ng-container *ngFor="let member of (household | async).members">
+          <ng-container *ngFor="let member of (household | async)?.members">
             <mat-list-item *ngIf="member.allowedPlusOne">
-              <mat-checkbox formControlName="{{member.first}}">
+              <mat-checkbox formControlName="{{member.first}}" disabled="">
                {{member.first + ' ' + member.last}}
               </mat-checkbox>
             </mat-list-item>
