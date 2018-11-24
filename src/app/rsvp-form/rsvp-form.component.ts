@@ -1,30 +1,8 @@
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material';
-
-enum Accommodation {
-  camping = 'camping',
-  hotel = 'hotel',
-  home = 'home',
-}
-
-interface Household {
-  members: Member[];
-  accommodation: Accommodation;
-  songs: string[];
-  drinks: string[];
-  dietaryRestrictions: string[];
-}
-
-interface Member {
-  first: string;
-  last: string;
-  isComing: boolean;
-  allowedPlusOne: boolean;
-  hasPlusOne: boolean;
-}
+import { Household } from '../household';
+import { FirestoreService } from '../firestore.service';
+import {Observable} from 'rxjs';
 
 
 @Component({
@@ -34,13 +12,14 @@ interface Member {
 })
 export class RsvpFormComponent implements OnInit {
 
+  rsvpForm: FormGroup;
   attendance: FormGroup;
   plusOnes: FormGroup;
   personalRequests: FormGroup;
 
-  household: Household;
+  household: Observable<Household>;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private storage: FirestoreService) { }
 
   ngOnInit() {
     const stevieNicks = {
@@ -65,38 +44,41 @@ export class RsvpFormComponent implements OnInit {
       hasPlusOne: false,
     };
 
-    this.household = {
-      members: [lindseyBuckingham, micFleetwood, stevieNicks],
-      accommodation: null,
-      songs: [],
-      drinks: [],
-      dietaryRestrictions: [],
-    };
+    // this.household = {
+    //   name: 'Fleetwood Mac',
+    //   greeting: 'Fleetwood Mac',
+    //   members: [lindseyBuckingham, micFleetwood, stevieNicks],
+    //   accommodation: null,
+    //   songs: [],
+    //   drinks: [],
+    //   dietaryRestrictions: [],
+    // };
 
-    const attendanceControls = this.household.members.reduce((controls, member) => {
-      controls[member.first] = [member.isComing];
-      return controls;
-    }, {} );
+    this.household = this.storage.getHousehold('fleetwoodmac');
+    this.household.subscribe((household: Household) => {
+      const attendanceControls = household.members.reduce((controls, member) => {
+        controls[member.first] = [member.isComing];
+        return controls;
+      }, {} );
 
-    this.attendance = this.fb.group(attendanceControls);
+      this.attendance = this.fb.group(attendanceControls);
 
-    const plusOneControls = this.household.members.reduce((controls, member) => {
-      if (member.allowedPlusOne) {
-        controls[member.first] = [false];
-      }
-      return controls;
-    }, {} );
-    this.plusOnes = this.fb.group(plusOneControls);
+      const plusOneControls = household.members.reduce((controls, member) => {
+        if (member.allowedPlusOne) {
+          controls[member.first] = [false];
+        }
+        return controls;
+      }, {} );
+      this.plusOnes = this.fb.group(plusOneControls);
 
-    this.personalRequests = this.fb.group({
-      accommodation: [this.household.accommodation],
-      songs: [this.household.songs],
-      drinks: [this.household.drinks],
-      dietaryRestrictions: [this.household.dietaryRestrictions],
+      this.personalRequests = this.fb.group({
+        accommodation: [household.accommodation],
+        songs: [household.songs],
+        drinks: [household.drinks],
+        dietaryRestrictions: [household.dietaryRestrictions],
+      });
+
+      this.rsvpForm = this.fb.group([this.attendance, this.plusOnes, this.personalRequests]);
     });
-  }
-
-  householdHasPlusOnes(): boolean {
-    return this.household.members.some(member => member.allowedPlusOne);
   }
 }
