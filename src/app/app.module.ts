@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {
   MatButtonModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule,
+  MatRadioModule,
   MatStepperModule,
   MatToolbarModule
 } from '@angular/material';
@@ -55,6 +56,7 @@ const routes: Routes = [
     MatInputModule,
     MatCheckboxModule,
     MatChipsModule,
+    MatRadioModule,
   ],
   providers: [
     FormBuilder
