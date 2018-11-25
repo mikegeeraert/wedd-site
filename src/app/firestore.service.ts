@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from 'firebase/firestore';
-import {forkJoin, from, merge, Observable} from 'rxjs';
+import {forkJoin, from, merge, Observable, of, throwError} from 'rxjs';
 import { Household } from './household';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
-import {tap} from 'rxjs/internal/operators';
+import {switchMap, tap} from 'rxjs/internal/operators';
 import {Member} from './member';
 
 const HOUSEHOLDS = 'households';
@@ -20,7 +20,6 @@ export class FirestoreService {
 
   initialize (db: Firestore) {
     this.firestore = db;
-
   }
 
   getHousehold(id: string): Observable<Household> {
@@ -28,13 +27,25 @@ export class FirestoreService {
     const membersRef = householdRef.collection(MEMBERS);
 
     const household = from(householdRef.get()).pipe(
-      map((result: firebase.firestore.DocumentSnapshot) => new Household(result.data()))
+      map((result: firebase.firestore.DocumentSnapshot) => {
+        let householdObj: Household;
+        if (result.exists) {
+          householdObj = new Household(result.data());
+        } else {
+          throw new Error('NotFound: Household');
+        }
+        return householdObj;
+      })
     );
 
     const members = from(membersRef.get()).pipe(
       map((results: firebase.firestore.QuerySnapshot) => {
         const membersObjs = [];
-        results.forEach(result => membersObjs.push(new Member(result.data())));
+        if (!results.empty) {
+          results.forEach(result => membersObjs.push(new Member(result.data())));
+        } else {
+          throw new Error('NotFound: Household Members');
+        }
         return membersObjs;
       })
     );

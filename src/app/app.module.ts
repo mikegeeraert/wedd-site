@@ -12,7 +12,7 @@ import {
   MatInputModule,
   MatListModule,
   MatProgressSpinnerModule,
-  MatRadioModule,
+  MatRadioModule, MatSnackBarModule,
   MatStepperModule,
   MatToolbarModule
 } from '@angular/material';
@@ -66,6 +66,7 @@ const routes: Routes = [
     MatChipsModule,
     MatRadioModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
   ],
   providers: [
     FormBuilder
