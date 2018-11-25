@@ -30,3 +30,6 @@ enum Accommodation {
   home = 'home',
 }
 
+enum Drink {
+
+}
