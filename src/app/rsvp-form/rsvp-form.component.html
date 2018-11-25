@@ -1,6 +1,6 @@
 <mat-card [ngSwitch]="state">
   <ng-container *ngSwitchCase=0>
-  {{"Hey " + (household |async).greeting + "!"}}
+  {{"Hey " + (household |async)?.greeting + "!"}}
   <mat-vertical-stepper [linear]="false" #stepper>
     <mat-step [stepControl]="attendance">
       <form [formGroup]="attendance">
@@ -20,7 +20,7 @@
         <mat-list>
           <ng-container *ngFor="let member of (household | async)?.members">
             <mat-list-item *ngIf="member.allowedPlusOne">
-              <mat-checkbox formControlName="{{member.first}}" disabled="">
+              <mat-checkbox formControlName="{{member.first}}">
                {{member.first + ' ' + member.last}}
               </mat-checkbox>
             </mat-list-item>

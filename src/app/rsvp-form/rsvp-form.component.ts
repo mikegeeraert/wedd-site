@@ -60,28 +60,44 @@ export class RsvpFormComponent implements OnInit {
   }
 
   buildRSVPForm(household: Household): FormGroup {
-  const attendanceControls = household.members.reduce((controls, member) => {
-    controls[member.first] = [member.isComing];
-    return controls;
-  }, {} );
 
-  this.attendance = this.fb.group(attendanceControls);
+    // Build Attendance Controls
+    const attendanceControls = household.members.reduce((controls, member) => {
+      controls[member.first] = this.fb.control(member.isComing);
+      return controls;
+    }, {} );
 
-  const plusOneControls = household.members.reduce((controls, member) => {
-    if (member.allowedPlusOne) {
-      controls[member.first] = [false];
+    this.attendance = this.fb.group(attendanceControls);
+
+    // Build Plus One Controls
+    const plusOneControls = household.members.reduce((controls, member) => {
+      if (member.allowedPlusOne) {
+        controls[member.first] = this.fb.control(member.hasPlusOne);
+      }
+      return controls;
+    }, {} );
+    this.plusOnes = this.fb.group(plusOneControls);
+
+    // Enable or Disable Plus One controls based on Attendance
+    for (const controlKey in attendanceControls) {
+      if (attendanceControls.hasOwnProperty(controlKey)) {
+        attendanceControls[controlKey].valueChanges.subscribe((isComing: boolean) => {
+          if (plusOneControls.hasOwnProperty(controlKey)) {
+            // If not isComing, plus one option should be disabled
+            const control = plusOneControls[controlKey];
+            isComing ? control.enable() : control.disable();
+          }
+        });
+      }
     }
-    return controls;
-  }, {} );
-  this.plusOnes = this.fb.group(plusOneControls);
 
-  this.personalRequests = this.fb.group({
-    accommodation: [household.accommodation],
-    songs: [household.songs],
-    drinks: [household.drinks],
-    dietaryRestrictions: [household.dietaryRestrictions],
-  });
+    this.personalRequests = this.fb.group({
+      accommodation: [household.accommodation],
+      songs: [household.songs],
+      drinks: [household.drinks],
+      dietaryRestrictions: [household.dietaryRestrictions],
+    });
 
-  return this.fb.group([this.attendance, this.plusOnes, this.personalRequests]);
-}
+    return this.fb.group([this.attendance, this.plusOnes, this.personalRequests]);
+  }
 }
