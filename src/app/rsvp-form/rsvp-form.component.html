@@ -1,6 +1,6 @@
 <mat-card [ngSwitch]="state">
   <ng-container *ngSwitchCase=0>
-  Hey Fleetwood Mac!
+  {{"Hey " + (household |async).greeting + "!"}}
   <mat-vertical-stepper [linear]="false" #stepper>
     <mat-step [stepControl]="attendance">
       <form [formGroup]="attendance">
@@ -69,7 +69,9 @@
           This is your chance to stand up and say NO to peanuts, meat or any other ingredient that doesn't need to be there.
           We salute your dietary needs, and so do our caterers!
         </p>
-        <app-chip-list formControlName="dietaryRestrictions" [placeholder]="'Dietary Restrictions'"></app-chip-list>
+        <ng-container *ngFor="let member of (household | async)?.members">
+          <app-chip-list formControlName="dietaryRestrictions" [placeholder]="'Dietary Restrictions'"></app-chip-list>
+        </ng-container>
       </form>
     </mat-step>
     <mat-step>
