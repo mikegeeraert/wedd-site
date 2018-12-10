@@ -10,7 +10,7 @@ export class Member {
   dietaryRestrictions: string[];
 
   constructor(id: string, data: {[field: string]: any}) {
-    this.id = data.id;
+    this.id = id;
     this.type  = data.type || MemberType.invitee;
     this.first = data.first || '';
     this.last = data.last || '';
