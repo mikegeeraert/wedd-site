@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from 'firebase/firestore';
-import {forkJoin, from, merge, Observable, of, throwError} from 'rxjs';
+import {forkJoin, from, Observable } from 'rxjs';
 import { Household } from './household';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
-import {switchMap, tap} from 'rxjs/internal/operators';
-import {Member} from './member';
+import {Member, MemberType, PlusOne} from './member';
 
 const HOUSEHOLDS = 'households';
 const MEMBERS = 'members';
@@ -24,7 +23,8 @@ export class FirestoreService {
 
   getHousehold(id: string): Observable<Household> {
     const householdRef = this.firestore.collection(HOUSEHOLDS).doc(id);
-    const membersRef = householdRef.collection(MEMBERS);
+    const membersRef = householdRef.collection(MEMBERS).where('type', '==', MemberType.invitee.valueOf());
+    const plusOnesRef = householdRef.collection(MEMBERS).where('type', '==', MemberType.plusOne.valueOf());
 
     const household = from(householdRef.get()).pipe(
       map((result: firebase.firestore.DocumentSnapshot) => {
@@ -42,7 +42,7 @@ export class FirestoreService {
       map((results: firebase.firestore.QuerySnapshot) => {
         const membersObjs = [];
         if (!results.empty) {
-          results.forEach(result => membersObjs.push(new Member(result.data())));
+          results.forEach(result => membersObjs.push(new Member(result.id, result.data())));
         } else {
           throw new Error('NotFound: Household Members');
         }
@@ -50,10 +50,27 @@ export class FirestoreService {
       })
     );
 
-    const joinedResults = forkJoin(household, members).pipe(
+    const plusOnes = from(plusOnesRef.get()).pipe(
+      map((results: firebase.firestore.QuerySnapshot) => {
+        const plusOneObjs = [];
+        if (!results.empty) {
+          results.forEach(result => plusOneObjs.push(new PlusOne(result.id, result.data())));
+        }
+        return plusOneObjs;
+      })
+    );
+
+    const joinedResults = forkJoin(household, members, plusOnes).pipe(
       map(result => {
-        console.log(result);
+        // Put members on household
         result[0].members = result[1];
+        // For each plus one, find their corresponding household member
+        result[2].forEach((plusOne: PlusOne) => {
+          const indexOfMember = result[0].members.findIndex((member: Member) => member.id === plusOne.parentId);
+          if (indexOfMember > -1) {
+            result[0].members[indexOfMember].plusOne = plusOne;
+          }
+        });
         return result[0];
       })
     );
