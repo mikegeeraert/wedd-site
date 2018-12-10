@@ -1,6 +1,7 @@
 import {Member} from './member';
 
 export class Household {
+  id: string;
   name: string;
   greeting: string;
   members: Member[];
@@ -19,7 +20,7 @@ export class Household {
     this.dietaryRestrictions = data.dietaryRestrictions || [];
   }
 
-  hasPlusOnes(): boolean {
+  allowedPlusOnes(): boolean {
     return this.members.some(member => member.allowedPlusOne);
   }
 }
@@ -28,8 +29,4 @@ enum Accommodation {
   camping = 'camping',
   hotel = 'hotel',
   home = 'home',
-}
-
-enum Drink {
-
 }
