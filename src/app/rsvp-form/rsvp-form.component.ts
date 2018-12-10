@@ -33,9 +33,10 @@ export class RsvpFormComponent implements OnInit {
   ngOnInit() {
     this.household = this.storage.getHousehold('fleetwoodmac');
     this.household.subscribe((household: Household) => {
-      this.state = State.success;
       console.log(household);
       this.rsvpForm = this.buildRSVPForm(household);
+      console.log(this.rsvpForm);
+      this.state = State.success;
     },
     error => {
       this.state = State.error;
@@ -50,7 +51,7 @@ export class RsvpFormComponent implements OnInit {
 
     // Build Attendance Controls
     const attendanceControls = household.members.reduce((controls, member) => {
-      controls[member.id] = this.fb.control(member.isComing);
+      controls[member.id] = this.fb.control({value: member.isComing, name: member.id});
       return controls;
     }, {});
 
@@ -60,15 +61,17 @@ export class RsvpFormComponent implements OnInit {
     const plusOneControls = household.members.reduce((controlGroups, member) => {
       if (member.allowedPlusOne) {
         const memberPlusOneControls = this.fb.group({
-          isComing: this.fb.control({value: !!member.plusOne, disabled: !member.isComing}),
+          isComing: this.fb.control({value: !!member.plusOne, disabled: member.isComing}),
           plusOneFirst: this.fb.control({value: member.plusOne ? member.plusOne.first : ''}),
           plusOneLast: this.fb.control({value: member.plusOne ? member.plusOne.last : ''})
         });
-        controlGroups.push(memberPlusOneControls);
+        controlGroups[member.id] = memberPlusOneControls;
       }
       return controlGroups;
-    }, []);
+    }, {});
+    console.log(plusOneControls);
     this.plusOnes = this.fb.group(plusOneControls);
+    console.log(this.plusOnes);
 
     // Build Personal Requests controls
     const personalRequestControls = household.members.reduce((controls, member) => {
@@ -99,7 +102,7 @@ export class RsvpFormComponent implements OnInit {
   }
 
   togglePlusOne(hasPlusOne: string , memberId: string) {
-    // const control = this.fb.control({value: })
+    // const control = this.fb.control({value: });
     // this.plusOnes.addControl(`${memberId}-plusone`, control)
   }
 }

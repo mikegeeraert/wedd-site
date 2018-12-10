@@ -42,6 +42,7 @@ export class FirestoreService {
       map((results: firebase.firestore.QuerySnapshot) => {
         const membersObjs = [];
         if (!results.empty) {
+          console.log(results);
           results.forEach(result => membersObjs.push(new Member(result.id, result.data())));
         } else {
           throw new Error('NotFound: Household Members');
