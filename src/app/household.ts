@@ -8,7 +8,7 @@ export class Household {
   accommodation: Accommodation;
   songs: string[];
   drinks: string[];
-  dietaryRestrictions: string[];
+  dietaryRestrictions: string;
 
   constructor(data: {[field: string]: any})  {
     this.name = data.name || '';

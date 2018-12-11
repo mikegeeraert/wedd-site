@@ -1,35 +1,35 @@
 <mat-card [ngSwitch]="state">
   <ng-container *ngSwitchCase=0>
-    <ng-container *ngIf="household | async as h">
-      {{"Hey " + h?.greeting + "!"}}
+    <ng-container *ngIf="household">
+      {{"Hey " + household.greeting + "!"}}
       <mat-vertical-stepper [linear]="false" #stepper>
-        <mat-step [stepControl]="attendance">
-          <form [formGroup]="attendance">
+        <mat-step>
+          <form>
             <ng-template matStepLabel>Who's able to make it?</ng-template>
             <mat-list>
-              <mat-list-item *ngFor="let member of h?.members">
-                <mat-checkbox formControlName={{member.id}}>
+              <mat-list-item *ngFor="let member of household.members">
+                <mat-checkbox [(ngModel)]="member.isComing" name="member.id">
                   {{member.first + ' ' + member.last}}
                 </mat-checkbox>
               </mat-list-item>
             </mat-list>
           </form>
         </mat-step>
-        <mat-step *ngIf="h?.allowedPlusOnes()" [stepControl]="plusOnes">
-          <form [formGroup]="plusOnes">
+        <mat-step *ngIf="household.allowedPlusOnes()">
+          <form>
             <ng-template matStepLabel>Anyone Bringing a Plus One?</ng-template>
             <mat-list>
-              <ng-container *ngFor="let member of h?.members">
-                <ng-container *ngIf="member.allowedPlusOne" [formGroup]="plusOnes.controls[member.id]">
-                  <mat-checkbox formControlName="isComing" #is>
+              <ng-container *ngFor="let member of household.members">
+                <ng-container *ngIf="member.allowedPlusOne">
+                  <mat-checkbox (change)="togglePlusOne($event, member)" [disabled]="!member.isComing">
                    {{member.first + ' ' + member.last}}
                   </mat-checkbox>
-                  <ng-container>
+                  <ng-container *ngIf="!!member.plusOne">
                     <mat-form-field>
-                      <input matInput placeholder="First" formControlName="plusOneFirst">
+                      <input matInput placeholder="First" [(ngModel)]="member.plusOne.first" name="first">
                     </mat-form-field>
                     <mat-form-field>
-                      <input matInput placeholder="Last" formControlName="plusOneLast">
+                      <input matInput placeholder="Last" [(ngModel)]="member.plusOne.last" name="last">
                     </mat-form-field>
                   </ng-container>
                 </ng-container>
@@ -37,15 +37,15 @@
             </mat-list>
           </form>
         </mat-step>
-        <mat-step [stepControl]="personalRequests">
-          <form [formGroup]="personalRequests">
+        <mat-step>
+          <form>
             <ng-template matStepLabel>Tell us some stuff we don't know</ng-template>
             <p>
               We will be providing group camping nearby for anyone and everyone coming to party with us.
               It will probably be about 20 minutes away from the reception, and cost about $10 a person.
               Would you be interested in that?
             </p>
-            <mat-radio-group class="radio-list" formControlName="accommodation">
+            <mat-radio-group class="radio-list" [(ngModel)]="household.accommodation" name="accommodation">
               <mat-radio-button class="radio-button" [value]="'camping'">
                 Camping is my favourite, I'm a greasy bear
               </mat-radio-button>
@@ -62,7 +62,7 @@
               They also have a great taste in music. Unfortunately, concessions must be made for people with less gifted ear holes.
               Any songs in particular you think would be perfect for the occasion?
             </p>
-            <app-chip-list formControlName="songs" [placeholder]="'Song Requests'"></app-chip-list>
+            <app-chip-list [(ngModel)]="household.songs" name="songs" [placeholder]="'Song Requests'"></app-chip-list>
             <br>
             <p>
               There will of course be a toonie bar serving liquid dancing shoes.
@@ -70,7 +70,7 @@
               But nobody wants the Bride and Groom to be the only ones with a drink in their hands.
               What's your favourite concoction? (If its popular among others, we might just include it)
             </p>
-            <app-chip-list formControlName="drinks" [placeholder]="'Drink Requests'"></app-chip-list>
+            <app-chip-list [(ngModel)]="household.drinks" name="drinks" [placeholder]="'Drink Requests'"></app-chip-list>
             <p>
               Lets be honest, we all know that the low buck liquor and the free food are some of the biggest draws to a well executed wedding.
               }
@@ -79,9 +79,9 @@
               This is your chance to stand up and say NO to peanuts, meat or any other ingredient that doesn't need to be there.
               We salute your dietary needs, and so do our caterers!
             </p>
-            <ng-container *ngFor="let member of h?.members">
-              {{member.first}}<app-chip-list formControlName="{{member.id}}" [placeholder]="'Dietary Restrictions'"></app-chip-list>
-            </ng-container>
+              <mat-form-field>
+                <textarea matInput placeholder="Dietary Restrictions" [(ngModel)]="household.dietaryRestrictions" name="dietaryRestrictions"></textarea>
+              </mat-form-field>
           </form>
         </mat-step>
         <mat-step>
