@@ -35,7 +35,6 @@ export class RsvpFormComponent implements OnInit {
     this.household.subscribe((household: Household) => {
       console.log(household);
       this.rsvpForm = this.buildRSVPForm(household);
-      console.log(this.rsvpForm);
       this.state = State.success;
     },
     error => {
@@ -51,7 +50,7 @@ export class RsvpFormComponent implements OnInit {
 
     // Build Attendance Controls
     const attendanceControls = household.members.reduce((controls, member) => {
-      controls[member.id] = this.fb.control({value: member.isComing, name: member.id});
+      controls[member.id] = this.fb.control(member.isComing);
       return controls;
     }, {});
 
@@ -62,16 +61,15 @@ export class RsvpFormComponent implements OnInit {
       if (member.allowedPlusOne) {
         const memberPlusOneControls = this.fb.group({
           isComing: this.fb.control({value: !!member.plusOne, disabled: member.isComing}),
-          plusOneFirst: this.fb.control({value: member.plusOne ? member.plusOne.first : ''}),
-          plusOneLast: this.fb.control({value: member.plusOne ? member.plusOne.last : ''})
+          plusOneFirst: this.fb.control(member.plusOne ? member.plusOne.first : ''),
+          plusOneLast: this.fb.control(member.plusOne ? member.plusOne.last : '')
         });
+        console.log(memberPlusOneControls);
         controlGroups[member.id] = memberPlusOneControls;
       }
       return controlGroups;
     }, {});
-    console.log(plusOneControls);
     this.plusOnes = this.fb.group(plusOneControls);
-    console.log(this.plusOnes);
 
     // Build Personal Requests controls
     const personalRequestControls = household.members.reduce((controls, member) => {

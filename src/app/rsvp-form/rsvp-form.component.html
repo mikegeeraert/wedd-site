@@ -21,11 +21,17 @@
             <mat-list>
               <ng-container *ngFor="let member of h?.members">
                 <ng-container *ngIf="member.allowedPlusOne" [formGroup]="plusOnes.controls[member.id]">
-                  <mat-list-item>
-                    <mat-checkbox formControlName="isComing" (change)="togglePlusOne($event, member.id)" >
-                     {{member.first + ' ' + member.last}}
-                    </mat-checkbox>
-                  </mat-list-item>
+                  <mat-checkbox formControlName="isComing" #is>
+                   {{member.first + ' ' + member.last}}
+                  </mat-checkbox>
+                  <ng-container>
+                    <mat-form-field>
+                      <input matInput placeholder="First" formControlName="plusOneFirst">
+                    </mat-form-field>
+                    <mat-form-field>
+                      <input matInput placeholder="Last" formControlName="plusOneLast">
+                    </mat-form-field>
+                  </ng-container>
                 </ng-container>
               </ng-container>
             </mat-list>
