@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Household } from '../household';
 import { FirestoreService } from '../firestore.service';
 import { Observable } from 'rxjs';
-import { MatSnackBar } from '@angular/material';
+import {MatCheckboxChange, MatSnackBar} from '@angular/material';
+import {Member, PlusOne} from '../member';
 
 enum State {
   success,
@@ -24,26 +25,25 @@ export class RsvpFormComponent implements OnInit {
   plusOnes: FormGroup;
   personalRequests: FormGroup;
 
-  household: Observable<Household>;
+  household: Household;
 
   constructor(private fb: FormBuilder,
               private storage: FirestoreService,
               private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.household = this.storage.getHousehold('fleetwoodmac');
-    this.household.subscribe((household: Household) => {
-      console.log(household);
-      this.rsvpForm = this.buildRSVPForm(household);
+    this.storage.getHousehold('fleetwoodmac').subscribe((household: Household) => {
+      //   console.log(household);
+      this.household = household;
       this.state = State.success;
-    },
-    error => {
-      this.state = State.error;
-      this.snackBar.open(error.message, 'Error',
-        {
-        duration: 2000,
+      },
+      error => {
+        this.state = State.error;
+        this.snackBar.open(error.message, 'Error',
+          {
+          duration: 2000,
+        });
       });
-    });
   }
 
   buildRSVPForm(household: Household): FormGroup {
@@ -99,8 +99,11 @@ export class RsvpFormComponent implements OnInit {
     return this.fb.group([this.attendance, this.plusOnes, this.personalRequests]);
   }
 
-  togglePlusOne(hasPlusOne: string , memberId: string) {
-    // const control = this.fb.control({value: });
-    // this.plusOnes.addControl(`${memberId}-plusone`, control)
+  togglePlusOne($event: MatCheckboxChange, member: Member) {
+    if ($event.checked) {
+      member.plusOne = new PlusOne('', {parentId: member.id});
+    } else {
+      member.plusOne = null;
+    }
   }
 }
