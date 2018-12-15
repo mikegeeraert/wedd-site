@@ -108,6 +108,24 @@ export class FirestoreService {
     return of();
   }
 
-  updatePlusOnes(houseHoldID: string, plusOnes: PlusOne[]) {
+  createOrUpdatePlusOnes(houseHoldID: string, plusOnes: PlusOne[]) {
+    plusOnes.forEach(plusOne => {
+      const data = {
+        parentId: plusOne.parentId,
+        first: plusOne.first,
+        last: plusOne.last,
+        type: plusOne.type,
+      };
+      // Update
+      if (!!plusOne.id) {
+        const plusOneRef = this.firestore.collection(HOUSEHOLDS).doc(houseHoldID).collection(MEMBERS).doc(plusOne);
+        plusOneRef.update(data);
+      } else { // or Create
+        const plusOneCollectionRef = this.firestore.collection(HOUSEHOLDS).doc(houseHoldID).collection(MEMBERS);
+        plusOneCollectionRef.add(data);
+      }
+    });
+    // TODO: return actual result of updating plusOnes
+    return of();
   }
 }
