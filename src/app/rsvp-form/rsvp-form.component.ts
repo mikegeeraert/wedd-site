@@ -65,5 +65,9 @@ export class RsvpFormComponent implements OnInit {
       }
     );
     this.storage.updateMembers(this.household.id, this.household.members);
+
+    // Filter members for plus ones and flatten list
+    const plusOnes = this.household.members.filter(member => !!member.plusOne).map(member => member.plusOne);
+    this.storage.createOrUpdatePlusOnes(this.household.id, plusOnes);
   }
 }

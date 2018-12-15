@@ -23,7 +23,7 @@
             <mat-list>
               <ng-container *ngFor="let member of household.members">
                 <ng-container *ngIf="member.allowedPlusOne">
-                  <mat-checkbox (change)="togglePlusOne($event, member)" [disabled]="!member.isComing">
+                  <mat-checkbox [ngModel]= !!member.plusOne (change)="togglePlusOne($event, member)" [disabled]="!member.isComing">
                    {{member.first + ' ' + member.last}}
                   </mat-checkbox>
                   <ng-container *ngIf="!!member.plusOne">
