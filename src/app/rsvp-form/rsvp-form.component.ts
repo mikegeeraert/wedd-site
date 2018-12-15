@@ -29,6 +29,7 @@ export class RsvpFormComponent implements OnInit {
   ngOnInit() {
     this.storage.getHousehold('fleetwoodmac').subscribe((household: Household) => {
       this.household = household;
+      console.log(this.household);
       this.state = State.success;
       },
       error => {
@@ -46,5 +47,23 @@ export class RsvpFormComponent implements OnInit {
     } else {
       member.plusOne = null;
     }
+  }
+
+  saveForm() {
+    this.storage.updateHouseHold(this.household).subscribe(
+      () => {
+        this.snackBar.open('You are the greatest', 'Success',
+          {
+            duration: 2000,
+          });
+      },
+      error => {
+        this.snackBar.open(`There was an issue. Try again a bunch or just text one of us.`, 'Error',
+          {
+            duration: 3000,
+          });
+      }
+    );
+    this.storage.updateMembers(this.household.id, this.household.members);
   }
 }

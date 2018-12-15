@@ -14,6 +14,8 @@
               </mat-list-item>
             </mat-list>
           </form>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext="">Next</button>
         </mat-step>
         <mat-step *ngIf="household.allowedPlusOnes()">
           <form>
@@ -36,6 +38,10 @@
               </ng-container>
             </mat-list>
           </form>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext="">Next</button>
+          </div>
         </mat-step>
         <mat-step>
           <form>
@@ -86,10 +92,10 @@
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Done</ng-template>
-          You are now done.
+          You are now done. Be Free.
           <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
+            <button mat-button (click)="saveForm()">Save</button>
           </div>
         </mat-step>
       </mat-vertical-stepper>
