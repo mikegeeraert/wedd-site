@@ -19,6 +19,7 @@ export class Member {
     this.plusOne = data.PlusOne || null;
     this.dietaryRestrictions = data.dietaryRestrictions || [];
   }
+
 }
 
 export enum MemberType {
