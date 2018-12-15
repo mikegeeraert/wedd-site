@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from 'firebase/firestore';
-import {forkJoin, from, Observable } from 'rxjs';
+import {forkJoin, from, Observable, of} from 'rxjs';
 import { Household } from './household';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
@@ -30,7 +30,7 @@ export class FirestoreService {
       map((result: firebase.firestore.DocumentSnapshot) => {
         let householdObj: Household;
         if (result.exists) {
-          householdObj = new Household(result.data());
+          householdObj = new Household(result.id, result.data());
         } else {
           throw new Error('NotFound: Household');
         }
@@ -42,7 +42,6 @@ export class FirestoreService {
       map((results: firebase.firestore.QuerySnapshot) => {
         const membersObjs = [];
         if (!results.empty) {
-          console.log(results);
           results.forEach(result => membersObjs.push(new Member(result.id, result.data())));
         } else {
           throw new Error('NotFound: Household Members');
@@ -77,5 +76,38 @@ export class FirestoreService {
     );
 
     return joinedResults;
+  }
+
+  updateHouseHold(household: Household): Observable<void> {
+    const householdRef = this.firestore.collection(HOUSEHOLDS).doc(household.id);
+    const result = householdRef.update({
+      name: household.name,
+      greeting: household.greeting,
+      accommodation: household.accommodation,
+      songs: household.songs,
+      drinks: household.drinks,
+      dietaryRestrictions: household.dietaryRestrictions,
+    });
+
+    return from(result);
+  }
+
+  updateMembers(houseHoldID: string, members: Member[]): Observable<void> {
+    members.forEach(member => {
+      const memberRef = this.firestore.collection(HOUSEHOLDS).doc(houseHoldID).collection(MEMBERS).doc(member.id);
+      memberRef.update({
+        first: member.first,
+        last: member.last,
+        isComing: member.isComing,
+        allowedPlusOne: member.allowedPlusOne,
+        hasPlusOne: !!member.plusOne,
+        type: member.type,
+      });
+    });
+    // TODO: return actual result of updating members
+    return of();
+  }
+
+  updatePlusOnes(houseHoldID: string, plusOnes: PlusOne[]) {
   }
 }

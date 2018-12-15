@@ -10,7 +10,8 @@ export class Household {
   drinks: string[];
   dietaryRestrictions: string;
 
-  constructor(data: {[field: string]: any})  {
+  constructor(id: string, data: {[field: string]: any})  {
+    this.id = id,
     this.name = data.name || '';
     this.greeting = data.greeting || '';
     this.members = data.members || [];
