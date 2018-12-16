@@ -1,0 +1,9 @@
+<form>
+  <mat-list>
+    <mat-list-item *ngFor="let member of members">
+      <mat-checkbox [(ngModel)]="member.isComing" (change)="membersChange.emit(members)" name="member.id">
+        {{member.first + ' ' + member.last}}
+      </mat-checkbox>
+    </mat-list-item>
+  </mat-list>
+</form>

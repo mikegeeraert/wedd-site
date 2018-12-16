@@ -118,7 +118,7 @@ export class FirestoreService {
       };
       // Update
       if (!!plusOne.id) {
-        const plusOneRef = this.firestore.collection(HOUSEHOLDS).doc(houseHoldID).collection(MEMBERS).doc(plusOne);
+        const plusOneRef = this.firestore.collection(HOUSEHOLDS).doc(houseHoldID).collection(MEMBERS).doc(plusOne.id);
         plusOneRef.update(data);
       } else { // or Create
         const plusOneCollectionRef = this.firestore.collection(HOUSEHOLDS).doc(houseHoldID).collection(MEMBERS);

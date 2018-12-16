@@ -56,15 +56,8 @@ export class RsvpFormComponent implements OnInit {
     //     });
   }
 
-  togglePlusOne($event: MatCheckboxChange, member: Member) {
-    if ($event.checked) {
-      member.plusOne = new PlusOne('', {parentId: member.id});
-    } else {
-      member.plusOne = null;
-    }
-  }
-
   saveForm(household: Household) {
+    console.log(household);
     this.storage.updateHouseHold(household).subscribe(
       () => {
         this.snackBar.open('You are the greatest', 'Success',

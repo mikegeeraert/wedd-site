@@ -1,0 +1,10 @@
+.radio-list {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.full-width {
+  width: 100%;
+  max-width: 700px;
+
+}
