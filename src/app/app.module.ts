@@ -25,6 +25,7 @@ import { OurStoryComponent } from './our-story/our-story.component';
 import { RouterModule, Routes} from '@angular/router';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ChipListComponent } from './rsvp-form/chip-list/chip-list.component';
+import { StepAttendanceComponent } from './rsvp-form/step-attendance/step-attendance.component';
 
 const routes: Routes = [
   {path: '', component: OurStoryComponent},
@@ -39,6 +40,7 @@ const routes: Routes = [
     RsvpFormComponent,
     OurStoryComponent,
     ChipListComponent,
+    StepAttendanceComponent,
   ],
   imports: [
     BrowserModule,

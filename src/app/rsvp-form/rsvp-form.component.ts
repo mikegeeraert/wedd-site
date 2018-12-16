@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Household } from '../household';
 import { FirestoreService } from '../firestore.service';
-import { Observable } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {MatCheckboxChange, MatSnackBar} from '@angular/material';
 import {Member, PlusOne} from '../member';
+import {catchError, tap} from 'rxjs/internal/operators';
 
 enum State {
   success,
@@ -20,25 +21,39 @@ enum State {
 export class RsvpFormComponent implements OnInit {
   state: State = State.loading;
 
-  household: Household;
+  household: Observable<Household>;
 
   constructor(private fb: FormBuilder,
               private storage: FirestoreService,
               private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.storage.getHousehold('fleetwoodmac').subscribe((household: Household) => {
-      this.household = household;
-      console.log(this.household);
-      this.state = State.success;
-      },
-      error => {
+    this.household = this.storage.getHousehold('fleetwoodmac').pipe(
+      tap( household => {
+          console.log(household);
+          this.state = State.success;
+      }),
+      catchError((error, _) => {
         this.state = State.error;
         this.snackBar.open(error.message, 'Error',
           {
-          duration: 2000,
-        });
-      });
+            duration: 2000,
+          });
+        return of(new Household('', {}));
+      }),
+    );
+    // .subscribe((household: Household) => {
+    //       this.household = household;
+    //       console.log(this.household);
+    //       this.state = State.success;
+    //     },
+    //     error => {
+    //       this.state = State.error;
+    //       this.snackBar.open(error.message, 'Error',
+    //         {
+    //           duration: 2000,
+    //         });
+    //     });
   }
 
   togglePlusOne($event: MatCheckboxChange, member: Member) {
@@ -49,8 +64,8 @@ export class RsvpFormComponent implements OnInit {
     }
   }
 
-  saveForm() {
-    this.storage.updateHouseHold(this.household).subscribe(
+  saveForm(household: Household) {
+    this.storage.updateHouseHold(household).subscribe(
       () => {
         this.snackBar.open('You are the greatest', 'Success',
           {
@@ -64,10 +79,10 @@ export class RsvpFormComponent implements OnInit {
           });
       }
     );
-    this.storage.updateMembers(this.household.id, this.household.members);
+    this.storage.updateMembers(household.id, household.members);
 
     // Filter members for plus ones and flatten list
-    const plusOnes = this.household.members.filter(member => !!member.plusOne).map(member => member.plusOne);
-    this.storage.createOrUpdatePlusOnes(this.household.id, plusOnes);
+    const plusOnes = household.members.filter(member => !!member.plusOne).map(member => member.plusOne);
+    this.storage.createOrUpdatePlusOnes(household.id, plusOnes);
   }
 }
