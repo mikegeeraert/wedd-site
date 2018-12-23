@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-step-preferences',
@@ -15,6 +15,11 @@ export class StepPreferencesComponent {
   @Input() dietaryRestrictions: string;
   @Output() dietaryRestrictionsChange = new EventEmitter<string>();
 
-  constructor() { }
+  drinkOptions: {text: string, value: string}[] = [
+    {text: 'Tequila', value: 'tequila'},
+    {text: 'Whiskey', value: 'whiskey'},
+    {text: 'Wine', value: 'wine'},
+    {text: 'Beer', value: 'beer'},
+  ];
 
 }

@@ -1,0 +1,13 @@
+
+<mat-list>
+  <mat-list-item *ngFor="let option of checkboxOptions">
+    <mat-checkbox
+      value="_values.includes({{option.value}})"
+      id="{{option.value}}"
+      (change)="selectionChanged($event)"
+      (blur)="_onTouched()"
+    >
+      {{option.text}}
+    </mat-checkbox>
+  </mat-list-item>
+</mat-list>
