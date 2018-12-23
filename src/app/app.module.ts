@@ -28,6 +28,7 @@ import { ChipListComponent } from './rsvp-form/chip-list/chip-list.component';
 import { StepAttendanceComponent } from './rsvp-form/step-attendance/step-attendance.component';
 import { StepPlusOnesComponent } from './rsvp-form/step-plus-ones/step-plus-ones.component';
 import { StepPreferencesComponent } from './rsvp-form/step-preferences/step-preferences.component';
+import { OptionListComponent } from './rsvp-form/option-list/option-list.component';
 
 const routes: Routes = [
   {path: '', component: OurStoryComponent},
@@ -45,6 +46,7 @@ const routes: Routes = [
     StepAttendanceComponent,
     StepPlusOnesComponent,
     StepPreferencesComponent,
+    OptionListComponent,
   ],
   imports: [
     BrowserModule,

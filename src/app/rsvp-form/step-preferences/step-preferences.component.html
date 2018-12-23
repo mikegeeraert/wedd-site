@@ -15,7 +15,6 @@
       Stay near you people?! I'm headed home as soon as I grab the bouquet
     </mat-radio-button>
   </mat-radio-group>
-  <br>
   <p>
     Both Taylor and Michael like to refer to themselves in the 3rd person (So you can't tell who wrote this form).
     They also have a great taste in music. Unfortunately, concessions must be made for people with less gifted ear holes.
@@ -29,7 +28,9 @@
     But nobody wants the Bride and Groom to be the only ones with a drink in their hands.
     What's your favourite concoction? (If its popular among others, we might just include it)
   </p>
-  <app-chip-list [(ngModel)]="drinks" name="drinks" [placeholder]="'Drink Requests'"></app-chip-list>
+  <section class="drinks">
+    <app-option-list [(ngModel)]="drinks" name="drinks" [checkboxOptions]="drinkOptions"></app-option-list>
+  </section>
   <p>
     Lets be honest, we all know that the low buck liquor and the free food are some of the biggest draws to a well executed wedding.
     }
