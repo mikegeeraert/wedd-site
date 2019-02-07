@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Member } from '../../member';
+import {Member, PlusOne} from '../../member';
+import {MatCheckboxChange} from '@angular/material';
 
 @Component({
   selector: 'app-step-attendance',
@@ -11,5 +12,12 @@ export class StepAttendanceComponent {
   @Output() membersChange = new EventEmitter<Member[]>();
 
   constructor() { }
+
+  toggleAttendance($event: MatCheckboxChange, member: Member) {
+    if (!$event.checked) {
+      member.plusOne = null; // If not coming, remove plusOne
+    }
+    this.membersChange.emit(this.members);
+  }
 
 }

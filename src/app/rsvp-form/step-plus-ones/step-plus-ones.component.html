@@ -1,7 +1,7 @@
 <form>
   <mat-list>
     <ng-container *ngFor="let member of members">
-      <ng-container *ngIf="member.allowedPlusOne">
+      <mat-list-item *ngIf="member.allowedPlusOne">
         <mat-checkbox
           name="isComing"
           [ngModel]=!!member.plusOne
@@ -9,7 +9,7 @@
           [disabled]="!member.isComing">
           {{member.first + ' ' + member.last}}
         </mat-checkbox>
-        <ng-container *ngIf="!!member.plusOne">
+        <ng-container *ngIf="!!member.plusOne && member.isComing">
           <mat-form-field>
             <input matInput placeholder="First" [(ngModel)]="member.plusOne.first" (change)="membersChange.emit(members)" name="first">
           </mat-form-field>
@@ -17,7 +17,7 @@
             <input matInput placeholder="Last" [(ngModel)]="member.plusOne.last" (change)="membersChange.emit(members)" name="last">
           </mat-form-field>
         </ng-container>
-      </ng-container>
+      </mat-list-item>
     </ng-container>
   </mat-list>
 </form>
