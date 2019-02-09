@@ -32,7 +32,6 @@ import { OptionListComponent } from './rsvp-form/option-list/option-list.compone
 
 const routes: Routes = [
   {path: '', component: OurStoryComponent},
-  {path: 'rsvp', component: RsvpFormComponent},
   {path: 'rsvp/:userId', component: RsvpFormComponent},
   {path: '**', redirectTo: ''},
 ];
