@@ -6,6 +6,7 @@ import {Observable, of} from 'rxjs';
 import {MatCheckboxChange, MatSnackBar} from '@angular/material';
 import {Member, PlusOne} from '../member';
 import {catchError, tap} from 'rxjs/internal/operators';
+import {ActivatedRoute} from '@angular/router';
 
 enum State {
   success,
@@ -25,10 +26,19 @@ export class RsvpFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private storage: FirestoreService,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.household = this.storage.getHousehold('fleetwoodmac').pipe(
+    const userId = this.route.snapshot.params['userId'];
+    if (!userId) {
+      this.state = State.error;
+      this.snackBar.open('Ooops! No guest specified!', 'Error',
+        {
+          duration: 2000,
+        });
+    }
+    this.household = this.storage.getHousehold(userId).pipe(
       tap( household => {
           console.log(household);
           this.state = State.success;
@@ -42,18 +52,6 @@ export class RsvpFormComponent implements OnInit {
         return of(new Household('', {}));
       }),
     );
-    // .subscribe((household: Household) => {
-    //       this.household = household;
-    //       console.log(this.household);
-    //       this.state = State.success;
-    //     },
-    //     error => {
-    //       this.state = State.error;
-    //       this.snackBar.open(error.message, 'Error',
-    //         {
-    //           duration: 2000,
-    //         });
-    //     });
   }
 
   saveForm(household: Household) {

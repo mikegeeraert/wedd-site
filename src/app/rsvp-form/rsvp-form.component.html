@@ -1,6 +1,6 @@
 <mat-card>
   <ng-container *ngIf="household | async as h; else loadingState">
-    {{"Hey " + h.greeting + "!"}}
+    {{h.greeting}}
     <mat-vertical-stepper [linear]="false" #stepper>
       <mat-step>
         <ng-template matStepLabel>Who's able to make it?</ng-template>
