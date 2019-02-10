@@ -15,7 +15,7 @@ export class StepAttendanceComponent {
 
   toggleAttendance($event: MatCheckboxChange, member: Member) {
     if (!$event.checked) {
-      member.plusOne = null; // If not coming, remove plusOne
+      member.bringingPlusOne = false; // If not coming, remove plusOne
     }
     this.membersChange.emit(this.members);
   }

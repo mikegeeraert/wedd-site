@@ -25,8 +25,8 @@ export class Household {
     return this.members.some(member => member.allowedPlusOne);
   }
 
-   get greeting(): string {
-    return this.rawGreeting ? this.rawGreeting : `Hey ${this.name}'s!`;
+  get greeting(): string {
+    return this.rawGreeting ? this.rawGreeting : `Hey ${this.name}'s`;
   }
 }
 

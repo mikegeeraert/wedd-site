@@ -15,9 +15,12 @@ export class StepPlusOnesComponent {
 
   togglePlusOne($event: MatCheckboxChange, member: Member) {
     if ($event.checked) {
-      member.plusOne = new PlusOne('', {parentId: member.id});
+      if (!member.plusOne) {
+        member.plusOne = new PlusOne('', {parentId: member.id});
+      }
+      member.bringingPlusOne = true;
     } else {
-      member.plusOne = null;
+      member.bringingPlusOne = false;
     }
     this.membersChange.emit(this.members);
   }

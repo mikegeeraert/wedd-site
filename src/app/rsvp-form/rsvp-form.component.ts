@@ -6,7 +6,7 @@ import {Observable, of} from 'rxjs';
 import {MatCheckboxChange, MatSnackBar} from '@angular/material';
 import {Member, PlusOne} from '../member';
 import {catchError, tap} from 'rxjs/internal/operators';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 
 enum State {
   success,
@@ -27,7 +27,8 @@ export class RsvpFormComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private storage: FirestoreService,
               private snackBar: MatSnackBar,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     const userId = this.route.snapshot.params['userId'];
@@ -55,13 +56,13 @@ export class RsvpFormComponent implements OnInit {
   }
 
   saveForm(household: Household) {
-    console.log(household);
     this.storage.updateHouseHold(household).subscribe(
       () => {
         this.snackBar.open('You are the greatest', 'Success',
           {
-            duration: 2000,
+            duration: 5000,
           });
+        this.router.navigateByUrl('/');
       },
       error => {
         this.snackBar.open(`There was an issue. Try again a bunch or just text one of us.`, 'Error',
@@ -72,8 +73,14 @@ export class RsvpFormComponent implements OnInit {
     );
     this.storage.updateMembers(household.id, household.members);
 
-    // Filter members for plus ones and flatten list
-    const plusOnes = household.members.filter(member => !!member.plusOne).map(member => member.plusOne);
+    // Filter members not bringing a plus one, but we previously saved one for them
+    console.log(household.members);
+    const members =  household.members.filter(member => !member.bringingPlusOne && member.plusOne && member.plusOne.id);
+    console.log(members);
+    members.forEach(member => this.storage.deletePlusOne(household.id, member));
+
+    // Filter members bringing plus ones and flatten list
+    const plusOnes = household.members.filter(member => member.bringingPlusOne && !!member.plusOne).map(member => member.plusOne);
     this.storage.createOrUpdatePlusOnes(household.id, plusOnes);
   }
 }
