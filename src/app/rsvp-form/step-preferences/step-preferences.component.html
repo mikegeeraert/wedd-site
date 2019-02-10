@@ -4,7 +4,7 @@
     It will probably be about 20 minutes away from the reception, and cost about $10 a person.
     Would you be interested in that?
   </p>
-  <mat-radio-group class="radio-list" [(ngModel)]="accommodation" name="accommodation">
+  <mat-radio-group class="radio-list" [(ngModel)]="accommodation" (change)="accommodationChange.emit(accommodation)" name="accommodation">
     <mat-radio-button class="radio-button" [value]="'camping'">
       Camping is my favourite, I'm a greasy bear
     </mat-radio-button>

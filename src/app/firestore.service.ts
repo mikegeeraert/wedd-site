@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from 'firebase/firestore';
-import {BehaviorSubject, forkJoin, from, Observable, of, Subject} from 'rxjs';
-import { Household } from './household';
-import { map, tap } from 'rxjs/operators';
+import { forkJoin, from, Observable, of } from 'rxjs';
+import {Accommodation, Household} from './household';
+import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import {Member, MemberType, PlusOne} from './member';
-import {catchError} from 'rxjs/internal/operators';
+import { AccommodationStatistics, ResponseStatistics } from './statistics';
+import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;
 
 const HOUSEHOLDS = 'households';
 const MEMBERS = 'members';
@@ -83,11 +84,11 @@ export class FirestoreService {
     const householdRef = this.firestore.collection(HOUSEHOLDS).doc(household.id);
     const result = householdRef.update({
       name: household.name,
-      greeting: household.greeting,
+      greeting: household.greeting || null,
       accommodation: household.accommodation,
-      songs: household.songs,
-      drinks: household.drinks,
-      dietaryRestrictions: household.dietaryRestrictions,
+      songs: household.songs || [],
+      drinks: household.drinks || [],
+      dietaryRestrictions: household.dietaryRestrictions || [],
       response: true,
     });
 
@@ -134,5 +135,76 @@ export class FirestoreService {
       }
     });
     return of();
+  }
+
+  getNumberOfHouseholds(): Observable<number> {
+    const allHouseholds = this.firestore.collection(HOUSEHOLDS);
+    return from(allHouseholds.get()).pipe(
+      map((results: firebase.firestore.QuerySnapshot) => {
+        return results.empty ? 0 : results.size;
+      })
+    );
+  }
+
+  getNumberOfResponses(): Observable<number> {
+    const respondedHouseholds = this.firestore.collection(HOUSEHOLDS).where('response', '==', true);
+    return from(respondedHouseholds.get()).pipe(
+      map((results: firebase.firestore.QuerySnapshot) => {
+        return results.empty ? 0 : results.size;
+      })
+    );
+  }
+
+  getResponseStats(): Observable<ResponseStatistics> {
+    const joinedResults = forkJoin(this.getNumberOfHouseholds(), this.getNumberOfResponses()).pipe(
+      map(([numHouseholds, numResponses]) => {
+        // Put members on household
+        console.log(numHouseholds);
+        console.log(numResponses);
+        return {
+          numHouseholds: numHouseholds,
+          numResponses: numResponses,
+        };
+      })
+    );
+    return joinedResults;
+  }
+
+  getAccomodationStats(): Observable<AccommodationStatistics> {
+    const respondedHouseholds = this.firestore.collection(HOUSEHOLDS).where('response', '==', true);
+    return from(respondedHouseholds.get()).pipe(
+      map((results: firebase.firestore.QuerySnapshot) => {
+        const stats = {
+          total: 0,
+          distribution: new Map<Accommodation, number>([
+            [Accommodation.camping, 0],
+            [Accommodation.home, 0],
+            [Accommodation.hotel, 0]
+          ]),
+        };
+        if (!results.empty) {
+          results.forEach((result: QueryDocumentSnapshot) => {
+            const accommodation = result.data().accommodation;
+            console.log(accommodation);
+            stats.total += 1;
+            switch (accommodation) {
+              case Accommodation.camping:
+                const campingVal = stats.distribution.get(Accommodation.camping) + 1;
+                stats.distribution.set(Accommodation.camping, campingVal);
+                break;
+              case Accommodation.home:
+                const homeVal = stats.distribution.get(Accommodation.home) + 1;
+                stats.distribution.set(Accommodation.home, homeVal);
+                break;
+              case Accommodation.hotel:
+                const hotelVal = stats.distribution.get(Accommodation.hotel) + 1;
+                stats.distribution.set(Accommodation.camping, hotelVal);
+                break;
+            }
+          });
+        }
+        return stats;
+      })
+    );
   }
 }

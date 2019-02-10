@@ -15,8 +15,8 @@ export class Member {
     this.type  = data.type || MemberType.invitee;
     this.first = data.first || '';
     this.last = data.last || '';
-    this.isComing = data.isComing;
-    this.allowedPlusOne = data.allowedPlusOne;
+    this.isComing = !!data.isComing;
+    this.allowedPlusOne = !!data.allowedPlusOne;
     this.bringingPlusOne = !!data.plusOne;
     this.plusOne = data.PlusOne || null;
     this.dietaryRestrictions = data.dietaryRestrictions || [];

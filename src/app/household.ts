@@ -15,7 +15,7 @@ export class Household {
     this.name = data.name || '';
     this.rawGreeting = data.greeting || '';
     this.members = data.members || [];
-    this.accommodation = data.accommodation || null;
+    this.accommodation = data.accommodation;
     this.songs = data.songs || [];
     this.drinks = data.drinks || [];
     this.dietaryRestrictions = data.dietaryRestrictions || [];
@@ -30,7 +30,7 @@ export class Household {
   }
 }
 
-enum Accommodation {
+export enum Accommodation {
   camping = 'camping',
   hotel = 'hotel',
   home = 'home',

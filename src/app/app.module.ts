@@ -29,6 +29,10 @@ import { StepAttendanceComponent } from './rsvp-form/step-attendance/step-attend
 import { StepPlusOnesComponent } from './rsvp-form/step-plus-ones/step-plus-ones.component';
 import { StepPreferencesComponent } from './rsvp-form/step-preferences/step-preferences.component';
 import { OptionListComponent } from './rsvp-form/option-list/option-list.component';
+import { ResponseMeterComponent } from './our-story/response-meter/response-meter.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { DrinkRequestChartComponent } from './our-story/drink-request-chart/drink-request-chart.component';
+
 
 const routes: Routes = [
   {path: '', component: OurStoryComponent},
@@ -46,6 +50,8 @@ const routes: Routes = [
     StepPlusOnesComponent,
     StepPreferencesComponent,
     OptionListComponent,
+    ResponseMeterComponent,
+    DrinkRequestChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +61,9 @@ const routes: Routes = [
       routes,
       // { enableTracing: true } // <-- debugging purposes only
     ),
+
+    // For Charting
+    NgxChartsModule,
 
     // For Navigation
     MatToolbarModule,
