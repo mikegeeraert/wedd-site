@@ -6,6 +6,7 @@ export class Member {
   last: string;
   isComing: boolean;
   allowedPlusOne: boolean;
+  bringingPlusOne: boolean;
   plusOne: PlusOne;
   dietaryRestrictions: string[];
 
@@ -14,8 +15,9 @@ export class Member {
     this.type  = data.type || MemberType.invitee;
     this.first = data.first || '';
     this.last = data.last || '';
-    this.isComing = data.isComing || false;
-    this.allowedPlusOne = data.allowedPlusOne || false;
+    this.isComing = data.isComing;
+    this.allowedPlusOne = data.allowedPlusOne;
+    this.bringingPlusOne = !!data.plusOne;
     this.plusOne = data.PlusOne || null;
     this.dietaryRestrictions = data.dietaryRestrictions || [];
   }

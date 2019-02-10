@@ -4,12 +4,12 @@
       <mat-list-item *ngIf="member.allowedPlusOne">
         <mat-checkbox
           name="isComing"
-          [ngModel]=!!member.plusOne
+          [ngModel]=member.bringingPlusOne
           (change)="togglePlusOne($event, member)"
           [disabled]="!member.isComing">
           {{member.first + ' ' + member.last}}
         </mat-checkbox>
-        <ng-container *ngIf="!!member.plusOne && member.isComing">
+        <ng-container *ngIf="member.bringingPlusOne && member.isComing && !!member.plusOne">
           <mat-form-field>
             <input matInput placeholder="First" [(ngModel)]="member.plusOne.first" (change)="membersChange.emit(members)" name="first">
           </mat-form-field>

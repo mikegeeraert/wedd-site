@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from 'firebase/firestore';
-import {forkJoin, from, Observable, of} from 'rxjs';
+import {BehaviorSubject, forkJoin, from, Observable, of, Subject} from 'rxjs';
 import { Household } from './household';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import {Member, MemberType, PlusOne} from './member';
+import {catchError} from 'rxjs/internal/operators';
 
 const HOUSEHOLDS = 'households';
 const MEMBERS = 'members';
@@ -108,15 +109,21 @@ export class FirestoreService {
     return of();
   }
 
-  createOrUpdatePlusOnes(houseHoldID: string, plusOnes: PlusOne[]) {
-    plusOnes.forEach(plusOne => {
+  deletePlusOne(houseHoldID: string, member: Member) {
+    console.log(`Deleting plus one for: ${member.first}`);
+    // get any household member that might be plus one of member passed in
+    const memberPlusOne = this.firestore.collection(HOUSEHOLDS).doc(houseHoldID).collection(MEMBERS).doc(member.plusOne.id);
+    memberPlusOne.delete();
+  }
+
+  createOrUpdatePlusOnes(houseHoldID: string, members: PlusOne[]): Observable<void> {
+    members.forEach(plusOne => {
       const data = {
         parentId: plusOne.parentId,
         first: plusOne.first,
         last: plusOne.last,
         type: plusOne.type,
       };
-      // Update
       if (!!plusOne.id) {
         const plusOneRef = this.firestore.collection(HOUSEHOLDS).doc(houseHoldID).collection(MEMBERS).doc(plusOne.id);
         plusOneRef.update(data);
@@ -125,7 +132,6 @@ export class FirestoreService {
         plusOneCollectionRef.add(data);
       }
     });
-    // TODO: return actual result of updating plusOnes
     return of();
   }
 }
