@@ -88,6 +88,7 @@ export class FirestoreService {
       songs: household.songs,
       drinks: household.drinks,
       dietaryRestrictions: household.dietaryRestrictions,
+      response: true,
     });
 
     return from(result);
