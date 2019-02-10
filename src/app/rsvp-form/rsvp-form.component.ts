@@ -56,6 +56,7 @@ export class RsvpFormComponent implements OnInit {
   }
 
   saveForm(household: Household) {
+    // TODO: Refactor this method - listen to the results of updating members and plus ones - forkjoin results
     this.storage.updateHouseHold(household).subscribe(
       () => {
         this.snackBar.open('You are the greatest', 'Success',
