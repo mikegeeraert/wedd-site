@@ -29,15 +29,18 @@ import { StepAttendanceComponent } from './rsvp-form/step-attendance/step-attend
 import { StepPlusOnesComponent } from './rsvp-form/step-plus-ones/step-plus-ones.component';
 import { StepPreferencesComponent } from './rsvp-form/step-preferences/step-preferences.component';
 import { OptionListComponent } from './rsvp-form/option-list/option-list.component';
-import { ResponseMeterComponent } from './our-story/response-meter/response-meter.component';
+import { ResponseMeterComponent } from './info/response-statistics/response-meter/response-meter.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { DrinkRequestChartComponent } from './our-story/drink-request-chart/drink-request-chart.component';
+import { AccommodationsChartComponent } from './info/response-statistics/accommodations-chart/accommodations-chart.component';
+import { ResponseStatisticsComponent } from './info/response-statistics/response-statistics.component';
+import { InfoComponent } from './info/info.component';
 
 
 const routes: Routes = [
-  {path: '', component: OurStoryComponent},
+  {path: 'our-story', component: OurStoryComponent},
+  {path: 'info', component: InfoComponent},
   {path: 'rsvp/:userId', component: RsvpFormComponent},
-  {path: '**', redirectTo: ''},
+  {path: '**', redirectTo: 'our-story'},
 ];
 
 @NgModule({
@@ -51,7 +54,9 @@ const routes: Routes = [
     StepPreferencesComponent,
     OptionListComponent,
     ResponseMeterComponent,
-    DrinkRequestChartComponent,
+    AccommodationsChartComponent,
+    ResponseStatisticsComponent,
+    InfoComponent,
   ],
   imports: [
     BrowserModule,
