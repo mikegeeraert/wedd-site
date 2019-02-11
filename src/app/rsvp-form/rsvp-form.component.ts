@@ -50,7 +50,7 @@ export class RsvpFormComponent implements OnInit {
           {
             duration: 2000,
           });
-        return of(new Household('', {}));
+        return of(null);
       }),
     );
   }
