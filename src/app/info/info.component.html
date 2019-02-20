@@ -1,1 +1,44 @@
 <app-response-statistics></app-response-statistics>
+
+<mat-list>
+  <mat-list-item>2 PM - We get married! (Ceremony at St. Mary's Parish, Cochrane)</mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item>3 PM - Kill time (Head back to the campsite, explore Bragg Creek, stand anxiously oustide the reception doors, or do whatever you enjoy while we pose awkwardly for photos</mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item>4 PM - Games and Drinks (Cocktail hour at the Bragg Creek Community Center, Bragg Creek)</mat-list-item>
+  <mat-list-item>6 PM - Dinner, Speeches ,and Dancing</mat-list-item>
+  <mat-list-item>12:30 PM - Closing Time (You don't have to go home, but you can't stay here.... we recommend the campground!)</mat-list-item>
+</mat-list>
+
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <b> Where should I stay? </b>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <p> We recommend continuing to celebrate with us at the River Cove Group campground!</p>
+
+      Bring your trailer or tent and stay Friday and Saturday night if you like.
+
+      <h1>{{ title }}</h1>
+
+      <agm-map [latitude]="lat" [longitude]="lng">
+        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+      </agm-map>
+      If you're a little more high class there are hotels nearby or you could battle the other guests for the best Airbnb or VRBO.
+  </mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <b> What are my transportation options? </b>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <p> If you are driving yourself please ensure you do not park in the Bragg Creek Community Centre parking lot overnight - there should be street parking! </p>
+    <p> If you are staying at the campground and would like to make the most of the night you can go back to your elementary school days and take a chartered school bus to the reception and back to the campsite at the end of the night</p>
+    <p> If you'd rather go home on your own accord but will be too silly to drive we recommended calling Taxi 4 U</p>
+  </mat-expansion-panel>
+</mat-accordion>
+

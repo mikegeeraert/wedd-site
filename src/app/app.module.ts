@@ -6,7 +6,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
-  MatChipsModule,
+  MatChipsModule, MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
@@ -18,6 +18,8 @@ import {
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
+
+import { AgmCoreModule } from '@agm/core';
 
 
 import { RsvpFormComponent } from './rsvp-form/rsvp-form.component';
@@ -80,6 +82,7 @@ const routes: Routes = [
     MatListModule,
     MatIconModule,
 
+
     // For RSVP Form
     MatStepperModule,
     FormsModule,
@@ -91,6 +94,13 @@ const routes: Routes = [
     MatRadioModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+
+    // For Info Page
+    MatExpansionModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDl6sYXZLEyYzEt9EDz6naQj9S-FtBt-kk'
+    })
+
   ],
   providers: [
     FormBuilder
