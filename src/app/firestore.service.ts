@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 import {Member, MemberType, PlusOne} from './member';
 import { AccommodationStatistics, ResponseStatistics } from './statistics';
 import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;
+import {mapTo} from 'rxjs/internal/operators';
 
 const HOUSEHOLDS = 'households';
 const MEMBERS = 'members';
@@ -22,6 +23,31 @@ export class FirestoreService {
   initialize (db: Firestore) {
     this.firestore = db;
   }
+
+  // getAllMembers(): Observable<Member[]> {
+  //   const households = this.firestore.collection(HOUSEHOLDS);
+  //   const members = from<firebase.firestore.QuerySnapshot>(households.get()).pipe(
+  //     mapTo(results => {
+  //       const allMembers: Observable<Member[]>[] = [];
+  //       results.forEach(result => {
+  //         const householdMembersRef = households.doc(result.id).collection(MEMBERS);
+  //         allMembers.push(from<firebase.firestore.QuerySnapshot>(householdMembersRef.get()).pipe(
+  //           map(memberResults => {
+  //             const membersObjs: Member[] = [];
+  //             memberResults.forEach(memberResult => membersObjs.push(new Member(memberResult.id, memberResult.data())));
+  //             return membersObjs;
+  //           })
+  //         ));
+  //       });
+  //       return allMembers;
+  //     })
+  //   );
+  //   return forkJoin(members).pipe(
+  //     map((nestedList) => {
+  //       return nestedList.reduce((accumulator, list) => { accumulator.push(list); return accumulator; }, []);
+  //     })
+  //   );
+  // }
 
   getHousehold(id: string): Observable<Household> {
     const householdRef = this.firestore.collection(HOUSEHOLDS).doc(id);

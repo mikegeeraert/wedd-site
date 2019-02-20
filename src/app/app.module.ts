@@ -13,7 +13,7 @@ import {
   MatListModule,
   MatProgressSpinnerModule,
   MatRadioModule, MatSnackBarModule,
-  MatStepperModule,
+  MatStepperModule, MatTableModule,
   MatToolbarModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,6 +34,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AccommodationsChartComponent } from './info/response-statistics/accommodations-chart/accommodations-chart.component';
 import { ResponseStatisticsComponent } from './info/response-statistics/response-statistics.component';
 import { InfoComponent } from './info/info.component';
+import { GuestListComponent } from './guest-list/guest-list.component';
 
 
 const routes: Routes = [
@@ -57,6 +58,7 @@ const routes: Routes = [
     AccommodationsChartComponent,
     ResponseStatisticsComponent,
     InfoComponent,
+    GuestListComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +68,7 @@ const routes: Routes = [
       routes,
       // { enableTracing: true } // <-- debugging purposes only
     ),
+    MatTableModule,
 
     // For Charting
     NgxChartsModule,
