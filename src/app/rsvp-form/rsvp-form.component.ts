@@ -41,7 +41,7 @@ export class RsvpFormComponent implements OnInit {
     }
     this.household = this.storage.getHousehold(userId).pipe(
       tap( household => {
-          console.log(household);
+          console.log(household.members);
           this.state = State.success;
       }),
       catchError((error, _) => {

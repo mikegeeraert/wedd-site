@@ -17,7 +17,7 @@ export class Member {
     this.last = data.last || '';
     this.isComing = !!data.isComing;
     this.allowedPlusOne = !!data.allowedPlusOne;
-    this.bringingPlusOne = !!data.plusOne;
+    this.bringingPlusOne = !!data.hasPlusOne;
     this.plusOne = data.PlusOne || null;
     this.dietaryRestrictions = data.dietaryRestrictions || [];
   }
