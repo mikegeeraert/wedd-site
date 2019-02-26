@@ -10,7 +10,7 @@ import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;
 import {mapTo} from 'rxjs/internal/operators';
 
 const HOUSEHOLDS = 'households';
-const MEMBERS = 'members';
+const GUESTS = 'guests';
 
 @Injectable({
   providedIn: 'root'
@@ -51,8 +51,9 @@ export class FirestoreService {
 
   getHousehold(id: string): Observable<Household> {
     const householdRef = this.firestore.collection(HOUSEHOLDS).doc(id);
-    const membersRef = householdRef.collection(MEMBERS).where('type', '==', MemberType.invitee.valueOf());
-    const plusOnesRef = householdRef.collection(MEMBERS).where('type', '==', MemberType.plusOne.valueOf());
+    const attendeesRef = this.firestore.collection(GUESTS).where('householdId', '==', id);
+    const membersRef = attendeesRef.where('type', '==', MemberType.invitee.valueOf());
+    const plusOnesRef = attendeesRef.where('type', '==', MemberType.plusOne.valueOf());
 
     const household = from(householdRef.get()).pipe(
       map((result: firebase.firestore.DocumentSnapshot) => {
@@ -123,13 +124,14 @@ export class FirestoreService {
 
   updateMembers(houseHoldID: string, members: Member[]): Observable<void> {
     members.forEach(member => {
-      const memberRef = this.firestore.collection(HOUSEHOLDS).doc(houseHoldID).collection(MEMBERS).doc(member.id);
+      const memberRef = this.firestore.collection(GUESTS).doc(member.id);
       memberRef.update({
+        householdId: houseHoldID,
         first: member.first,
         last: member.last,
         isComing: member.isComing,
         allowedPlusOne: member.allowedPlusOne,
-        hasPlusOne: !!member.plusOne,
+        hasPlusOne: member.bringingPlusOne,
         type: member.type,
       });
     });
@@ -140,23 +142,27 @@ export class FirestoreService {
   deletePlusOne(houseHoldID: string, member: Member) {
     console.log(`Deleting plus one for: ${member.first}`);
     // get any household member that might be plus one of member passed in
-    const memberPlusOne = this.firestore.collection(HOUSEHOLDS).doc(houseHoldID).collection(MEMBERS).doc(member.plusOne.id);
+    const memberPlusOne = this.firestore.collection(GUESTS).doc(member.plusOne.id);
     memberPlusOne.delete();
   }
 
   createOrUpdatePlusOnes(houseHoldID: string, members: PlusOne[]): Observable<void> {
     members.forEach(plusOne => {
+      console.log('Saving Plus One: ');
+      console.log(plusOne);
       const data = {
+        householdId: houseHoldID,
         parentId: plusOne.parentId,
+        isComing: true,
         first: plusOne.first,
         last: plusOne.last,
         type: plusOne.type,
       };
-      if (!!plusOne.id) {
-        const plusOneRef = this.firestore.collection(HOUSEHOLDS).doc(houseHoldID).collection(MEMBERS).doc(plusOne.id);
+      if (!!plusOne.id) { // Update
+        const plusOneRef = this.firestore.collection(GUESTS).doc(plusOne.id);
         plusOneRef.update(data);
       } else { // or Create
-        const plusOneCollectionRef = this.firestore.collection(HOUSEHOLDS).doc(houseHoldID).collection(MEMBERS);
+        const plusOneCollectionRef = this.firestore.collection(GUESTS);
         plusOneCollectionRef.add(data);
       }
     });
