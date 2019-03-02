@@ -24,7 +24,7 @@
             ],
             "styles": [
               {
-                "input": "src/my-theme.css'
+                "input": "src/theme.scss",
               },
               "src/styles.css",
             ],
