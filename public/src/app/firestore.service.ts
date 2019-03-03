@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from 'firebase/firestore';
 import { forkJoin, from, Observable, of } from 'rxjs';
-import {Accommodation, Household} from './household';
+import { Accommodation, Household } from './household';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
-import {Member, MemberType, PlusOne} from './member';
+import { Member, MemberType, PlusOne } from './member';
 import { AccommodationStatistics, ResponseStatistics } from './statistics';
 import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;
-import {mapTo} from 'rxjs/internal/operators';
 
 const HOUSEHOLDS = 'households';
 const GUESTS = 'guests';
@@ -89,7 +88,7 @@ export class FirestoreService {
       })
     );
 
-    const joinedResults = forkJoin(household, members, plusOnes).pipe(
+    return forkJoin(household, members, plusOnes).pipe(
       map(result => {
         // Put members on household
         result[0].members = result[1];
@@ -103,8 +102,6 @@ export class FirestoreService {
         return result[0];
       })
     );
-
-    return joinedResults;
   }
 
   updateHouseHold(household: Household): Observable<void> {
@@ -188,7 +185,7 @@ export class FirestoreService {
   }
 
   getResponseStats(): Observable<ResponseStatistics> {
-    const joinedResults = forkJoin(this.getNumberOfHouseholds(), this.getNumberOfResponses()).pipe(
+    return forkJoin(this.getNumberOfHouseholds(), this.getNumberOfResponses()).pipe(
       map(([numHouseholds, numResponses]) => {
         // Put members on household
         console.log(numHouseholds);
@@ -199,7 +196,6 @@ export class FirestoreService {
         };
       })
     );
-    return joinedResults;
   }
 
   getAccomodationStats(): Observable<AccommodationStatistics> {

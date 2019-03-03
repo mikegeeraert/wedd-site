@@ -1,6 +1,6 @@
-import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
-import {Member, PlusOne} from '../../member';
-import {MatCheckboxChange} from '@angular/material';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Member } from '../../member';
+import { MatCheckboxChange } from '@angular/material';
 
 @Component({
   selector: 'app-step-attendance',
