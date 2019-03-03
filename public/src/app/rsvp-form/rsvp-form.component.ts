@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Household } from '../household';
 import { FirestoreService } from '../firestore.service';
-import {Observable, of} from 'rxjs';
-import {MatCheckboxChange, MatSnackBar} from '@angular/material';
-import {Member, PlusOne} from '../member';
-import {catchError, tap} from 'rxjs/internal/operators';
-import {ActivatedRoute, Router, RouterModule} from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
+import { catchError, tap } from 'rxjs/internal/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 
 enum State {
   success,
@@ -66,7 +65,7 @@ export class RsvpFormComponent implements OnInit {
           });
         this.router.navigateByUrl('/');
       },
-      error => {
+      (/*error*/) => {
         this.snackBar.open(`There was an issue. Try again a bunch or just text one of us.`, 'Error',
           {
             duration: 3000,

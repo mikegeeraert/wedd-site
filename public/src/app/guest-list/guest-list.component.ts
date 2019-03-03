@@ -18,7 +18,7 @@ export class GuestListComponent implements OnInit {
 
   dataSource: Guest[];
 
-  constructor(private storage: FirestoreService) { }
+  constructor() { }
 
   ngOnInit() {
   }

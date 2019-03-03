@@ -3,7 +3,6 @@ import {Observable, of} from 'rxjs';
 import { FirestoreService } from '../../../firestore.service';
 import { ResponseStatistics } from '../../../statistics';
 import {catchError, tap} from 'rxjs/internal/operators';
-import {Household} from '../../../household';
 
 enum State {
   success,
@@ -33,7 +32,7 @@ export class ResponseMeterComponent implements OnInit {
 
     this.statistics = this.storage.getResponseStats().pipe(
       tap(_ => this.state = State.success),
-      catchError(error => {
+      catchError(() => {
         this.state = State.error;
         return of(null);
       })

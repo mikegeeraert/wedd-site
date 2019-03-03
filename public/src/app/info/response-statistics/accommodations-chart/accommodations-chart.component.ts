@@ -31,7 +31,7 @@ export class AccommodationsChartComponent implements OnInit {
 
     this.statistics = this.storage.getAccomodationStats().pipe(
       tap(_ => this.state = State.success),
-      catchError(error => {
+      catchError(() => {
         this.state = State.error;
         return of(null);
       }),

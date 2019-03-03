@@ -1,7 +1,6 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 
 import * as firebase from 'firebase';
-import { firestore } from 'firebase/app'
 import {FirestoreService} from "./firestore.service";
 import {MediaMatcher} from "@angular/cdk/layout";
 
