@@ -6,11 +6,76 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$my-theme-primary: mat-palette($mat-green,900,A100,A400);
-$my-theme-accent:  mat-palette($mat-brown, A200, A100, A400);
+$md-primarybrown: (
+  50 : #e9e6e5,
+  100 : #c7c1bf,
+  200 : #a29894,
+  300 : #7c6f69,
+  400 : #605049,
+  500 : #443129,
+  600 : #3e2c24,
+  700 : #35251f,
+  800 : #2d1f19,
+  900 : #1f130f,
+  A100 : #ff8861,
+  A200 : #ff622e,
+  A400 : #fa3e00,
+  A700 : #e03800,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #ffffff,
+    A700 : #ffffff,
+  )
+);
+
+$md-secondarygreen: (
+  50 : #e9ece9,
+  100 : #c9cfc8,
+  200 : #a5afa3,
+  300 : #808f7e,
+  400 : #657762,
+  500 : #4a5f46,
+  600 : #43573f,
+  700 : #3a4d37,
+  800 : #32432f,
+  900 : #223220,
+  A100 : #8bff7a,
+  A200 : #5eff47,
+  A400 : #32ff14,
+  A700 : #1ffa00,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+
+
+$my-theme-primary: mat-palette($md-primarybrown);
+$my-theme-accent:  mat-palette($md-secondarygreen);
 
 // The warn palette is optional (defaults to red).
 $my-theme-warn:    mat-palette($mat-red);
