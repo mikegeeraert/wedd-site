@@ -1,8 +1,10 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 
 import * as firebase from 'firebase';
-import {FirestoreService} from "./firestore.service";
-import {MediaMatcher} from "@angular/cdk/layout";
+
+import { FirestoreService } from "./firestore.service";
+import { MediaMatcher } from "@angular/cdk/layout";
+import { AuthenticationService } from './authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +16,10 @@ export class AppComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
 
 
-  constructor(private firestoreService: FirestoreService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(private firestoreService: FirestoreService,
+              private authenticationService: AuthenticationService,
+              changeDetectorRef: ChangeDetectorRef,
+              media: MediaMatcher) {
 
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -35,7 +40,8 @@ export class AppComponent implements OnInit, OnDestroy {
     const db = firebase.firestore();
     db.settings({timestampsInSnapshots: true}); // To avoid breaking changes
     this.firestoreService.initialize(db);
-
+    const functions = firebase.functions();
+    this.authenticationService.initialize(functions); //pass reference to firebase functions to auth service
   }
 
   fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
