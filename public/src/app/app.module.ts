@@ -37,12 +37,13 @@ import { AccommodationsChartComponent } from './info/response-statistics/accommo
 import { ResponseStatisticsComponent } from './info/response-statistics/response-statistics.component';
 import { InfoComponent } from './info/info.component';
 import { GuestListComponent } from './guest-list/guest-list.component';
+import { CanViewRSVP } from './guards';
 
 
 const routes: Routes = [
   {path: 'our-story', component: OurStoryComponent},
   {path: 'info', component: InfoComponent},
-  {path: 'rsvp/:userId', component: RsvpFormComponent},
+  {path: 'rsvp/:userId', component: RsvpFormComponent, canActivate: [CanViewRSVP]},
   {path: '**', redirectTo: 'our-story'},
 ];
 
@@ -103,7 +104,8 @@ const routes: Routes = [
 
   ],
   providers: [
-    FormBuilder
+    FormBuilder,
+    CanViewRSVP
   ],
   bootstrap: [AppComponent]
 })
