@@ -2,7 +2,7 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } fro
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import {AuthenticationService} from './authentication.service';
-import {catchError, switchMap} from 'rxjs/internal/operators';
+import {catchError, map, switchMap} from 'rxjs/internal/operators';
 
 @Injectable()
 export class CanViewRSVP implements CanActivate {
@@ -12,11 +12,11 @@ export class CanViewRSVP implements CanActivate {
     const params = route.queryParams;
     console.log('Guard Received Params: ');
     console.log(params);
-    return this.authenticationService.authCredentials(params.emailAddress, params.householdId).pipe(
+    return this.authenticationService.authCredentials(params.email, params.householdId).pipe(
       catchError(() => of(false)),
-      switchMap(token => {
+      map(token => {
         console.log(token);
-        return of(true)
+        return true;
       })
     )
   }
