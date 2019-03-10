@@ -2,6 +2,9 @@
 **/*.js
 **/*.js.map
 
+## private key for firebase admin sdk
+serviceAccountKey.json
+
 # Typescript v1 declaration files
 typings/
 
