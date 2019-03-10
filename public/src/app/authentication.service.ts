@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Functions } from 'firebase/functions';
-import {from, Observable, of} from 'rxjs';
+import { Auth } from 'firebase/auth';
+import { from, Observable } from 'rxjs';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
-import {map, tap} from 'rxjs/internal/operators';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
+  auth: Auth;
   functions: Functions;
 
   constructor() {}
 
-  initialize(functions: Functions) {
+  initialize(auth : Auth, functions: Functions) {
+    this.auth = auth;
     this.functions = functions;
   }
 
-  authCredentials(emailAddress: string, householdId: string): Observable<string> {
+  generateAuthToken(emailAddress: string, householdId: string): Observable<string> {
     console.log('Calling Cloud Function with credentials');
     console.log(emailAddress + householdId);
     const authFunction = this.functions.httpsCallable('authenticateWithEmail');
@@ -26,4 +28,10 @@ export class AuthenticationService {
       });
     return from(result);
   }
+
+  signInWithAuthToken(token: string): Observable<void> {
+    const result = this.auth.signInWithCustomToken(token);
+    return fromPromise(result)
+  }
+
 }

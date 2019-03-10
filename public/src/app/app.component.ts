@@ -41,7 +41,8 @@ export class AppComponent implements OnInit, OnDestroy {
     db.settings({timestampsInSnapshots: true}); // To avoid breaking changes
     this.firestoreService.initialize(db);
     const functions = firebase.functions();
-    this.authenticationService.initialize(functions); //pass reference to firebase functions to auth service
+    const auth = firebase.auth();
+    this.authenticationService.initialize(auth, functions); //pass reference to firebase functions to auth service
   }
 
   fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
