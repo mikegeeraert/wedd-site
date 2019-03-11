@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Functions } from 'firebase/functions';
 import { Auth } from 'firebase/auth';
-import { from, Observable } from 'rxjs';
+import {from, Observable, of} from 'rxjs';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
 @Injectable({
   providedIn: 'root'
@@ -32,6 +32,11 @@ export class AuthenticationService {
   signInWithAuthToken(token: string): Observable<void> {
     const result = this.auth.signInWithCustomToken(token);
     return fromPromise(result)
+  }
+
+  isGuestSignedIn(): boolean {
+    console.log(this.auth);
+    return !!this.auth.currentUser;
   }
 
 }
