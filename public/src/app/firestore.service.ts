@@ -116,7 +116,7 @@ export class FirestoreService {
       response: true,
     });
 
-    return from(result);
+    return of();
   }
 
   updateMembers(houseHoldID: string, members: Member[]): Observable<void> {

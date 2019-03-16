@@ -26,7 +26,7 @@ export class AuthenticationService {
       catch(error => {
         throw new Error(`Failed to authenticate - ${error.toString()}`)
       });
-    return from(result);
+    return fromPromise(result);
   }
 
   signInWithAuthToken(token: string): Observable<void> {
