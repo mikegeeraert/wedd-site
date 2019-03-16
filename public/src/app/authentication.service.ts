@@ -26,12 +26,11 @@ export class AuthenticationService {
       catch(error => {
         throw new Error(`Failed to authenticate - ${error.toString()}`)
       });
-    return fromPromise(result);
+    return from(result);
   }
 
-  signInWithAuthToken(token: string): Observable<void> {
-    const result = this.auth.signInWithCustomToken(token);
-    return fromPromise(result)
+  signInWithAuthToken(token: string): Observable<any> {
+    return this.auth.signInWithCustomToken(token)
   }
 
   isGuestSignedIn(): boolean {

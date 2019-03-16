@@ -2,7 +2,7 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } fro
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable, of } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
-import { catchError, mapTo, switchMap } from 'rxjs/internal/operators';
+import {catchError, mapTo, switchMap, tap} from 'rxjs/internal/operators';
 
 @Injectable()
 export class CanViewRSVP implements CanActivate {
@@ -16,20 +16,19 @@ export class CanViewRSVP implements CanActivate {
     }
     else {
       const params = route.queryParams;
-      // return this.attemptSignIn(params.email, params.householdId)
-      return of(true)
+      return this.attemptSignIn(params.email, params.householdId).pipe(
+        tap(result => console.log(result)),
+        mapTo(true)
+      );
     }
   }
 
-  private attemptSignIn(email: string, householdId: string) {
-    const createAuthToken$ = this.authenticationService.generateAuthToken(email, householdId);
-    const logInWithToken$ = createAuthToken$.pipe(
-      switchMap(token => this.authenticationService.signInWithAuthToken(token))
+  private attemptSignIn(email: string, householdId: string): Observable<any> {
+    const createAuthToken$ = this.authenticationService.generateAuthToken(email, householdId)
+    return createAuthToken$.pipe(
+      switchMap(token => this.authenticationService.signInWithAuthToken(token)),
+      catchError(error => {console.error(`Authentication Failed ${error.toString()}`); return of(false);})
     );
-    return combineLatest(createAuthToken$, logInWithToken$).pipe(
-      catchError(error => {console.error(`Authentication Failed ${error.toString()}`); return of(false);}),
-      mapTo(true)
-    )
   }
 }
 
