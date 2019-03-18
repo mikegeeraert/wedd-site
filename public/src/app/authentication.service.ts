@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Functions } from 'firebase/functions';
 import { Auth } from 'firebase/auth';
-import {from, Observable, of} from 'rxjs';
+import {BehaviorSubject, from, Observable, of, ReplaySubject, Subject} from 'rxjs';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
 @Injectable({
   providedIn: 'root'
@@ -10,11 +10,15 @@ export class AuthenticationService {
   auth: Auth;
   functions: Functions;
 
-  constructor() {}
+  user$$ = new ReplaySubject<firebase.User | null>(1);
+
+  constructor() {
+  }
 
   initialize(auth : Auth, functions: Functions) {
     this.auth = auth;
     this.functions = functions;
+    this.auth.onAuthStateChanged(this.user$$);
   }
 
   generateAuthToken(emailAddress: string, householdId: string): Observable<string> {
@@ -33,9 +37,9 @@ export class AuthenticationService {
     return this.auth.signInWithCustomToken(token)
   }
 
-  isGuestSignedIn(): boolean {
-    console.log(this.auth);
-    return !!this.auth.currentUser;
+  get user(): Observable<firebase.User> {
+    return this.user$$.asObservable();
   }
+
 
 }
