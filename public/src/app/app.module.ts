@@ -73,7 +73,7 @@ const routes: Routes = [
     MatSidenavModule,
     RouterModule.forRoot(
       routes,
-      // { enableTracing: true } // <-- debugging purposes only
+      //{ enableTracing: true } // <-- debugging purposes only
     ),
     MatTableModule,
 

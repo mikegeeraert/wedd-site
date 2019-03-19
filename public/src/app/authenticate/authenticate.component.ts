@@ -34,11 +34,16 @@ export class AuthenticateComponent implements OnInit {
   }
 
   private attemptSignIn(email: string, householdId: string): Observable<boolean> {
-    const createAuthToken$ = this.authenticationService.generateAuthToken(email, householdId);
+    const createAuthToken$ = this.authenticationService.generateAuthToken(email, householdId).pipe(
+      catchError(() =>  of(''))
+    );
     return createAuthToken$.pipe(
       switchMap(token => this.authenticationService.signInWithAuthToken(token)),
-      catchError(error => {console.error(`Authentication Failed ${error.toString()}`); return of(false);}),
       mapTo(true),
+      catchError(error => {
+        console.error(`Authentication Failed ${error.toString()}`);
+        return of(false);
+      }),
     );
   }
 

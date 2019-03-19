@@ -9,8 +9,20 @@ export class CanViewRSVP implements CanActivate {
   constructor(private authenticationService: AuthenticationService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
+    const params = route.queryParams;
     return this.authenticationService.user.pipe(
-      map( user => user ? true : this.router.createUrlTree(['authenticate'], {preserveQueryParams: true}))
+      map( user => {
+          console.log(route.queryParams);
+          return user ?
+            true :
+            this.router.createUrlTree(['authenticate'], {
+              queryParams: {
+                email: params.email,
+                householdId: params.householdId
+              }
+            });
+        }
+      )
     )
   }
 
