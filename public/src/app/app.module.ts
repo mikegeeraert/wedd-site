@@ -12,6 +12,7 @@ import {
   MatInputModule,
   MatListModule,
   MatProgressSpinnerModule,
+  MatProgressBarModule,
   MatRadioModule, MatSnackBarModule,
   MatStepperModule, MatTableModule,
   MatToolbarModule
@@ -24,7 +25,7 @@ import { AgmCoreModule } from '@agm/core';
 
 import { RsvpFormComponent } from './rsvp-form/rsvp-form.component';
 import { OurStoryComponent } from './our-story/our-story.component';
-import { RouterModule, Routes} from '@angular/router';
+import {ActivatedRouteSnapshot, RouterModule, Routes} from '@angular/router';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ChipListComponent } from './rsvp-form/chip-list/chip-list.component';
 import { StepAttendanceComponent } from './rsvp-form/step-attendance/step-attendance.component';
@@ -45,6 +46,7 @@ const routes: Routes = [
   {path: 'our-story', component: OurStoryComponent},
   {path: 'info', component: InfoComponent},
   {path: 'rsvp/:userId', component: RsvpFormComponent, canActivate: [CanViewRSVP]},
+  {path: 'authenticate', component: AuthenticateComponent},
   {path: '**', redirectTo: 'our-story'},
 ];
 
@@ -96,6 +98,7 @@ const routes: Routes = [
     MatChipsModule,
     MatRadioModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
     MatSnackBarModule,
 
     // For Info Page
@@ -107,7 +110,7 @@ const routes: Routes = [
   ],
   providers: [
     FormBuilder,
-    CanViewRSVP
+    CanViewRSVP,
   ],
   bootstrap: [AppComponent]
 })
