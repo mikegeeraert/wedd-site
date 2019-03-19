@@ -38,6 +38,7 @@ import { ResponseStatisticsComponent } from './info/response-statistics/response
 import { InfoComponent } from './info/info.component';
 import { GuestListComponent } from './guest-list/guest-list.component';
 import { CanViewRSVP } from './guards';
+import { AuthenticateComponent } from './authenticate/authenticate.component';
 
 
 const routes: Routes = [
@@ -62,6 +63,7 @@ const routes: Routes = [
     ResponseStatisticsComponent,
     InfoComponent,
     GuestListComponent,
+    AuthenticateComponent,
   ],
   imports: [
     BrowserModule,
