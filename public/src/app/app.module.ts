@@ -22,7 +22,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { AgmCoreModule } from '@agm/core';
 
-
 import { RsvpFormComponent } from './rsvp-form/rsvp-form.component';
 import { OurStoryComponent } from './our-story/our-story.component';
 import {ActivatedRouteSnapshot, RouterModule, Routes} from '@angular/router';
@@ -105,7 +104,7 @@ const routes: Routes = [
     MatExpansionModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDl6sYXZLEyYzEt9EDz6naQj9S-FtBt-kk'
-    })
+    }),
 
   ],
   providers: [
