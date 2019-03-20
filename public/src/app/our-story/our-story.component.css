@@ -30,20 +30,39 @@
   /*z-index: -1;*/
   /*height: 1000px;*/
 /*}*/
+.mountain {
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  position: absolute;
+  background-image: url("./../../assets/Mountain1.png");
+  background-repeat: repeat-x;
+}
 
 .tree-one {
   width: -webkit-fill-available;
   height: -webkit-fill-available;
-  padding-top: 100px;
+  position: absolute;
   background-repeat: repeat-x;
+  background-position-x: center;
   background-image: url("./../../assets/Treeline1.png");
 }
 .tree-two {
   width: -webkit-fill-available;
   height: -webkit-fill-available;
-  padding-top: 120px;
+  position: relative;
+  background-position-x: center;
+  top: 60px;
   background-repeat: repeat-x;
   background-image: url("./../../assets/Treeline2.png");
+}
+
+.undergrowth {
+  height: 200px;
+  width: 100%;
+  position: relative;
+  background-position-x: center;
+  top: -164px;
+  background-color: rgb(55, 62, 40);
 }
 
 .sky {
@@ -53,10 +72,9 @@
   height: 400%;
 }
 
-.mountain {
-  padding-top: 100px;
-  background-image: url("./../../assets/Mountain1.png");
-  background-repeat: repeat-x;
+.airspace {
+  width: 100%;
+  height: 200px;
 }
 /*.layer-one {*/
   /*background-image: url("./../../assets/Mountain1.png");*/
