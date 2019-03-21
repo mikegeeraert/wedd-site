@@ -1,35 +1,9 @@
-/*.container {*/
-  /*margin: 0 auto;*/
-  /*max-width: 900px;*/
-/*}*/
 
-/*.header {*/
-  /*min-height:1537px;*/
-  /*height:auto;*/
-  /*overflow: hidden;*/
-  /*position: relative;*/
-/*}*/
+@font-face {
+  font-family: NeoRetro;
+  src: url("./../../assets/NEORETRO.woff");
+}
 
-/*.mobile-header {*/
-  /*display: none;*/
-  /*min-height: 1537px;*/
-  /*height: auto;*/
-  /*background-image: url("./../../assets/Mountain1.png");*/
-  /*background-position:bottom center;*/
-  /*background-repeat: no-repeat;*/
-  /*background-size: cover;*/
-/*}*/
-
-/*.layer {*/
-  /*background-position:bottom center;*/
-  /*background-repeat: no-repeat;*/
-  /*background-size: cover;*/
-  /*width: 100%;*/
-  /*min-height: auto;*/
-  /*position: fixed;*/
-  /*z-index: -1;*/
-  /*height: 1000px;*/
-/*}*/
 .mountain {
   width: -webkit-fill-available;
   height: -webkit-fill-available;
@@ -67,9 +41,20 @@
   background-position-x: center;
   background-color: rgb(55, 62, 40);
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
+.name-text {
+  color: rgb(242,243,246);
+  font-family: "Lucida Console";
+  font-size: 50px;
+}
+.title-text {
+  color: rgb(242,243,246);
+  font-family: "NeoRetro";
+  font-size: 70px;
+}
 .mountain-two {
   width: -webkit-fill-available;
   height: -webkit-fill-available;
