@@ -70,14 +70,11 @@
   justify-content: center;
 }
 
-h1{
-  margin: unset;
-}
 .mountain-two {
   width: -webkit-fill-available;
   height: -webkit-fill-available;
-  position: relative;
-  background-position-y: top;
+  position: absolute;
+  top:650px;
   background-image: url("./../../assets/Mountain2.png");
   background-repeat: repeat-x;
 }
