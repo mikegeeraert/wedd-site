@@ -36,16 +36,15 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AccommodationsChartComponent } from './info/response-statistics/accommodations-chart/accommodations-chart.component';
 import { ResponseStatisticsComponent } from './info/response-statistics/response-statistics.component';
 import { InfoComponent } from './info/info.component';
-import { GuestListComponent } from './guest-list/guest-list.component';
 import { CanViewRSVP } from './guards';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
-
 
 const routes: Routes = [
   {path: 'our-story', component: OurStoryComponent},
   {path: 'info', component: InfoComponent},
   {path: 'rsvp/:userId', component: RsvpFormComponent, canActivate: [CanViewRSVP]},
   {path: 'authenticate', component: AuthenticateComponent},
+  {path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
   {path: '**', redirectTo: 'our-story'},
 ];
 
@@ -63,7 +62,6 @@ const routes: Routes = [
     AccommodationsChartComponent,
     ResponseStatisticsComponent,
     InfoComponent,
-    GuestListComponent,
     AuthenticateComponent,
   ],
   imports: [
