@@ -4,6 +4,7 @@ import { Auth } from 'firebase/auth';
 import {from, Observable, of, ReplaySubject} from 'rxjs';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
 import * as firebase from 'firebase';
+import {shareReplay, tap} from 'rxjs/operators';
 
 
 @Injectable({
@@ -13,7 +14,8 @@ export class AuthenticationService {
   auth: Auth;
   functions: Functions;
 
-  user$$ = new ReplaySubject<firebase.User>();
+  user$$ = new ReplaySubject<firebase.User>(1);
+  user$ = this.user$$.asObservable();
 
   constructor() {}
 
@@ -24,7 +26,6 @@ export class AuthenticationService {
   }
 
   generateAuthToken(emailAddress: string, householdId: string): Observable<string | null> {
-    console.log('Calling Cloud Function with credentials');
     console.log(emailAddress + householdId);
     const authFunction = this.functions.httpsCallable('authenticateWithEmail');
     const result = authFunction({emailAddress: emailAddress, householdId: householdId}).
@@ -42,7 +43,7 @@ export class AuthenticationService {
   }
 
   get user(): Observable<firebase.User> {
-    return this.user$$.asObservable()
+    return this.user$;
   }
 
 }

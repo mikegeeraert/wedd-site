@@ -40,7 +40,6 @@ export class RsvpFormComponent implements OnInit {
     }
     this.household = this.storage.getHousehold(userId).pipe(
       tap( household => {
-          console.log(household.members);
           this.state = State.success;
       }),
       catchError((error, _) => {
@@ -56,7 +55,6 @@ export class RsvpFormComponent implements OnInit {
 
   saveForm(household: Household) {
     // TODO: Refactor this method - listen to the results of updating members and plus ones - forkjoin results
-    console.log(household);
     this.storage.updateHouseHold(household).subscribe(
       () => {
         this.snackBar.open('You are the greatest', 'Success',
@@ -75,9 +73,7 @@ export class RsvpFormComponent implements OnInit {
     this.storage.updateMembers(household.id, household.members);
 
     // Filter members not bringing a plus one, but we previously saved one for them
-    console.log(household.members);
     const members =  household.members.filter(member => !member.bringingPlusOne && member.plusOne && member.plusOne.id);
-    console.log(members);
     members.forEach(member => this.storage.deletePlusOne(household.id, member));
 
     // Filter members bringing plus ones and flatten list

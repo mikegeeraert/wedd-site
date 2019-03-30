@@ -21,7 +21,6 @@ export class AuthenticateComponent implements OnInit {
 
   ngOnInit() {
     const params = this.route.snapshot.queryParams;
-    console.log(params);
     this.attemptSignIn(params.email, params.householdId).subscribe(success => {
       if (!success) {
         this.snackBar.open('Unable to determine who you are. Why are you being so sneaky!', 'Error',

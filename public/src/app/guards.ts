@@ -12,7 +12,6 @@ export class CanViewRSVP implements CanActivate {
     const params = route.queryParams;
     return this.authenticationService.user.pipe(
       map( user => {
-          console.log(route.queryParams);
           return user ?
             true :
             this.router.createUrlTree(['authenticate'], {

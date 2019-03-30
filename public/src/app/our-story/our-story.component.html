@@ -14,4 +14,6 @@
   <div class="main" dataDepth="20" #layer></div>
   <div class="some-random-people" dataDepth="25" #layer></div>
 </div>
-
+<div class="footer" *ngIf="userHouseholdId$ | async as id">
+  <button mat-flat-button (click)="navigateToRsvp(id)">Come Celebrate with Us!</button>
+</div>
