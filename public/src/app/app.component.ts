@@ -5,6 +5,8 @@ import * as firebase from 'firebase';
 import { FirestoreService } from "./firestore.service";
 import { MediaMatcher } from "@angular/cdk/layout";
 import { AuthenticationService } from './authentication.service';
+import {Observable, of} from 'rxjs';
+import {switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +16,8 @@ import { AuthenticationService } from './authentication.service';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Taylor and Michael\'s Wedding';
   mobileQuery: MediaQueryList;
+
+  userHouseholdId$: Observable<string>;
 
 
   constructor(private firestoreService: FirestoreService,
@@ -43,6 +47,10 @@ export class AppComponent implements OnInit, OnDestroy {
     const functions = firebase.functions();
     const auth = firebase.auth();
     this.authenticationService.initialize(auth, functions); //pass reference to firebase functions to auth service
+    this.userHouseholdId$ = this.authenticationService.user.pipe(
+      switchMap(user => !!user ? this.firestoreService.getHouseholdIdForEmail(user.uid): of(null))
+    )
+
   }
 
   fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
@@ -53,5 +61,4 @@ export class AppComponent implements OnInit, OnDestroy {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
-  shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
 }
