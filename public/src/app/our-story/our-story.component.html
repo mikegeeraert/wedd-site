@@ -12,4 +12,6 @@
   </div>
   <div class="mountain-two" dataDepth="20" #layer></div>
 </div>
-
+<div class="footer" *ngIf="userHouseholdId$ | async as id">
+  <button mat-flat-button (click)="navigateToRsvp(id)">Come Celebrate with Us!</button>
+</div>

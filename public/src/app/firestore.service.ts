@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from 'firebase/firestore';
-import { forkJoin, from, Observable, of } from 'rxjs';
+import {forkJoin, from, Observable, of} from 'rxjs';
 import { Accommodation, Household } from './household';
-import { map } from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import * as firebase from 'firebase';
 import { Member, MemberType, PlusOne } from './member';
 import { AccommodationStatistics, ResponseStatistics } from './statistics';
@@ -23,30 +23,18 @@ export class FirestoreService {
     this.firestore = db;
   }
 
-  // getAllMembers(): Observable<Member[]> {
-  //   const households = this.firestore.collection(HOUSEHOLDS);
-  //   const members = from<firebase.firestore.QuerySnapshot>(households.get()).pipe(
-  //     mapTo(results => {
-  //       const allMembers: Observable<Member[]>[] = [];
-  //       results.forEach(result => {
-  //         const householdMembersRef = households.doc(result.id).collection(MEMBERS);
-  //         allMembers.push(from<firebase.firestore.QuerySnapshot>(householdMembersRef.get()).pipe(
-  //           map(memberResults => {
-  //             const membersObjs: Member[] = [];
-  //             memberResults.forEach(memberResult => membersObjs.push(new Member(memberResult.id, memberResult.data())));
-  //             return membersObjs;
-  //           })
-  //         ));
-  //       });
-  //       return allMembers;
-  //     })
-  //   );
-  //   return forkJoin(members).pipe(
-  //     map((nestedList) => {
-  //       return nestedList.reduce((accumulator, list) => { accumulator.push(list); return accumulator; }, []);
-  //     })
-  //   );
-  // }
+  getHouseholdIdForEmail(email: string): Observable<string | null> {
+    const guestsRef = this.firestore.collection(GUESTS).where('email', '==', email).limit(1);
+    return from(guestsRef.get()).pipe(
+      map((results: firebase.firestore.QuerySnapshot) => {
+        let householdId: string = null;
+        if (!results.empty) {
+          results.forEach(result => householdId = result.data().householdId); // since query limit is 1, this loops once
+        }
+        return householdId;
+      }),
+    )
+  }
 
   getHousehold(id: string): Observable<Household> {
     const householdRef = this.firestore.collection(HOUSEHOLDS).doc(id);
@@ -137,7 +125,6 @@ export class FirestoreService {
   }
 
   deletePlusOne(houseHoldID: string, member: Member) {
-    console.log(`Deleting plus one for: ${member.first}`);
     // get any household member that might be plus one of member passed in
     const memberPlusOne = this.firestore.collection(GUESTS).doc(member.plusOne.id);
     memberPlusOne.delete();
@@ -145,8 +132,6 @@ export class FirestoreService {
 
   createOrUpdatePlusOnes(houseHoldID: string, members: PlusOne[]): Observable<void> {
     members.forEach(plusOne => {
-      console.log('Saving Plus One: ');
-      console.log(plusOne);
       const data = {
         householdId: houseHoldID,
         parentId: plusOne.parentId,
@@ -187,9 +172,6 @@ export class FirestoreService {
   getResponseStats(): Observable<ResponseStatistics> {
     return forkJoin(this.getNumberOfHouseholds(), this.getNumberOfResponses()).pipe(
       map(([numHouseholds, numResponses]) => {
-        // Put members on household
-        console.log(numHouseholds);
-        console.log(numResponses);
         return {
           numHouseholds: numHouseholds,
           numResponses: numResponses,
@@ -213,7 +195,6 @@ export class FirestoreService {
         if (!results.empty) {
           results.forEach((result: QueryDocumentSnapshot) => {
             const accommodation = result.data().accommodation;
-            console.log(accommodation);
             stats.total += 1;
             switch (accommodation) {
               case Accommodation.camping:

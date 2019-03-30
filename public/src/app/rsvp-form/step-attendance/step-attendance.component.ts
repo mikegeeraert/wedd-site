@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Member } from '../../member';
 import { MatCheckboxChange } from '@angular/material';
 
@@ -7,15 +7,11 @@ import { MatCheckboxChange } from '@angular/material';
   templateUrl: './step-attendance.component.html',
   styleUrls: ['./step-attendance.component.css']
 })
-export class StepAttendanceComponent implements OnInit {
+export class StepAttendanceComponent {
   @Input() members: Member[];
   @Output() membersChange = new EventEmitter<Member[]>();
 
   constructor() { }
-
-  ngOnInit() {
-    console.log(this.members);
-  }
 
   toggleAttendance($event: MatCheckboxChange, member: Member) {
     if (!$event.checked) {
