@@ -57,7 +57,7 @@
 .title-text {
   color: rgb(242,243,246);
   font-family: "NeoRetro";
-  font-size: 70px;
+  font-size: 150px;
 }
 .mountain-two {
   width: -webkit-fill-available;
@@ -74,7 +74,16 @@
   height: 1000px;
   width:100%;
 }
-
+.text {
+}
+.small-main {
+  font-family: "Lao MN";
+  font-size: 20px;
+}
+.large-main-main {
+  font-family: "Lao MN";
+  font-size: 30px;
+}
 .some-random-people {
   position: absolute;
   top:1500px;

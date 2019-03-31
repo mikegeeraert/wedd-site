@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from 'firebase/firestore';
-import {forkJoin, from, Observable, of} from 'rxjs';
+import { forkJoin, from, Observable, of } from 'rxjs';
 import { Accommodation, Household } from './household';
-import {map, tap} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import { Member, MemberType, PlusOne } from './member';
 import { AccommodationStatistics, ResponseStatistics } from './statistics';
 import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;
+import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 
 const HOUSEHOLDS = 'households';
 const GUESTS = 'guests';
@@ -34,6 +35,25 @@ export class FirestoreService {
         return householdId;
       }),
     )
+  }
+
+  getMembers(cursor?: DocumentSnapshot, limit?: number): Observable<Member[]> {
+    let membersRef = this.firestore.collection(GUESTS).
+      where('type', '==', MemberType.invitee.valueOf()).
+      orderBy('last');
+
+    if (cursor && limit) {
+      membersRef = membersRef.startAfter(cursor).limit(limit)
+    }
+    return from(membersRef.get()).pipe(
+      map((results: firebase.firestore.QuerySnapshot) => {
+        const membersObjs = [];
+        if (!results.empty) {
+          results.forEach(result => membersObjs.push(new Member(result.id, result.data())));
+        }
+        return membersObjs;
+      })
+    );
   }
 
   getHousehold(id: string): Observable<Household> {

@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../firestore.service';
-
-
-interface Guest {
-  firstName: string;
-  lastName: string;
-  bringingPlusOne: boolean;
-}
+import { Member } from '../../member';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -16,11 +11,16 @@ interface Guest {
 })
 export class GuestListComponent implements OnInit {
 
-  dataSource: Guest[];
+  dataSource: Observable<Member[]>;
+  displayedColumns: string[] = ['first', 'last', 'coming'];
 
-  constructor() { }
+
+  constructor(private firestoreService: FirestoreService) { }
 
   ngOnInit() {
+    this.dataSource = this.firestoreService.getMembers()
   }
+
+
 
 }
