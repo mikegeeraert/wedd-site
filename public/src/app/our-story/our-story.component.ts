@@ -61,10 +61,6 @@ export class OurStoryComponent implements OnInit, OnDestroy {
     });
   }
 
-  navigateToRsvp(id: string): void {
-    this.router.navigate(['rsvp', id])
-  }
-
   ngOnDestroy() {
     this.scrollSubscription.unsubscribe();
   }

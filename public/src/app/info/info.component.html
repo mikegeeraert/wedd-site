@@ -1,14 +1,44 @@
 <app-response-statistics></app-response-statistics>
 
-<mat-list>
-  <mat-list-item>2 PM - We get married! (Ceremony at St. Mary's Parish, Cochrane)</mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item>3 PM - Kill time (Head back to the campsite, explore Bragg Creek, stand anxiously oustide the reception doors, or do whatever you enjoy while we pose awkwardly for photos</mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item>4 PM - Games and Drinks (Cocktail hour at the Bragg Creek Community Center, Bragg Creek)</mat-list-item>
-  <mat-list-item>6 PM - Dinner, Speeches ,and Dancing</mat-list-item>
-  <mat-list-item>12:30 PM - Closing Time (You don't have to go home, but you can't stay here.... we recommend the campground!)</mat-list-item>
-</mat-list>
+<div class="history-tl-container">
+  <ul class="tl">
+    <li class="tl-item" ng-repeat="item in retailer_history">
+      <div class="timestamp">
+        September 14th, 2019<br> 1:00 PM
+      </div>
+      <div class="item-title">We get married!</div>
+      <div class="item-detail">(Ceremony at St. Mary's Parish, Cochrane)</div>
+    </li>
+    <li class="tl-item" ng-repeat="item in retailer_history">
+      <div class="timestamp">
+        September 14th, 2019<br> 2:00 PM
+      </div>
+      <div class="item-title">Intermission</div>
+      <div class="item-detail">(Head back to the campsite, explore Bragg Creek, play games at the reception venue, or do whatever you enjoy while we pose awkwardly for photos)</div>
+    </li>
+    <li class="tl-item" ng-repeat="item in retailer_history">
+      <div class="timestamp">
+        September 14th, 2019<br> 4:00 PM
+      </div>
+      <div class="item-title">Games, Snacks, and Drinks</div>
+      <div class="item-detail">(Cocktail hour at the Bragg Creek Community Center, Bragg Creek)</div>
+    </li>
+    <li class="tl-item" ng-repeat="item in retailer_history">
+      <div class="timestamp">
+        September 14th, 2019<br> 4:30 PM
+      </div>
+      <div class="item-title">Let's get this party started</div>
+      <div class="item-detail">(Grand entrance, dinner, toasts, and dancing!)</div>
+    </li>
+    <li class="tl-item" ng-repeat="item in retailer_history">
+      <div class="timestamp">
+        September 15th, 2019<br> 12:30 AM
+      </div>
+      <div class="item-title">Closing Time</div>
+      <div class="item-detail">(You don't have to go home, but you can't stay here.... we recommend the campground!)</div>
+    </li>
+  </ul>
+
 
 <mat-accordion>
   <mat-expansion-panel>
