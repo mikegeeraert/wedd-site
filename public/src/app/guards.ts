@@ -24,15 +24,6 @@ export class CanViewRSVP implements CanActivate {
       )
     )
   }
-
-  private attemptSignIn(email: string, householdId: string): Observable<boolean> {
-    const createAuthToken$ = this.authenticationService.generateAuthToken(email, householdId);
-    return createAuthToken$.pipe(
-      switchMap(token => this.authenticationService.signInWithAuthToken(token)),
-      catchError(error => {console.error(`Authentication Failed ${error.toString()}`); return of(false);}),
-      mapTo(true)
-    );
-  }
 }
 
 

@@ -1,9 +1,21 @@
-<form>
-  <mat-form-field>
-    <input matInput placeholder="Email">
-  </mat-form-field>
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>fingerprint</mat-icon>
+      </div>
+      <mat-card-title>Admin</mat-card-title>
+      <mat-card-subtitle>Guest Management</mat-card-subtitle>
+    </mat-card-header>
+    <form [formGroup]="login" class="login-form" (ngSubmit)="onSubmit()">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Email" formControlName="email" id="email">
+      </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Password">
-  </mat-form-field>
-</form>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Password" formControlName="password" id="password" type="password">
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!login.valid">Get Managin'</button>
+    </form>
+  </mat-card>
+</div>

@@ -8,9 +8,11 @@ import { Member, MemberType, PlusOne } from './member';
 import { AccommodationStatistics, ResponseStatistics } from './statistics';
 import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;
 import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
+import {Admin} from './admin';
 
 const HOUSEHOLDS = 'households';
 const GUESTS = 'guests';
+const ADMINS = 'admins';
 
 @Injectable({
   providedIn: 'root'
@@ -235,5 +237,20 @@ export class FirestoreService {
         return stats;
       })
     );
+  }
+
+  getAdmin(email: string): Observable<Admin> {
+    const adminRef = this.firestore.collection(ADMINS).doc(email);
+    return from(adminRef.get()).pipe(
+      map((result: firebase.firestore.DocumentSnapshot) => {
+        let adminObj: Admin;
+        if (result.exists) {
+          adminObj = new Admin(result.id);
+        } else {
+          throw new Error('NotFound: Admin');
+        }
+        return adminObj;
+      })
+    )
   }
 }
