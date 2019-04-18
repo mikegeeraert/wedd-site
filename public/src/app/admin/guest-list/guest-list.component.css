@@ -1,0 +1,19 @@
+.table-container {
+  display: flex;
+  justify-content: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.guest-table {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+}
+
+
+.table-loading {
+  margin: 20px;
+}

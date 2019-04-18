@@ -8,7 +8,7 @@ import {
   MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule,
   MatTableModule
 } from '@angular/material';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {IsAdmin} from './guards';
 
 @NgModule({
@@ -25,6 +25,7 @@ import {IsAdmin} from './guards';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   declarations: [
     AdminLoginComponent,

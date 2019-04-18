@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../authentication.service';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import {map, switchMap, tap} from 'rxjs/internal/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/internal/operators';
 
 @Injectable()
 export class IsAdmin implements CanActivate {
