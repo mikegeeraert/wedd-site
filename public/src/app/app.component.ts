@@ -1,7 +1,5 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 
-import * as firebase from 'firebase';
-
 import { FirestoreService } from "./firestore.service";
 import { MediaMatcher } from "@angular/cdk/layout";
 import { AuthenticationService } from './authentication.service';
@@ -32,21 +30,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    const config = {
-      apiKey: 'AIzaSyDMkKlFGyTslQ8Yo30mpO2vhXwirpkv2hE',
-      authDomain: 'wedding-49e7e.firebaseapp.com',
-      databaseURL: 'https://wedding-49e7e.firebaseio.com',
-      projectId: 'wedding-49e7e',
-      storageBucket: 'wedding-49e7e.appspot.com',
-      messagingSenderId: '995005427485'
-    };
-    firebase.initializeApp(config);
-    const db = firebase.firestore();
-    db.settings({timestampsInSnapshots: true}); // To avoid breaking changes
-    this.firestoreService.initialize(db);
-    const functions = firebase.functions();
-    const auth = firebase.auth();
-    this.authenticationService.initialize(auth, functions); //pass reference to firebase functions to auth service
     this.userHouseholdId$ = this.authenticationService.user.pipe(
       switchMap(user => !!user ? this.firestoreService.getHouseholdIdForEmail(user.uid): of(null))
     )

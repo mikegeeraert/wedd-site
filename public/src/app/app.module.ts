@@ -20,12 +20,17 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
+
 import { AgmCoreModule } from '@agm/core';
 
 import { RsvpFormComponent } from './rsvp-form/rsvp-form.component';
 import { OurStoryComponent } from './our-story/our-story.component';
-import {ActivatedRouteSnapshot, RouterModule, Routes} from '@angular/router';
-import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {  RouterModule, Routes} from '@angular/router';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChipListComponent } from './rsvp-form/chip-list/chip-list.component';
 import { StepAttendanceComponent } from './rsvp-form/step-attendance/step-attendance.component';
 import { StepPlusOnesComponent } from './rsvp-form/step-plus-ones/step-plus-ones.component';
@@ -38,6 +43,7 @@ import { ResponseStatisticsComponent } from './info/response-statistics/response
 import { InfoComponent } from './info/info.component';
 import { CanViewRSVP } from './guards';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
+import { environment } from '../environments/environment';
 
 const routes: Routes = [
   {path: 'our-story', component: OurStoryComponent},
@@ -65,6 +71,12 @@ const routes: Routes = [
     AuthenticateComponent,
   ],
   imports: [
+
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireFunctionsModule,
+
     BrowserModule,
     BrowserAnimationsModule,
     MatSidenavModule,

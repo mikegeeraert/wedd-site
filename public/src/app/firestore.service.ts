@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Firestore } from 'firebase/firestore';
 import { forkJoin, from, Observable, of } from 'rxjs';
 import { Accommodation, Household } from './household';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import { Member, MemberType, PlusOne } from './member';
 import { AccommodationStatistics, ResponseStatistics } from './statistics';
+import { AngularFirestore } from '@angular/fire/firestore';
+
 import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;
 import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 import {Admin} from './admin';
@@ -18,16 +19,16 @@ const ADMINS = 'admins';
   providedIn: 'root'
 })
 export class FirestoreService {
-  firestore: Firestore;
+  // firestore: Firestore;
 
-  constructor() { }
+  constructor(private firestore: AngularFirestore) { }
 
-  initialize (db: Firestore) {
-    this.firestore = db;
-  }
+  // initialize (db: Firestore) {
+  //   this.firestore = db;
+  // }
 
   getHouseholdIdForEmail(email: string): Observable<string | null> {
-    const guestsRef = this.firestore.collection(GUESTS).where('email', '==', email).limit(1);
+    const guestsRef = this.firestore.collection(GUESTS, ref => ref.where('email', '==', email).limit(1));
     return from(guestsRef.get()).pipe(
       map((results: firebase.firestore.QuerySnapshot) => {
         let householdId: string = null;
@@ -40,14 +41,20 @@ export class FirestoreService {
   }
 
   getMembers(cursor?: DocumentSnapshot, limit?: number): Observable<Member[]> {
-    let membersRef = this.firestore.collection(GUESTS).
-      where('type', '==', MemberType.invitee.valueOf()).
-      orderBy('last');
-
-    if (cursor && limit) {
-      membersRef = membersRef.startAfter(cursor).limit(limit)
-    }
-    return from(membersRef.get()).pipe(
+    // Build Members query
+    let membersRef = this.firestore.collection(GUESTS,
+      ref => {
+        ref.where('type', '==', MemberType.invitee.valueOf()).
+            orderBy('last');
+        if (cursor && limit) {
+          ref.startAfter(cursor).
+              limit(limit)
+        }
+        return ref;
+      }
+    );
+    // Get Results
+    return membersRef.get().pipe(
       map((results: firebase.firestore.QuerySnapshot) => {
         const membersObjs = [];
         if (!results.empty) {
@@ -60,11 +67,17 @@ export class FirestoreService {
 
   getHousehold(id: string): Observable<Household> {
     const householdRef = this.firestore.collection(HOUSEHOLDS).doc(id);
-    const attendeesRef = this.firestore.collection(GUESTS).where('householdId', '==', id);
-    const membersRef = attendeesRef.where('type', '==', MemberType.invitee.valueOf());
-    const plusOnesRef = attendeesRef.where('type', '==', MemberType.plusOne.valueOf());
+    const attendeesRef = this.firestore.collection(GUESTS, ref => ref.where('householdId', '==', id));
+    const membersRef = this.firestore.collection(GUESTS, ref => ref.
+      where('householdId', '==', id).
+      where('type', '==', MemberType.invitee.valueOf()
+    ));
+    const plusOnesRef = this.firestore.collection(GUESTS, ref => ref.
+    where('householdId', '==', id).
+    where('type', '==', MemberType.plusOne.valueOf()
+    ));
 
-    const household = from(householdRef.get()).pipe(
+    const household = householdRef.get().pipe(
       map((result: firebase.firestore.DocumentSnapshot) => {
         let householdObj: Household;
         if (result.exists) {
@@ -76,7 +89,7 @@ export class FirestoreService {
       })
     );
 
-    const members = from(membersRef.get()).pipe(
+    const members = membersRef.get().pipe(
       map((results: firebase.firestore.QuerySnapshot) => {
         const membersObjs = [];
         if (!results.empty) {
@@ -88,7 +101,7 @@ export class FirestoreService {
       })
     );
 
-    const plusOnes = from(plusOnesRef.get()).pipe(
+    const plusOnes = plusOnesRef.get().pipe(
       map((results: firebase.firestore.QuerySnapshot) => {
         const plusOneObjs = [];
         if (!results.empty) {
@@ -183,7 +196,8 @@ export class FirestoreService {
   }
 
   getNumberOfResponses(): Observable<number> {
-    const respondedHouseholds = this.firestore.collection(HOUSEHOLDS).where('response', '==', true);
+    const respondedHouseholds = this.firestore.collection(HOUSEHOLDS, ref =>
+      ref.where('response', '==', true));
     return from(respondedHouseholds.get()).pipe(
       map((results: firebase.firestore.QuerySnapshot) => {
         return results.empty ? 0 : results.size;
@@ -203,7 +217,8 @@ export class FirestoreService {
   }
 
   getAccomodationStats(): Observable<AccommodationStatistics> {
-    const respondedHouseholds = this.firestore.collection(HOUSEHOLDS).where('response', '==', true);
+    const respondedHouseholds = this.firestore.collection(HOUSEHOLDS, ref =>
+      ref.where('response', '==', true));
     return from(respondedHouseholds.get()).pipe(
       map((results: firebase.firestore.QuerySnapshot) => {
         const stats = {

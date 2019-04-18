@@ -12,9 +12,8 @@ export class IsAdmin implements CanActivate {
     const user = this.authenticationService.user;
     return user.pipe(
       map(user => {
-        // TODO: figure out the issue with switchMapping for the admin user in firestore
-        const admins = ['mikegeeraert@gmail.com', 'trp545@gmail.com'];
-        return admins.some(admin => admin === user.email)|| this.router.createUrlTree(['our-story'])})
+        // Assumption is that only users with email/password logins are admins
+        return !!user.email || this.router.createUrlTree(['our-story'])})
     )
   }
 }
