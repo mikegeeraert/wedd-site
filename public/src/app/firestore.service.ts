@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import {combineLatest, forkJoin, from, merge, Observable, of} from 'rxjs';
+import {combineLatest, forkJoin, from, Observable, of} from 'rxjs';
 import { Accommodation, Household } from './household';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import { Member, MemberType, PlusOne } from './member';
 import { AccommodationStatistics, ResponseStatistics } from './statistics';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;
 import {Admin} from './admin';
-import DocumentData = firebase.firestore.DocumentData;
 
 const HOUSEHOLDS = 'households';
 const GUESTS = 'guests';
@@ -19,13 +18,8 @@ const ADMINS = 'admins';
   providedIn: 'root'
 })
 export class FirestoreService {
-  // firestore: Firestore;
 
   constructor(private firestore: AngularFirestore) { }
-
-  // initialize (db: Firestore) {
-  //   this.firestore = db;
-  // }
 
   getHouseholdIdForEmail(email: string): Observable<string | null> {
     const guestsRef = this.firestore.collection(GUESTS, ref => ref.where('email', '==', email).limit(1));
@@ -42,35 +36,34 @@ export class FirestoreService {
 
   listMembers(searchTerm: string): Observable<Member[]> {
     // Build Members query
-    let membersRef: Observable<firebase.firestore.QuerySnapshot>;
+    let members: Observable<Member[]>;
 
     // if no search term, return all guests
     if (searchTerm == '') {
-      membersRef = this.firestore.collection(GUESTS,
+      members = this.firestore.collection(GUESTS,
         ref => ref.where('type', '==', MemberType.invitee.valueOf())
-      ).get();
+      ).get().pipe(
+        map(results => this.fillMembersList(results))
+      );
     }
     // if search term, return guests with full match on first or last name
     else {
       const firstMatch = this.firestore.collection(GUESTS, ref => ref.
       where('type', '==', MemberType.invitee.valueOf()).
       where('first', '==', searchTerm));
+
       const lastMatch = this.firestore.collection(GUESTS, ref => ref.
       where('type', '==', MemberType.invitee.valueOf()).
       where('last', '==', searchTerm));
-      membersRef = merge(firstMatch.get(), lastMatch.get());
+      members = combineLatest(lastMatch.get(), firstMatch.get()).pipe(
+        map(([lastMatch, firstMatch]) => {
+          const results = this.fillMembersList(lastMatch);
+          results.push(...this.fillMembersList(firstMatch));
+          return results
+        })
+      );
     }
-
-
-    // Get results, build/sort Member list
-    return membersRef.pipe(
-      map((results: firebase.firestore.QuerySnapshot) => {
-        const membersObjs = [];
-        if (!results.empty) {
-          results.forEach(result => membersObjs.push(new Member(result.id, result.data())));
-        }
-        return membersObjs;
-      }),
+    return members.pipe(
       //Sort alphabetically by last name
       map((membersObjs: Member[]) => membersObjs.sort((a, b) => a.last.localeCompare(b.last)))
     );
@@ -279,4 +272,13 @@ export class FirestoreService {
       })
     )
   }
+
+  fillMembersList(querySnapshot: firebase.firestore.QuerySnapshot): Member[] {
+    const members = [];
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach(result => members.push(new Member(result.id, result.data())));
+    }
+    return members;
+  }
+
 }

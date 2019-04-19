@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../firestore.service';
 import { Member } from '../../member';
 import {BehaviorSubject, Observable, timer} from 'rxjs';
-import {debounce, switchMap} from 'rxjs/internal/operators';
+import {debounce, switchMap} from 'rxjs/operators';
 
 
 @Component({
@@ -15,18 +15,20 @@ export class GuestListComponent implements OnInit {
   dataSource: Observable<Member[]>;
   displayedColumns: string[] = ['first', 'last', 'coming'];
 
-  searchTerm = new BehaviorSubject('');
+  searchTerm$$ = new BehaviorSubject('');
+  searchTerm: string;
 
 
   constructor(private firestoreService: FirestoreService) { }
 
   ngOnInit() {
-    // TODO: hook up the search term
-    this.dataSource = this.firestoreService.listMembers('');
+    this.dataSource = this.searchTerm$$.pipe(
+      switchMap(searchTerm => this.firestoreService.listMembers(searchTerm)),
+    )
   }
 
-  search(term: string) {
-    this.searchTerm.next(term)
+  search() {
+    this.searchTerm$$.next(this.searchTerm)
   }
 
 }
