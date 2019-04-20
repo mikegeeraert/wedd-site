@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {
@@ -44,6 +44,7 @@ import { InfoComponent } from './info/info.component';
 import { CanViewRSVP } from './guards';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { environment } from '../environments/environment';
+import { MountainscapePageComponent } from './mountainscape-page/mountainscape-page.component';
 
 const routes: Routes = [
   {path: 'our-story', component: OurStoryComponent},
@@ -69,6 +70,7 @@ const routes: Routes = [
     ResponseStatisticsComponent,
     InfoComponent,
     AuthenticateComponent,
+    MountainscapePageComponent,
   ],
   imports: [
 
@@ -121,6 +123,7 @@ const routes: Routes = [
     FormBuilder,
     CanViewRSVP,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class AppModule { }

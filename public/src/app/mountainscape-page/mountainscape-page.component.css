@@ -1,3 +1,4 @@
+
 @font-face {
   font-family: NeoRetro;
   src: url("./../../assets/NEORETRO.woff");
@@ -48,7 +49,7 @@
   flex-direction: column;
 }
 
-.name-text {
+.subtitle-text {
   text-align: center;
   color: rgb(242,243,246);
   font-family: "LucidaBrite";
@@ -119,7 +120,7 @@
 }
 
 @media screen and (max-width: 400px) {
-  .name-text {
+  .subtitle-text {
     font-size: 20px;
   }
   .title-text {
@@ -128,7 +129,7 @@
 }
 
 @media screen and (max-width: 1000px) and (min-width: 401px) {
-  .name-text {
+  .subtitle-text {
     font-size: 40px;
   }
   .title-text {
