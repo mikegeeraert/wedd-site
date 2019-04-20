@@ -4,7 +4,7 @@ import { Household } from '../household';
 import { FirestoreService } from '../firestore.service';
 import { Observable, of } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
-import { catchError, tap } from 'rxjs/internal/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 
 enum State {
@@ -53,7 +53,7 @@ export class RsvpFormComponent implements OnInit {
     );
   }
 
-  saveForm(household: Household) {
+  onSubmit(household: Household) {
     // TODO: Refactor this method - listen to the results of updating members and plus ones - forkjoin results
     this.storage.updateHouseHold(household).subscribe(
       () => {
@@ -64,7 +64,7 @@ export class RsvpFormComponent implements OnInit {
         this.router.navigateByUrl('/');
       },
       (/*error*/) => {
-        this.snackBar.open(`There was an issue. Try again a bunch or just text one of us.`, 'Error',
+        this.snackBar.open(`There was an issue. Try again or just message Michael or Taylor.`, 'Error',
           {
             duration: 3000,
           });
@@ -79,5 +79,6 @@ export class RsvpFormComponent implements OnInit {
     // Filter members bringing plus ones and flatten list
     const plusOnes = household.members.filter(member => member.bringingPlusOne && !!member.plusOne).map(member => member.plusOne);
     this.storage.createOrUpdatePlusOnes(household.id, plusOnes);
+    this.router.navigate(['info']);
   }
 }

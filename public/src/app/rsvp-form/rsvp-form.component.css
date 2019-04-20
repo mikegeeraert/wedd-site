@@ -1,8 +1,18 @@
-mat-card {
-  margin: 0 20px;
+.title-card {
+  margin: 20px;
 }
-
 .radio-button {
   margin: 5px;
 }
 
+.flex-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form {
+  max-width: 1000px;
+}

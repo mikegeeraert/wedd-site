@@ -15,6 +15,8 @@ export class StepPreferencesComponent {
   @Input() dietaryRestrictions: string;
   @Output() dietaryRestrictionsChange = new EventEmitter<string>();
 
+  @Output() valid = new EventEmitter<boolean>();
+
   drinkOptions: {text: string, value: string}[] = [
     {text: 'Tequila', value: 'tequila'},
     {text: 'Whiskey', value: 'whiskey'},

@@ -1,1 +1,8 @@
+.plus-one-container {
+  display: flex;
+  flex-direction: column;
+}
 
+.name-input {
+  margin: 20px;
+}

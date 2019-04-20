@@ -136,7 +136,7 @@ export class FirestoreService {
     const result = householdRef.update({
       name: household.name,
       greeting: household.greeting || null,
-      accommodation: household.accommodation,
+      accommodation: household.accommodation || null,
       songs: household.songs || [],
       drinks: household.drinks || [],
       dietaryRestrictions: household.dietaryRestrictions || [],
