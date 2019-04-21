@@ -51,8 +51,8 @@ export class MountainscapePageComponent implements OnInit, OnDestroy {
     this.layers.forEach(layer => {
       const depth = parseInt(layer.nativeElement.attributes.dataDepth.value);
       let scrollAmount = this.container.nativeElement.offsetParent.scrollTop;
-      scrollAmount = scrollAmount/10;
-      const movement = -(scrollAmount * depth);
+      scrollAmount = scrollAmount;
+      const movement = (scrollAmount / depth);
       const translate3d = `translate3d(0, ${movement}px, 0)`;
       this.renderer.setStyle(layer.nativeElement, '-webkit-transform', translate3d);
       this.renderer.setStyle(layer.nativeElement, '-moz-transform', translate3d);

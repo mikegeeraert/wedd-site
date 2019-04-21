@@ -1,10 +1,11 @@
 <div class="sky" #container>
   <div class="airspace"></div>
   <div class="mountain" dataDepth=2 #layer></div>
-  <div class="tree-one" dataDepth=6 #layer></div>
-  <div class="tree-border" dataDepth=15 #layer>
+  <div class="tree-one" dataDepth=3 #layer></div>
+  <div class="tree-border" dataDepth=4 #layer>
     <div class="tree-two"></div>
     <div class="undergrowth">
+      <div class="all-text">
         <div class="subtitle-text">
           <ng-content select="ms-pretitle"></ng-content>
         </div>
@@ -14,9 +15,10 @@
         <div class="subtitle-text">
           <ng-content select="ms-subtitle"></ng-content>
         </div>
+      </div>
     </div>
   </div>
-  <div class="content" dataDepth=20 #layer>
+  <div class="content">
     <div class="mountain-two"></div>
     <div class="content-background">
       <ng-content select="ms-content"></ng-content>
