@@ -1,74 +1,81 @@
-<app-response-statistics></app-response-statistics>
+<mountainscape-page>
+  <ms-title>Info</ms-title>
+  <ms-content>
+    <app-response-statistics></app-response-statistics>
+    <div class="history-tl-container">
+      <ul class="tl">
+        <li class="tl-item" ng-repeat="item in retailer_history">
+          <div class="timestamp">
+            September 14th, 2019<br> 1:00 PM
+          </div>
+          <div class="item-title">We get married!</div>
+          <div class="item-detail">(Ceremony at St. Mary's Parish, Cochrane)</div>
+        </li>
+        <li class="tl-item" ng-repeat="item in retailer_history">
+          <div class="timestamp">
+            September 14th, 2019<br> 2:00 PM
+          </div>
+          <div class="item-title">Intermission</div>
+          <div class="item-detail">(Head back to the campsite, explore Bragg Creek, play games at the reception venue, or do whatever you enjoy while we pose awkwardly for photos)</div>
+        </li>
+        <li class="tl-item" ng-repeat="item in retailer_history">
+          <div class="timestamp">
+            September 14th, 2019<br> 4:00 PM
+          </div>
+          <div class="item-title">Games, Snacks, and Drinks</div>
+          <div class="item-detail">(Cocktail hour at the Bragg Creek Community Center, Bragg Creek)</div>
+        </li>
+        <li class="tl-item" ng-repeat="item in retailer_history">
+          <div class="timestamp">
+            September 14th, 2019<br> 4:30 PM
+          </div>
+          <div class="item-title">Let's get this party started</div>
+          <div class="item-detail">(Grand entrance, dinner, toasts, and dancing!)</div>
+        </li>
+        <li class="tl-item" ng-repeat="item in retailer_history">
+          <div class="timestamp">
+            September 15th, 2019<br> 12:30 AM
+          </div>
+          <div class="item-title">Closing Time</div>
+          <div class="item-detail">(You don't have to go home, but you can't stay here.... we recommend the campground!)</div>
+        </li>
+      </ul>
 
-<div class="history-tl-container">
-  <ul class="tl">
-    <li class="tl-item" ng-repeat="item in retailer_history">
-      <div class="timestamp">
-        September 14th, 2019<br> 1:00 PM
-      </div>
-      <div class="item-title">We get married!</div>
-      <div class="item-detail">(Ceremony at St. Mary's Parish, Cochrane)</div>
-    </li>
-    <li class="tl-item" ng-repeat="item in retailer_history">
-      <div class="timestamp">
-        September 14th, 2019<br> 2:00 PM
-      </div>
-      <div class="item-title">Intermission</div>
-      <div class="item-detail">(Head back to the campsite, explore Bragg Creek, play games at the reception venue, or do whatever you enjoy while we pose awkwardly for photos)</div>
-    </li>
-    <li class="tl-item" ng-repeat="item in retailer_history">
-      <div class="timestamp">
-        September 14th, 2019<br> 4:00 PM
-      </div>
-      <div class="item-title">Games, Snacks, and Drinks</div>
-      <div class="item-detail">(Cocktail hour at the Bragg Creek Community Center, Bragg Creek)</div>
-    </li>
-    <li class="tl-item" ng-repeat="item in retailer_history">
-      <div class="timestamp">
-        September 14th, 2019<br> 4:30 PM
-      </div>
-      <div class="item-title">Let's get this party started</div>
-      <div class="item-detail">(Grand entrance, dinner, toasts, and dancing!)</div>
-    </li>
-    <li class="tl-item" ng-repeat="item in retailer_history">
-      <div class="timestamp">
-        September 15th, 2019<br> 12:30 AM
-      </div>
-      <div class="item-title">Closing Time</div>
-      <div class="item-detail">(You don't have to go home, but you can't stay here.... we recommend the campground!)</div>
-    </li>
-  </ul>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <b> Where should I stay? </b>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <p> We recommend continuing to celebrate with us at the River Cove Group campground!</p>
+
+          Bring your trailer or tent and stay Friday and Saturday night if you like.
+
+          <h1>{{ title }}</h1>
+
+          <agm-map [latitude]="lat" [longitude]="lng">
+            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+          </agm-map>
+          If you're a little more high class there are hotels nearby or you could battle the other guests for the best Airbnb or VRBO.
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <b> What are my transportation options? </b>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p> If you are driving yourself please ensure you do not park in the Bragg Creek Community Centre parking lot overnight - there should be street parking! </p>
+          <p> If you are staying at the campground and would like to make the most of the night you can go back to your elementary school days and take a chartered school bus to the reception and back to the campsite at the end of the night</p>
+          <p> If you'd rather go home on your own accord but will be too silly to drive we recommended calling Taxi 4 U</p>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </ms-content>
+</mountainscape-page>
 
 
-<mat-accordion>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <b> Where should I stay? </b>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-
-    <p> We recommend continuing to celebrate with us at the River Cove Group campground!</p>
-
-      Bring your trailer or tent and stay Friday and Saturday night if you like.
-
-      <h1>{{ title }}</h1>
-
-      <agm-map [latitude]="lat" [longitude]="lng">
-        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-      </agm-map>
-      If you're a little more high class there are hotels nearby or you could battle the other guests for the best Airbnb or VRBO.
-  </mat-expansion-panel>
-  <mat-expansion-panel (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <b> What are my transportation options? </b>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <p> If you are driving yourself please ensure you do not park in the Bragg Creek Community Centre parking lot overnight - there should be street parking! </p>
-    <p> If you are staying at the campground and would like to make the most of the night you can go back to your elementary school days and take a chartered school bus to the reception and back to the campsite at the end of the night</p>
-    <p> If you'd rather go home on your own accord but will be too silly to drive we recommended calling Taxi 4 U</p>
-  </mat-expansion-panel>
-</mat-accordion>
 

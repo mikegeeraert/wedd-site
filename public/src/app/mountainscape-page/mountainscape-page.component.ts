@@ -28,9 +28,6 @@ export class MountainscapePageComponent implements OnInit, OnDestroy {
   @ViewChild('container') container: ElementRef;
   @ViewChildren('layer') layers: QueryList<ElementRef>;
 
-  @Input() reverseTitleOrder: boolean; // reverses the order of title and subtitle
-
-
   userHouseholdId$: Observable<string | null>;
 
   scrollSubscription: Subscription;

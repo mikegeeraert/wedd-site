@@ -5,28 +5,21 @@
   <div class="tree-border" dataDepth=15 #layer>
     <div class="tree-two"></div>
     <div class="undergrowth">
-      <ng-container *ngIf="reverseTitleOrder; else default">
         <div class="subtitle-text">
-          <ng-content select="mountainscape-subtitle"></ng-content>
+          <ng-content select="ms-pretitle"></ng-content>
         </div>
         <div class="title-text">
-          <ng-content select="mountainscape-title"></ng-content>
-        </div>
-      </ng-container>
-      <ng-template #default>
-        <div class="title-text">
-          <ng-content select="mountainscape-title"></ng-content>
+          <ng-content select="ms-title"></ng-content>
         </div>
         <div class="subtitle-text">
-          <ng-content select="mountainscape-subtitle"></ng-content>
+          <ng-content select="ms-subtitle"></ng-content>
         </div>
-      </ng-template>
     </div>
   </div>
   <div class="content" dataDepth=20 #layer>
     <div class="mountain-two"></div>
     <div class="content-background">
-      <ng-content select="mountainscape-content"></ng-content>
+      <ng-content select="ms-content"></ng-content>
     </div>
     <div class="footer">
     </div>
