@@ -1,21 +1,20 @@
-<mat-list>
-  <ng-container *ngFor="let member of members">
-    <mat-list-item *ngIf="member.allowedPlusOne">
-        <mat-checkbox
-          name="isComing"
-          [(ngModel)]=member.bringingPlusOne
-          (change)="togglePlusOne($event, member)"
-          [disabled]="!member.isComing">
-          {{member.first + ' ' + member.last}}
-        </mat-checkbox>
-        <div *ngIf="member.bringingPlusOne && member.isComing && !!member.plusOne">
-          <mat-form-field class="name-input">
-            <input matInput placeholder="First" [(ngModel)]="member.plusOne.first" (change)="membersChange.emit(members)" name="first">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Last" [(ngModel)]="member.plusOne.last" (change)="membersChange.emit(members)" name="last">
-          </mat-form-field>
-        </div>
-    </mat-list-item>
-  </ng-container>
-</mat-list>
+<ng-container *ngFor="let member of members">
+  <div *ngIf="member.allowedPlusOne">
+      <mat-checkbox
+        matLine
+        name="isComing"
+        [(ngModel)]=member.bringingPlusOne
+        (change)="togglePlusOne($event, member)"
+        [disabled]="!member.isComing">
+        {{member.first + ' ' + member.last}}
+      </mat-checkbox>
+      <div matLine *ngIf="member.bringingPlusOne && member.isComing && !!member.plusOne">
+        <mat-form-field class="name-input">
+          <input matInput placeholder="First" [(ngModel)]="member.plusOne.first" (change)="membersChange.emit(members)" name="first">
+        </mat-form-field>
+        <mat-form-field class="name-input">
+          <input matInput placeholder="Last" [(ngModel)]="member.plusOne.last" (change)="membersChange.emit(members)" name="last">
+        </mat-form-field>
+      </div>
+  </div>
+</ng-container>

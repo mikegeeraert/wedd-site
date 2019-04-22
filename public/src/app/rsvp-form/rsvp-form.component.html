@@ -1,53 +1,65 @@
 <mountainscape-page>
   <ms-title>RSVP</ms-title>
   <ms-subtitle *ngIf="household | async as h">{{h.greeting}}</ms-subtitle>
-  <ms-content>
-    <div class="flex-container">
+  <ms-content class="flex-container">
       <ng-container *ngIf="household | async as h; else loadingState">
         <form #rsvpForm="ngForm" class="form">
           <mat-vertical-stepper [linear]="false" #stepper>
             <mat-step>
+              <ng-template matStepLabel>Who's able to make it?</ng-template>
               <mat-card>
-                <ng-template matStepLabel>Who's able to make it?</ng-template>
-                <app-step-attendance [(members)]="h.members"></app-step-attendance>
+                <mat-card-content>
+                  <app-step-attendance [(members)]="h.members"></app-step-attendance>
+                </mat-card-content>
                 <mat-card-actions>
                   <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext>Next</button>
+                  <button mat-raised-button color="primary" matStepperNext>Next</button>
                 </mat-card-actions>
               </mat-card>
             </mat-step>
             <mat-step *ngIf="h.allowedPlusOnes()">
+              <ng-template matStepLabel>Anyone Bringing a Plus One?</ng-template>
               <mat-card>
-                <ng-template matStepLabel>Anyone Bringing a Plus One?</ng-template>
-                <app-step-plus-ones [(members)]="h.members"></app-step-plus-ones>
+                <mat-card-content>
+                  <app-step-plus-ones [(members)]="h.members"></app-step-plus-ones>
+                </mat-card-content>
                 <mat-card-actions>
                   <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext>Next</button>
+                  <button mat-raised-button color="primary" matStepperNext>Next</button>
                 </mat-card-actions>
               </mat-card>
             </mat-step>
             <mat-step>
+              <ng-template matStepLabel>Tell us some stuff we don't know</ng-template>
               <mat-card>
-                <ng-template matStepLabel>Tell us some stuff we don't know</ng-template>
-                <app-step-preferences
-                  [(accommodation)]="h.accommodation"
-                  [(songs)]="h.songs"
-                  [(drinks)]="h.drinks"
-                  [(dietaryRestrictions)]="h.dietaryRestrictions"
-                ></app-step-preferences>
+                <mat-card-content>
+                  <app-step-preferences
+                    [(accommodation)]="h.accommodation"
+                    [(songs)]="h.songs"
+                    [(drinks)]="h.drinks"
+                    [(dietaryRestrictions)]="h.dietaryRestrictions"
+                  ></app-step-preferences>
+                </mat-card-content>
                 <mat-card-actions>
                   <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext>Next</button>
+                  <button mat-raised-button color="primary" matStepperNext>Next</button>
                 </mat-card-actions>
               </mat-card>
             </mat-step>
             <mat-step>
+              <ng-template matStepLabel>All Done!</ng-template>
               <mat-card>
-                <ng-template matStepLabel>Done</ng-template>
-                You are now done. Be Free.
+                <mat-card-content>
+                  Thanks for helping us out! If anything changes, you can come back to here and change your answers later.
+                  <br>
+                  Can't wait to see you there!
+                  <br>
+                  <br>
+                  - Michael & Taylor
+                </mat-card-content>
                 <mat-card-actions>
                   <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button type="submit" (click)="onSubmit(h)">Save</button>
+                  <button mat-raised-button color="primary" type="submit" (click)="onSubmit(h)">Save</button>
                 </mat-card-actions>
               </mat-card>
             </mat-step>
@@ -66,6 +78,5 @@
           </ng-container>
         </div>
       </ng-template>
-    </div>
   </ms-content>
 </mountainscape-page>
