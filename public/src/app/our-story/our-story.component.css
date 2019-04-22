@@ -1,78 +1,7 @@
-@font-face {
-  font-family: NeoRetro;
-  src: url("./../../assets/NEORETRO.woff");
-}
-
-@font-face {
-  font-family: LucidaBrite;
-  src: url("./../../assets/LBRITE.TTF");
-}
-.mountain {
-  width: -webkit-fill-available;
-  height: 300px;
-  position: absolute;
-  background-image: url("./../../assets/Mountain1.png");
-  background-repeat: repeat-x;
-  background-position-x: center;
-}
-
-.tree-one {
-  width: -webkit-fill-available;
-  height: 300px;
-  position: absolute;
-  background-repeat: repeat-x;
-  background-position-x: center;
-  background-image: url("./../../assets/Treeline1.png");
-}
-.tree-border {
-  position:relative;
-  top: 50px;
-}
-.tree-two {
-  width: 100%;
-  height: 300px;
-  background-position-x: center;
-  background-repeat: repeat-x;
-  background-image: url("./../../assets/Treeline2.png");
-}
-
-.undergrowth {
-  position: relative;
-  top:0px;
-  height: 500px;
-  width: 100%;
-  background-position-x: center;
-  background-color: rgb(55, 62, 40);
+ms-content {
   display: flex;
-  align-items: center;
   flex-direction: column;
-}
-
-.name-text {
-  text-align: center;
-  color: rgb(242,243,246);
-  font-family: "LucidaBrite";
-  font-size: 50px;
-}
-.title-text {
-  text-align: center;
-  color: rgb(242,243,246);
-  font-family: "NeoRetro";
-  font-size: 150px;
-}
-
-.content-background {
-  background-color: rgba(180,204,212);
-  min-height: 200px;
-  width:100%;
-  position: relative;
-  height: 500px;
   width: 100%;
-  top: -2px;
-  background-position-x: center;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
 }
 
 .footer {
@@ -80,65 +9,8 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  top: -2px;
   width: 100%;
   height: 100px;
   background-color: rgba(32, 28, 26, 1);
-}
-
-.mountain-two {
-  width: -webkit-fill-available;
-  height: 300px;
-  background-position-x: center;
-  background-image: url("./../../assets/Mountain2.png");
-  background-repeat: repeat-x;
-}
-.content {
-  position: absolute;
-  top:450px;
-  min-height: 400px;
-  width: 100%;
-}
-
-.some-random-people {
-  position: absolute;
-  top:1500px;
-  height: 600px;
-  width: 900px;
-  background-image: url("./../../assets/engaged.png");
-}
-.sky {
-  background-color: rgb(141, 183, 201);
-  width: 100%;
-  height: 100%;
-}
-
-.airspace {
-  width: 100%;
-  height: 20px;
-}
-
-@media screen and (max-width: 400px) {
-  .name-text {
-    font-size: 20px;
-  }
-  .title-text {
-    font-size: 60px;
-  }
-}
-
-@media screen and (max-width: 1000px) and (min-width: 401px) {
-  .name-text {
-    font-size: 40px;
-  }
-  .title-text {
-    font-size: 100px;
-  }
-}
-
-@media screen and (max-width: 700px) and (min-width: 401px) {
-  .title-text {
-    font-size: 80px;
-  }
 }
 
