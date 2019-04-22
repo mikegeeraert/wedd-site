@@ -4,7 +4,7 @@
   <ms-content class="flex-container">
       <ng-container *ngIf="household | async as h; else loadingState">
         <form #rsvpForm="ngForm" class="form">
-          <mat-vertical-stepper [linear]="false" #stepper>
+          <mat-vertical-stepper [linear]="false" class="" #stepper>
             <mat-step>
               <ng-template matStepLabel>Who's able to make it?</ng-template>
               <mat-card>
