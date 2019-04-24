@@ -91,13 +91,6 @@
   width: 100%;
 }
 
-.some-random-people {
-  position: absolute;
-  top:1500px;
-  height: 600px;
-  width: 900px;
-  background-image: url("./../../assets/engaged.png");
-}
 .sky {
   background-color: rgb(141, 183, 201);
   width: 100%;
