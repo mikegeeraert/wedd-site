@@ -13,6 +13,6 @@
            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
            [matChipInputAddOnBlur]=true
            (matChipInputTokenEnd)="add($event)"
-           (blur)="_onTouched()">
+           (blur)="_onTouched($event)">
   </mat-chip-list>
 </mat-form-field>

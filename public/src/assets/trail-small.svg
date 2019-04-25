@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg"
-     viewBox="35 0 600 1090">
+     viewBox="37 0 360 950">
 
   <path
         fill="none" stroke="white" stroke-width="5" stroke-dasharray="14" stroke-linecap="round"
@@ -25,6 +25,7 @@
              138.00,1067.00 145.00,1081.00 145.00,1081.00" />
   <circle cx="140" cy="90" r="10" fill="rgb(55, 62, 40)"/>
   <circle cx="140" cy="185" r="10" fill="rgb(55, 62, 40)"/>
+  <circle cx="140" cy="270" r="10" fill="rgb(55, 62, 40)"/>
   <circle cx="137" cy="380" r="10" fill="rgb(55, 62, 40)"/>
   <circle cx="145" cy="580" r="10" fill="rgb(55, 62, 40)"/>
   <circle cx="143" cy="700" r="10" fill="rgb(55, 62, 40)"/>

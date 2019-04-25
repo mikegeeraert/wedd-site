@@ -4,42 +4,221 @@ ms-content {
   width: 100%;
 }
 
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  width: 100%;
-  height: 100px;
-  background-color: rgba(32, 28, 26, 1);
-}
-
-.timeline-container {
-}
-
 .timeline {
   position: relative;
-  top: -100px;
+  top: -120px;
   width: 100%;
   height: 1500px;
-  background-image: url("./../../assets/trail.svg");
+  background-image: url("./../../assets/trail-small.svg");
   background-repeat: no-repeat;
   background-position-x: center;
-  display: flex;
-  justify-content: center;
+}
+
+.timeline-event {
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  max-width: 310px;
+  left: 70px;
+}
+
+.event-description {
+  font-family: "Lao MN";
+  font-size: 20px;
+}
+
+.event-date {
+  font-family: "Lao MN";
+  font-size: 27px;
+}
+
+#e-one {
+  top: 115px;
+}
+
+#e-two {
+  top: 180px;
+}
+
+#e-three {
+  top: 210px;
+}
+
+#e-four {
+  top: 305px;
+}
+
+#e-five {
+  top: 535px;
+}
+
+#e-six {
+  top: 590px;
+  z-index: 20;
+}
+
+.granola-bar {
+  color: #424245
+}
+
+.backdrop-filler {
+  width: 100%;
+  height: 150px;
+}
+
+.footer {
+  position: absolute;
+  top: 850px;
 }
 
 .engagement-container {
-  position: relative;
-  top: -400px;
   width: 100%;
   height: auto;
 }
 
 .engaged {
+  position: relative;
+  top: 4px;
   width: 100%;
 }
 
-.timeline-item {
+.footer-bar {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100px;
+  background-color: rgba(32, 28, 26, 1);
+}
+
+
+@media screen and (max-width: 1050px) {
+  .timeline {
+    height: 1300px;
+  }
+  .footer {
+    top: 750px;
+  }
+  .backdrop-filler {
+    height: 100px;
+  }
+  .timeline-event {
+    left: 80px;
+  }
+  #e-one {
+    top: 90px;
+  }
+
+  #e-two {
+    top: 130px;
+  }
+
+  #e-three {
+    top: 150px;
+  }
+
+  #e-four {
+    top: 220px;
+  }
+
+  #e-five {
+    top: 400px;
+  }
+
+  #e-six {
+    top: 430px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .timeline {
+    height: 1100px;
+    top: -105px;
+  }
+  .footer {
+    top: 750px;
+  }
+  .backdrop-filler {
+    height: 50px;
+  }
+  .timeline-event {
+    left: 90px;
+    max-width: 300px;
+  }
+  .event-description{
+    font-size: 17px;
+  }
+  .event-date {
+    font-size: 22px;
+  }
+  #e-one {
+    top: 75px;
+  }
+
+  #e-two {
+    top: 100px;
+  }
+
+  #e-three {
+    top: 120px;
+  }
+
+  #e-four {
+    top: 180px;
+  }
+
+  #e-five {
+    top: 350px;
+  }
+
+  #e-six {
+    top: 400px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .timeline {
+    height: 800px;
+    top: -105px;
+
+  }
+  .footer {
+    top: 550px;
+  }
+  .backdrop-filler {
+    height: 0px;
+  }
+  .timeline-event {
+    left: 60px;
+    max-width: 200px;
+  }
+  .event-description{
+    font-size: 15px;
+  }
+  .event-date {
+    font-size: 19px;
+  }
+  #e-one {
+    top: 25px;
+  }
+
+  #e-two {
+    top: 45px;
+  }
+
+  #e-three {
+    top: 70px;
+  }
+
+  #e-four {
+    top: 90px;
+  }
+
+  #e-five {
+    top: 190px;
+  }
+
+  #e-six {
+    top: 220px;
+  }
 }

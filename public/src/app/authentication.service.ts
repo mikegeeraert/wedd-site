@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {combineLatest, from, Observable, of, ReplaySubject} from 'rxjs';
 import {fromPromise} from 'rxjs/internal/observable/fromPromise';
 import * as firebase from 'firebase';
-import {catchError, map, mapTo} from 'rxjs/internal/operators';
+import {catchError, map, mapTo, tap} from 'rxjs/internal/operators';
 import {FirestoreService} from './firestore.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireFunctions } from '@angular/fire/functions';
@@ -20,7 +20,7 @@ export class AuthenticationService {
   generateAuthToken(emailAddress: string, householdId: string): Observable<string | null> {
     const authFunction = this.functions.httpsCallable('authenticateWithEmail');
     return authFunction({emailAddress: emailAddress, householdId: householdId}).pipe(
-      map(result => result.data.token),
+      map(result => result.token),
       catchError(error => {
         console.error(`Failed to authenticate - ${error.toString()}`);
         return of(null);

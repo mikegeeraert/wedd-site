@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./step-preferences.component.css']
 })
 export class StepPreferencesComponent {
-  @Input() accommodation: string[];
+  @Input() accommodation: string;
   @Output() accommodationChange = new EventEmitter<string>();
   @Input() songs: string[];
   @Output() songsChange = new EventEmitter<string[]>();

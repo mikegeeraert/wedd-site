@@ -2,7 +2,7 @@
   <mat-card class="guest-table">
     <mat-form-field class="full-width">
       <input matInput type="text" placeholder="Search for Someone" (keyup)=search() [(ngModel)]="searchTerm">
-      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="searchTerm=''">
+      <button mat-button *ngIf="searchTerm" matSuffix mat-icon-button aria-label="Clear" (click)="searchTerm=''">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
