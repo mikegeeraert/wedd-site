@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Lao MN";
+  src: url("./../../assets/LaoMN.TTC");
+}
+
 ms-content {
   display: flex;
   flex-direction: column;
@@ -9,8 +14,7 @@ ms-content {
   top: -120px;
   width: 100%;
   height: 1500px;
-  background-image: url("./../../assets/trail-small.svg");
-  background-repeat: no-repeat;
+  background: url("./../../assets/trail.svg") no-repeat;
   background-position-x: center;
 }
 
