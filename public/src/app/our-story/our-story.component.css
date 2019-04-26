@@ -16,6 +16,8 @@ ms-content {
   height: 1500px;
   background: url("./../../assets/trail.svg") no-repeat;
   background-position-x: center;
+  margin-right: 50px;
+  right: 90px;
 }
 
 .timeline-event {
@@ -138,6 +140,7 @@ ms-content {
   .timeline {
     height: 1100px;
     top: -105px;
+    right: 0px;
   }
   .footer {
     top: 750px;

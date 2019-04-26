@@ -56,7 +56,11 @@
     <div class="backdrop-filler"></div>
     <div class="footer">
       <div class="engagement-container">
-        <img class="engaged" src="../../assets/engaged-full.png">
+        <picture>
+          <source media="(max-width: 480px)" srcset="../../assets/engaged-small.png">
+          <source media="(max-width: 900px)" srcset="../../assets/engaged-medium.png">
+          <img class="engaged" src="../../assets/engaged-large.png">
+        </picture>
       </div>
       <div class="footer-bar">
       </div>
