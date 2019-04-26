@@ -82,7 +82,7 @@
   width: -webkit-fill-available;
   height: 300px;
   background-position-x: center;
-  background-image: url("./../../assets/Mountain2.png");
+  background-image: url("./../../assets/mountain-silhouette-shadow.png");
   background-repeat: repeat-x;
 }
 .content {
