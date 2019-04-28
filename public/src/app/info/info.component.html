@@ -11,9 +11,9 @@
         </div>
         <div class="timeline-content">
           <h2 class="timeline-content-date">Ceremony<br>1:00 PM</h2>
-          <p>
+          <mat-card class="timeline-content-details">
             Ceremony at St. Mary's Parish, Cochrane
-          </p>
+          </mat-card>
         </div>
       </div>
 
@@ -23,9 +23,9 @@
         </div>
         <div class="timeline-content right">
           <h2 class="timeline-content-date">Intermission<br>2:00 PM</h2>
-          <p>
+          <mat-card class="timeline-content-details">
             Head back to the campsite, explore Bragg Creek, play games at the reception venue, or do whatever you enjoy while we pose awkwardly for photos
-          </p>
+          </mat-card>
         </div>
       </div>
 
@@ -34,10 +34,10 @@
           <img src="../../assets/beer.svg" width="30px" height="30px"/>
         </div>
         <div class="timeline-content">
-          <h2 class="timeline-content-date">Games, Snacks, and Drinks<br>4:00 PM</h2>
-          <p>
-            Cocktail hour at the Bragg Creek Community Center, Bragg Creek
-          </p>
+          <h2 class="timeline-content-date">Cocktail Hour<br>4:00 PM</h2>
+          <mat-card class="timeline-content-details">
+            Games, snacks and drinks at the Bragg Creek Community Center, Bragg Creek
+          </mat-card>
         </div>
       </div>
 
@@ -47,9 +47,9 @@
         </div>
         <div class="timeline-content right">
           <h2 class="timeline-content-date">Reception<br>4:30 PM</h2>
-          <p>
+          <mat-card class="timeline-content-details">
             Lets get this party started! Grand entrance, dinner, toasts, and dancing
-          </p>
+          </mat-card>
         </div>
       </div>
 
@@ -59,9 +59,9 @@
         </div>
         <div class="timeline-content">
           <h2 class="timeline-content-date">Closing Time<br>12:00 AM</h2>
-          <p>
+          <mat-card class="timeline-content-details">
             You don't have to go home, but you can't stay here.... we recommend the campground!
-          </p>
+          </mat-card>
         </div>
       </div>
 
@@ -75,17 +75,7 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <div class="directions-container">
-            <h3>River Cove Campground</h3>
-            <div class="location">
-              <p class="address">
-                <b>Address</b><br>
-                Kananaskis, AB T0L 0K0
-              </p>
-              <agm-map class="map" [latitude]="lat" [longitude]="lng" [zoom]="13" [gestureHandling]="'none'" [scaleControl]="false" [rotateControl]="false" [zoomControl]="false" [streetViewControl]="false">
-                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-              </agm-map>
-            </div>
-            <h3>St. Mary's Parish </h3>
+            <h3>St. Mary's Parish</h3>
             <div class="location">
               <div class="address">
                 <p>
@@ -93,14 +83,71 @@
                   10 River Heights Dr<br>
                   Cochrane, AB T4C 0N8
                 </p>
-                <button mat-button (onClick)="getDirections('ChIJg_MfrCkDcVMRyO-m33ARlNo')" >Get Directions</button>
+                <button mat-button (click)="getDirections('St+Marys+Parish', 'ChIJA0esjpA_cVMRzSU4jPY9TUE')">Get Directions</button>
               </div>
-              <agm-map class="map" [latitude]="51.1649302" [longitude]="-114.4693305" [zoom]="13" [gestureHandling]="'none'" [scaleControl]="false" [rotateControl]="false" [zoomControl]="false" [streetViewControl]="false">
-                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+              <agm-map
+                (click)="getDirections('St+Marys+Parish', 'ChIJA0esjpA_cVMRzSU4jPY9TUE')"
+                class="map" [latitude]="51.1649302" [longitude]="-114.4693305"
+                [zoom]="13"
+                [gestureHandling]="'none'"
+                [scaleControl]="false"
+                [rotateControl]="false"
+                [zoomControl]="false"
+                [streetViewControl]="false"
+              >
+                <agm-marker [latitude]="51.1649302" [longitude]="-114.4693305"></agm-marker>
               </agm-map>
             </div>
+            <mat-divider></mat-divider>
+            <h3>Bragg Creek Community Center</h3>
+            <div class="location">
+              <div class="address">
+                <p>
+                  <b>Address</b><br>
+                  23 White Ave<br>
+                  Bragg Creek, AB T0L 0K0<br>
+                </p>
+                <button mat-button (click)="getDirections('Bragg+Creek+Community+Center', 'ChIJEQ8H97sacVMRJmQw56y_6nU')">Get Directions</button>
+              </div>
+              <agm-map
+                (click)="getDirections('Bragg+Creek+Community+Center', 'ChIJEQ8H97sacVMRJmQw56y_6nU')"
+                class="map"
+                [latitude]="51.1716296" [longitude]="-114.7524017"
+                [zoom]="13"
+                [gestureHandling]="'none'"
+                [scaleControl]="false"
+                [rotateControl]="false"
+                [zoomControl]="false"
+                [streetViewControl]="false"
+              >
+                <agm-marker [latitude]="51.1716296" [longitude]="-114.7524017"></agm-marker>
+              </agm-map>
+            </div>
+            <mat-divider></mat-divider>
+            <h3>River Cove Campground</h3>
+            <div class="location">
+              <div class="address">
+                <p>
+                  <b>Address</b><br>
+                  Kananaskis, AB T0L 0K0
+                </p>
+                <button mat-button (click)="getDirections('River+Cove+Campground', 'ChIJg_MfrCkDcVMRyO-m33ARlNo')">Get Directions</button>
+              </div>
+              <agm-map
+                (click)="getDirections('River+Cove+Campground', 'ChIJA0esjpA_cVMRzSU4jPY9TUE')"
+                class="map" [latitude]="50.896209" [longitude]="-114.696851"
+                [zoom]="13"
+                [gestureHandling]="'none'"
+                [scaleControl]="false"
+                [rotateControl]="false"
+                [zoomControl]="false"
+                [streetViewControl]="false"
+              >
+                <agm-marker [latitude]="50.896209" [longitude]="-114.696851"></agm-marker>
+              </agm-map>
+            </div>
+
           </div>
-          If you're a little more high class there are hotels nearby or you could battle the other guests for the best Airbnb or VRBO.
         </mat-expansion-panel>
         <mat-expansion-panel (opened)="panelOpenState = true"
                              (closed)="panelOpenState = false">

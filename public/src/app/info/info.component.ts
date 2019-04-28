@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {DOCUMENT} from '@angular/common';
 
 @Component({
   selector: 'app-info',
@@ -7,17 +8,16 @@ import {Router} from '@angular/router';
   styleUrls: ['./info.component.css']
 })
 export class InfoComponent implements OnInit {
-  panelOpenState = false;
-  title: string = 'River Cove Campground';
-  lat: number = 50.896209;
-  lng: number = -114.696851;
 
-  constructor(private router: Router) { }
+  constructor(@Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit() {
   }
 
-  getDirections(placeID: string) {
-    window.href = `https://www.google.com/maps/dir/?api=1&destination_place_id=${placeID}`
+  getDirections(name: string, placeID: string) {
+    const args = `?destination=${name}&destination_place_id=${placeID}`;
+    const url = `https://www.google.com/maps/dir/?api=1${args}`;
+    console.log(url);
+    this.document.location.href = url;
   }
 }

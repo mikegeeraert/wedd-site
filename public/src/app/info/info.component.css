@@ -99,14 +99,9 @@ ms-content {
   background: transparent;
 }
 
-.timeline .timeline-item .timeline-content p {
-  color: #fefefe;
-}
-
-.timeline .timeline-item .timeline-content p {
+.timeline .timeline-item .timeline-content .timeline-content-details {
   font-family: "Lao MN";
   font-size: 16px;
-  line-height: 1.4;
   margin-bottom: 0;
 }
 
@@ -128,36 +123,6 @@ ms-content {
   text-align: left;
 }
 
-@media screen and (max-width: 39.9375em) {
-  .timeline {
-    margin: 30px;
-    padding: 0;
-    width: 90%;
-    background-position-x: -90px;
-  }
-  .timeline .timeline-item {
-    margin-left: 60px;
-    width: 90%;
-  }
-  .timeline::before {
-    left: 0;
-  }
-  .timeline .timeline-item .timeline-content {
-    float: right;
-    text-align: left;
-    width: 90%;
-  }
-  .timeline .timeline-item .timeline-content::before, .timeline .timeline-item .timeline-content.right::before {
-    border-left: 0;
-    border-right: 7px solid #fefefe;
-    left: 10%;
-    margin-left: -6px;
-  }
-  .timeline .timeline-item .timeline-icon {
-    left: 0;
-  }
-}
-
 .directions-container {
   display: flex;
   justify-content: center;
@@ -177,13 +142,17 @@ ms-content {
 }
 
 .address {
-  padding: 0 40px;
+  padding: 0 40px 0 0;
 }
 
 .more-info {
   width: 100%;
   max-width: 1000px;
   margin-bottom: 20px;
+}
+
+.more-info mat-expansion-panel {
+  margin: 0 20px;
 }
 
 .map {
@@ -194,4 +163,48 @@ ms-content {
 ::ng-deep .agm-map-container-inner {
   border-radius: 50%;
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+@media screen and (max-width: 39.9375em) {
+  .timeline {
+    margin: 30px;
+    padding: 0;
+    width: 90%;
+    background-position-x: -90px;
+  }
+  .timeline .timeline-item {
+    margin-left: 60px;
+    width: 85%;
+  }
+  .timeline::before {
+    left: 0;
+  }
+  .timeline .timeline-item .timeline-content {
+    float: right;
+    text-align: left;
+    width: 90%;
+  }
+
+  .timeline .timeline-item .timeline-content .timeline-content-details {
+    font-size: 12px;
+  }
+
+  .timeline .timeline-item .timeline-content::before, .timeline .timeline-item .timeline-content.right::before {
+    border-left: 0;
+    border-right: 7px solid #fefefe;
+    left: 10%;
+    margin-left: -6px;
+  }
+  .timeline .timeline-item .timeline-icon {
+    left: 0;
+  }
+
+  .address {
+    padding: 0 20px 0 0;
+  }
+
+  .map {
+    width: 100px;
+    height: 100px;
+  }
 }
