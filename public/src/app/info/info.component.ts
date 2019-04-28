@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-info',
@@ -11,9 +12,12 @@ export class InfoComponent implements OnInit {
   lat: number = 50.896209;
   lng: number = -114.696851;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  getDirections(placeID: string) {
+    window.href = `https://www.google.com/maps/dir/?api=1&destination_place_id=${placeID}`
+  }
 }

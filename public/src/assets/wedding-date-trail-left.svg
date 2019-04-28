@@ -4,14 +4,14 @@
 
 <svg xmlns="http://www.w3.org/2000/svg"
      width="85.3766mm" height="243mm"
-     viewBox="120 55 260 950">
+     viewBox="175 55 260 950">
   <path id="Unnamed"
         fill="none"
         stroke="white"
         stroke-width="5"
         stroke-dasharray="14"
         stroke-linecap="round"
-        d="M 236.67,75.33
+        d="M 200.67,70.33
            C 258.67,104.00 282.00,122.67 292.67,176.00
              292.00,220.67 266.00,237.33 228.00,274.67
              190.00,312.00 187.33,324.67 180.67,355.33

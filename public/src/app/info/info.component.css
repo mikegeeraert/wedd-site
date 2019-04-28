@@ -7,8 +7,9 @@ ms-content {
 
 .rsvp-stats {
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
 }
+
 
 .timeline .timeline-item::after, .timeline .timeline-item::before {
   clear: both;
@@ -19,21 +20,29 @@ ms-content {
 
 .timeline {
   margin: 30px auto;
-  padding: 0 10px;
   position: relative;
   transition: all 0.25s ease-in;
   width: 100%;
+  height: 950px;
+  background: url("../../assets/wedding-date-trail.svg") no-repeat;
+  background-position-x: center;
 }
 
-.timeline::before {
-  background: url("../../assets/wedding-date-trail.svg") no-repeat;
-  background-size: contain;
-  background-position-x: center;
-  content: '';
-  width: 100%;
-  position: absolute;
-  top: 0;
-  height: 100%;
+
+#e-two {
+  top: 170px;
+}
+
+#e-three {
+  top: 385px;
+}
+
+#e-four {
+  top: 555px;
+}
+
+#e-five {
+  top: 740px;
 }
 
 .timeline::after {
@@ -55,8 +64,8 @@ ms-content {
 }
 
 .timeline .timeline-item {
-  margin-bottom: 50px;
-  position: relative;
+  position: absolute;
+  width: 100%;
 }
 
 .timeline .timeline-item .timeline-icon {
@@ -105,7 +114,7 @@ ms-content {
   font-family: "Lao MN";
   font-size: 16px;
   font-weight: bold;
-  margin-bottom: 0;
+  margin: 10px 20px 0 20px;
 }
 
 .timeline .timeline-item .timeline-content .timeline-content-month {
@@ -123,6 +132,11 @@ ms-content {
   .timeline {
     margin: 30px;
     padding: 0;
+    width: 90%;
+    background-position-x: -90px;
+  }
+  .timeline .timeline-item {
+    margin-left: 60px;
     width: 90%;
   }
   .timeline::before {
@@ -142,4 +156,42 @@ ms-content {
   .timeline .timeline-item .timeline-icon {
     left: 0;
   }
+}
+
+.directions-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.location {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.map-container {
+  width: 100%;
+  flex-grow: 2;
+}
+
+.address {
+  padding: 0 40px;
+}
+
+.more-info {
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 20px;
+}
+
+.map {
+  width: 300px;
+  height: 300px;
+}
+
+::ng-deep .agm-map-container-inner {
+  border-radius: 50%;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
