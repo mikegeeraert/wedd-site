@@ -5,6 +5,12 @@ import * as admin from 'firebase-admin';
 const serviceAccount = require('./../serviceAccountKey.json'); // Needs to be deployed to functions environment
 
 
+enum Accommodation {
+  camping = 'camping',
+  hotel = 'hotel',
+  home = 'home',
+}
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: 'https://wedding-49e7e.firebaseio.com'
@@ -36,4 +42,42 @@ export const authenticateWithEmail = functions.https.onCall((data, context) => {
   } else {
     throw new functions.https.HttpsError('invalid-argument', 'either emailAddress or householdId were not passed to function in data');
   }
+});
+
+export const getAccommodationStats = functions.https.onCall((data, context) => {
+  const respondedHouseholds = db.collection('households').where('response', '==', true);
+  return respondedHouseholds.get().then(
+    (results) => {
+      const stats = {
+        numHouseholds: 0,
+        numResponses: 0,
+        distribution: new Map<Accommodation, number>([
+          [Accommodation.camping, 0],
+          [Accommodation.home, 0],
+          [Accommodation.hotel, 0]
+        ]),
+      };
+      if (!results.empty) {
+        results.forEach((result) => {
+          const accommodation = result.data().accommodation;
+          stats.numResponses += 1;
+          switch (accommodation) {
+            case Accommodation.camping:
+              const campingVal = stats.distribution.get(Accommodation.camping) + 1;
+              stats.distribution.set(Accommodation.camping, campingVal);
+              break;
+            case Accommodation.home:
+              const homeVal = stats.distribution.get(Accommodation.home) + 1;
+              stats.distribution.set(Accommodation.home, homeVal);
+              break;
+            case Accommodation.hotel:
+              const hotelVal = stats.distribution.get(Accommodation.hotel) + 1;
+              stats.distribution.set(Accommodation.camping, hotelVal);
+              break;
+          }
+        });
+      }
+      return stats;
+    }
+  );
 });

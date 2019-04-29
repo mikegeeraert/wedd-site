@@ -5,7 +5,9 @@ export interface ResponseStatistics {
   numResponses: number;
 }
 
-export interface AccommodationStatistics {
-  total: number;
+export interface RsvpStatistics {
+  numHouseholds: number;
+  numResponses: number;
   distribution: Map<Accommodation, number>;
+  pickFiveSongs: string[];
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import {catchError, map, tap} from 'rxjs/internal/operators';
 import { FirestoreService } from '../../../firestore.service';
-import { AccommodationStatistics } from '../../../statistics';
+import { RsvpStatistics } from '../../../statistics';
 import { Accommodation } from '../../../household';
 
 
@@ -29,25 +29,25 @@ export class AccommodationsChartComponent implements OnInit {
   ngOnInit() {
     this.state = State.loading;
 
-    this.statistics = this.storage.getAccomodationStats().pipe(
+    this.statistics = this.storage.getAccommodationStats().pipe(
       tap(_ => this.state = State.success),
       catchError(() => {
         this.state = State.error;
         return of(null);
       }),
-      map((stats: AccommodationStatistics) => {
+      map((stats: RsvpStatistics) => {
         return [
           {
             'name': 'Hotel',
-            'value': stats.distribution.get(Accommodation.hotel) / stats.total * 100
+            'value': stats.distribution.get(Accommodation.hotel) / stats.numResponses * 100
           },
           {
             'name': 'Camping',
-            'value': stats.distribution.get(Accommodation.camping) / stats.total * 100
+            'value': stats.distribution.get(Accommodation.camping) / stats.numResponses * 100
           },
           {
             'name': 'Staying Home',
-            'value': stats.distribution.get(Accommodation.home) / stats.total * 100
+            'value': stats.distribution.get(Accommodation.home) / stats.numResponses * 100
           },
         ];
       })
