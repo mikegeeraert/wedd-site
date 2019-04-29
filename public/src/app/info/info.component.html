@@ -4,7 +4,10 @@
     <div class="rsvp-stats">
       <app-response-statistics></app-response-statistics>
     </div>
-    <div class="timeline">
+    <div class="timeline-header">
+      <b>September 14th, 2019</b>
+    </div>
+    <div class="timeline day-of">
       <div class="timeline-item">
         <div class="timeline-icon">
           <img src="../../assets/marriage-rings-couple-with-a-heart.svg" width="30px" height="30px"/>
@@ -65,6 +68,22 @@
         </div>
       </div>
 
+    </div>
+    <div class="timeline-header">
+      <b>September 15th, 2019</b>
+    </div>
+    <div class="timeline day-after">
+      <div class="timeline-item" id="e-six">
+        <div class="timeline-icon">
+          <img src="../../assets/rest-area.svg" width="30px" height="30px"/>
+        </div>
+        <div class="timeline-content">
+          <h2 class="timeline-content-date">Lunch with the Inlaws<br>12:00 PM</h2>
+          <mat-card class="timeline-content-details">
+            If you aren't sick of us already, we'd love to show our appreciation and nurse our headaches over lunch. Food and water will be provided at the River Cove campground.
+          </mat-card>
+        </div>
+      </div>
     </div>
     <div class="more-info">
       <mat-accordion>
@@ -153,12 +172,43 @@
                              (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <b> What are my transportation options? </b>
+              <b> Transportation Options</b>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <p> If you are driving yourself please ensure you do not park in the Bragg Creek Community Centre parking lot overnight - there should be street parking! </p>
-          <p> If you are staying at the campground and would like to make the most of the night you can go back to your elementary school days and take a chartered school bus to the reception and back to the campsite at the end of the night</p>
-          <p> If you'd rather go home on your own accord but will be too silly to drive we recommended calling Taxi 4 U</p>
+          <h3>Campground Shuttle</h3>
+          <p>
+            For all those staying or parking at River Cove campground, we are providing a school bus shuttle to and from the reception
+            <br>
+            <br>
+            <b>Shuttle To Reception: </b> September 14th, 4:30 pm
+            <br>
+            <b>Shuttle From Reception: </b> September 15th, 12:00 am
+          </p>
+          <mat-divider></mat-divider>
+          <h3>Parking Rules</h3>
+          <p>
+            If you are driving yourself, be aware that church is held at the same venue in the morning.
+            The community center has asked that we minimize the amount of cars in the parking lot overnight.
+            So, if you plan on leaving your car overnight, there should be street parking available nearby!
+          </p>
+          <mat-divider></mat-divider>
+          <h3>Taxi Service</h3>
+          <p>
+            If you'd rather go home on your own accord but will be too silly to drive we recommended calling some local taxi services.
+            We did a bit of research ourselves, and below are a couple options:
+          </p>
+          <div class="taxi-buttons">
+            <a mat-raised-button href="tel:403-932-0044">
+              Taxi4U <mat-icon>phone</mat-icon>
+            </a>
+            <a mat-raised-button href="tel:403-851-8888">
+              Cochrane Taxi <mat-icon>phone</mat-icon>
+            </a>
+            <a mat-raised-button href="tel:587-576-4433">
+              Cochrane Cabs <mat-icon>phone</mat-icon>
+            </a>
+          </div>
+
         </mat-expansion-panel>
       </mat-accordion>
     </div>

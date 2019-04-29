@@ -18,16 +18,31 @@ ms-content {
   width: 100%;
 }
 
+.timeline-header {
+  font-family: "Lao MN";
+  font-size: 20px;
+}
+
 .timeline {
-  margin: 30px auto;
+  margin: 0 30px;
   position: relative;
   transition: all 0.25s ease-in;
   width: 100%;
-  height: 950px;
-  background: url("../../assets/wedding-date-trail.svg") no-repeat;
-  background-position-x: center;
 }
 
+.day-of {
+  background: url("../../assets/wedding-date-trail.svg") no-repeat;
+  height: 950px;
+  background-position-x: center;
+
+}
+
+.day-after {
+  background: url("../../assets/next-day-trail.svg") no-repeat;
+  height: 350px;
+  background-position-x: center;
+
+}
 
 #e-two {
   top: 170px;
@@ -43,6 +58,10 @@ ms-content {
 
 #e-five {
   top: 740px;
+}
+
+#e-six {
+  top: 130px;
 }
 
 .timeline::after {
@@ -129,6 +148,10 @@ ms-content {
   flex-direction: column;
 }
 
+h3 {
+  text-align: center;
+}
+
 .location {
   display: flex;
   justify-content: center;
@@ -165,9 +188,24 @@ ms-content {
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 
+.taxi-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.taxi-buttons a {
+  margin: 20px;
+}
+
 @media screen and (max-width: 39.9375em) {
+  .timeline-header {
+    align-self: normal;
+    margin-left: 30px;
+  }
+
   .timeline {
-    margin: 30px;
+    margin: 0 30px;
     padding: 0;
     width: 90%;
     background-position-x: -90px;
