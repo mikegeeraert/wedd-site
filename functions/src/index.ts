@@ -11,6 +11,26 @@ enum Accommodation {
   home = 'home',
 }
 
+export class RsvpStatistics {
+  households: number;
+  responses: number;
+  camping: number;
+  home: number;
+  hotel: number;
+  fiveSongs: string[];
+
+  constructor() {
+    this.households = 0;
+    this.responses = 0;
+    this.camping = 0;
+    this.home = 0;
+    this.hotel = 0;
+    this.fiveSongs = [];
+  }
+
+}
+
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: 'https://wedding-49e7e.firebaseio.com'
@@ -44,40 +64,61 @@ export const authenticateWithEmail = functions.https.onCall((data, context) => {
   }
 });
 
-export const getAccommodationStats = functions.https.onCall((data, context) => {
-  const respondedHouseholds = db.collection('households').where('response', '==', true);
+// noinspection JSUnusedGlobalSymbols
+export const getAccommodationStats = functions.https.onCall(() => {
+  const respondedHouseholds = db.collection('households');
   return respondedHouseholds.get().then(
     (results) => {
-      const stats = {
-        numHouseholds: 0,
-        numResponses: 0,
-        distribution: new Map<Accommodation, number>([
-          [Accommodation.camping, 0],
-          [Accommodation.home, 0],
-          [Accommodation.hotel, 0]
-        ]),
-      };
+      const stats = new RsvpStatistics();
+      const allSongs: string[] = [];
       if (!results.empty) {
         results.forEach((result) => {
           const accommodation = result.data().accommodation;
-          stats.numResponses += 1;
+          const responded = result.data().response;
+          const songs  = result.data().songs;
+          stats.households += 1;
+          if (responded) {
+            stats.responses += 1;
+          }
+          if (songs) {
+            allSongs.push(...songs)
+          }
           switch (accommodation) {
             case Accommodation.camping:
-              const campingVal = stats.distribution.get(Accommodation.camping) + 1;
-              stats.distribution.set(Accommodation.camping, campingVal);
+              stats.camping += 1;
               break;
             case Accommodation.home:
-              const homeVal = stats.distribution.get(Accommodation.home) + 1;
-              stats.distribution.set(Accommodation.home, homeVal);
+              stats.home += 1;
               break;
             case Accommodation.hotel:
-              const hotelVal = stats.distribution.get(Accommodation.hotel) + 1;
-              stats.distribution.set(Accommodation.camping, hotelVal);
+              stats.hotel += 1;
               break;
           }
         });
+        const songsLength = allSongs.length;
+        if (songsLength >= 5) {
+          stats.fiveSongs = getRandom(allSongs, songsLength)
+        } else {
+          stats.fiveSongs = allSongs;
+        }
       }
       return stats;
     }
   );
 });
+
+
+function getRandom(arr: string[], n: number): string[] {
+  let numRand = n;
+  let len = arr.length;
+  const result = new Array(numRand),
+    taken = new Array(len);
+  if (numRand > len)
+    throw new RangeError("getRandom: more elements taken than available");
+  while (numRand--) {
+    const x = Math.floor(Math.random() * len);
+    result[n] = arr[x in taken ? taken[x] : x];
+    taken[x] = --len in taken ? taken[len] : len;
+  }
+  return result;
+}

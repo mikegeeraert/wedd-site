@@ -39,15 +39,15 @@ export class AccommodationsChartComponent implements OnInit {
         return [
           {
             'name': 'Hotel',
-            'value': stats.distribution.get(Accommodation.hotel) / stats.numResponses * 100
+            'value': stats.hotel / stats.responses * 100
           },
           {
             'name': 'Camping',
-            'value': stats.distribution.get(Accommodation.camping) / stats.numResponses * 100
+            'value': stats.camping / stats.responses * 100
           },
           {
             'name': 'Staying Home',
-            'value': stats.distribution.get(Accommodation.home) / stats.numResponses * 100
+            'value': stats.home / stats.responses * 100
           },
         ];
       })

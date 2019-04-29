@@ -6,8 +6,10 @@ export interface ResponseStatistics {
 }
 
 export interface RsvpStatistics {
-  numHouseholds: number;
-  numResponses: number;
-  distribution: Map<Accommodation, number>;
-  pickFiveSongs: string[];
+  households: number;
+  responses: number;
+  camping: number;
+  home: number;
+  hotel: number;
+  fiveSongs: string[];
 }
