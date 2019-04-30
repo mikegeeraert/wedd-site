@@ -63,6 +63,8 @@
         </picture>
       </div>
       <div class="footer-bar">
+        <p>Taylor and Michael are excited for you to join them on September 14<sup>th</sup>, 2019 to celebrate the next leg of their journey together!</p>
+        <a *ngIf="householdId | async as h" mat-button [routerLink]="['/rsvp', h]">Click here to RSVP</a>
       </div>
     </div>
   </ms-content>

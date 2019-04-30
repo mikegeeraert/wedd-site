@@ -1,3 +1,4 @@
+
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
@@ -97,7 +98,7 @@ export const getAccommodationStats = functions.https.onCall(() => {
         });
         const songsLength = allSongs.length;
         if (songsLength >= 5) {
-          stats.fiveSongs = getRandom(allSongs, songsLength)
+          stats.fiveSongs = getRandomSongs(allSongs, songsLength)
         } else {
           stats.fiveSongs = allSongs;
         }
@@ -108,13 +109,13 @@ export const getAccommodationStats = functions.https.onCall(() => {
 });
 
 
-function getRandom(arr: string[], n: number): string[] {
+function getRandomSongs(arr: string[], n: number): string[] {
   let numRand = n;
   let len = arr.length;
   const result = new Array(numRand),
     taken = new Array(len);
   if (numRand > len)
-    throw new RangeError("getRandom: more elements taken than available");
+    throw new RangeError("getRandomSongs: more elements taken than available");
   while (numRand--) {
     const x = Math.floor(Math.random() * len);
     result[n] = arr[x in taken ? taken[x] : x];

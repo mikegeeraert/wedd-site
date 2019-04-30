@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResponseMeterComponent } from './response-meter.component';
+import { SongListComponent } from './song-list.component';
 
-describe('ResponseMeterComponent', () => {
-  let component: ResponseMeterComponent;
-  let fixture: ComponentFixture<ResponseMeterComponent>;
+describe('SongListComponent', () => {
+  let component: SongListComponent;
+  let fixture: ComponentFixture<SongListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResponseMeterComponent ]
+      declarations: [ SongListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ResponseMeterComponent);
+    fixture = TestBed.createComponent(SongListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

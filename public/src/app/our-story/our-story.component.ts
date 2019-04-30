@@ -1,7 +1,11 @@
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, OnInit,
 } from '@angular/core';
+import {Observable} from 'rxjs';
+import {AuthenticationService} from '../authentication.service';
+import {FirestoreService} from '../firestore.service';
+import {switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-our-story',
@@ -9,7 +13,17 @@ import {
   styleUrls: ['./our-story.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OurStoryComponent {
+export class OurStoryComponent implements OnInit {
 
-  constructor() {}
+  householdId: Observable<string>;
+
+  constructor(private userService: AuthenticationService,
+              private storageService: FirestoreService) {}
+
+  ngOnInit(){
+    this.householdId = this.userService.user.pipe(
+      switchMap(user => this.storageService.getHouseholdIdForEmail(user.uid))
+    )
+  }
+
 }

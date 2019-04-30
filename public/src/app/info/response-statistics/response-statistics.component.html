@@ -1,12 +1,65 @@
 <mat-card>
+  <mat-card-title>
+    RSVP responses so far...
+  </mat-card-title>
+  <mat-card-subtitle>
+    we crunched the numbers - for all you nerds out there
+  </mat-card-subtitle>
   <mat-card-content>
-    <p>So far we had this many responses:</p>
-    <div class="response-meter">
-      <app-response-meter></app-response-meter>
-    </div>
-    <p>And people tend to be staying this way:</p>
-    <div class="accommodation-chart">
-      <app-accommodations-chart></app-accommodations-chart>
-    </div>
+    <ng-container *ngIf="statistics | async as stats; else loadingState">
+      <div class="response-meter">
+        <ngx-charts-linear-gauge
+          [value]="getResponsePercentage(stats)"
+          [scheme]=colorScheme
+          [min]="0"
+          [units]="'Responses'"
+          [valueFormatting]="formatAsPercentage"
+        >
+        </ngx-charts-linear-gauge>
+      </div>
+      <div class="stats-group">
+        <div class="accommodation-chart">
+          <ngx-charts-bar-horizontal
+            [results]="getFormattedAccommodations(stats)"
+            [scheme]=colorScheme
+            [yAxis]=true
+            [xScaleMax]=100
+          >
+          </ngx-charts-bar-horizontal>
+        </div>
+        <div class="songs">
+          <h3 mat-subheader> A few suggested numbers </h3>
+          <app-song-list [songs]="stats.fiveSongs"></app-song-list>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #loadingState>
+      <ng-container [ngSwitch]="state">
+        <ng-container *ngSwitchCase=1>
+          <div class="center-content">
+            <mat-spinner></mat-spinner>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase=2>
+          Error Loading Response Statistics
+        </ng-container>
+      </ng-container>
+    </ng-template>
   </mat-card-content>
+  <mat-card-actions>
+    <a *ngIf="householdId; else findRsvp" mat-raised-button color="primary"
+       [routerLink]="['/rsvp',householdId]"
+    >Update RSVP</a>
+    <ng-template #findRsvp>
+      <div class="find-rsvp">
+        <a mat-raised-button color="primary"
+           #tooltip="matTooltip"
+           matTooltip="Click on the link sent in your email, or contact Michael & Taylor"
+           [disabled]="true"
+           (click)="tooltip.show()"
+        >Update RSVP</a>
+      </div>
+    </ng-template>
+
+  </mat-card-actions>
 </mat-card>

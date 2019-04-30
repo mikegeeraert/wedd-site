@@ -2,7 +2,9 @@
   <ms-title>Info</ms-title>
   <ms-content>
     <div class="rsvp-stats">
-      <app-response-statistics></app-response-statistics>
+      <app-response-statistics
+        [householdId]="householdId | async"
+      ></app-response-statistics>
     </div>
     <div class="timeline-header">
       <b>September 14th, 2019</b>
@@ -39,7 +41,7 @@
         <div class="timeline-content">
           <h2 class="timeline-content-date">Cocktail Hour<br>4:00 PM</h2>
           <mat-card class="timeline-content-details">
-            Games, snacks and drinks at the Bragg Creek Community Center, Bragg Creek
+            Games, snacks and drinks at the Bragg Creek Community Center
           </mat-card>
         </div>
       </div>
@@ -102,10 +104,9 @@
                   10 River Heights Dr<br>
                   Cochrane, AB T4C 0N8
                 </p>
-                <button mat-button (click)="getDirections('St+Marys+Parish', 'ChIJA0esjpA_cVMRzSU4jPY9TUE')">Get Directions</button>
+                <button mat-raised-button (click)="getDirections('St+Marys+Parish', 'ChIJA0esjpA_cVMRzSU4jPY9TUE')">Get Directions</button>
               </div>
               <agm-map
-                (click)="getDirections('St+Marys+Parish', 'ChIJA0esjpA_cVMRzSU4jPY9TUE')"
                 class="map" [latitude]="51.1649302" [longitude]="-114.4693305"
                 [zoom]="13"
                 [gestureHandling]="'none'"
@@ -126,10 +127,9 @@
                   23 White Ave<br>
                   Bragg Creek, AB T0L 0K0<br>
                 </p>
-                <button mat-button (click)="getDirections('Bragg+Creek+Community+Center', 'ChIJEQ8H97sacVMRJmQw56y_6nU')">Get Directions</button>
+                <button mat-raised-button (click)="getDirections('Bragg+Creek+Community+Center', 'ChIJEQ8H97sacVMRJmQw56y_6nU')">Get Directions</button>
               </div>
               <agm-map
-                (click)="getDirections('Bragg+Creek+Community+Center', 'ChIJEQ8H97sacVMRJmQw56y_6nU')"
                 class="map"
                 [latitude]="51.1716296" [longitude]="-114.7524017"
                 [zoom]="13"
@@ -150,10 +150,9 @@
                   <b>Address</b><br>
                   Kananaskis, AB T0L 0K0
                 </p>
-                <button mat-button (click)="getDirections('River+Cove+Campground', 'ChIJg_MfrCkDcVMRyO-m33ARlNo')">Get Directions</button>
+                <button mat-raised-button (click)="getDirections('River+Cove+Campground', 'ChIJg_MfrCkDcVMRyO-m33ARlNo')">Get Directions</button>
               </div>
               <agm-map
-                (click)="getDirections('River+Cove+Campground', 'ChIJA0esjpA_cVMRzSU4jPY9TUE')"
                 class="map" [latitude]="50.896209" [longitude]="-114.696851"
                 [zoom]="13"
                 [gestureHandling]="'none'"

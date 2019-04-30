@@ -10,6 +10,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;
 import {Admin} from './admin';
 import {AngularFireFunctions} from '@angular/fire/functions';
+import * as moment from 'moment';
 
 const HOUSEHOLDS = 'households';
 const GUESTS = 'guests';
@@ -141,7 +142,7 @@ export class FirestoreService {
       songs: household.songs || [],
       drinks: household.drinks || [],
       dietaryRestrictions: household.dietaryRestrictions || [],
-      response: true,
+      response: moment().format(),
     });
 
     return of();
@@ -210,59 +211,10 @@ export class FirestoreService {
     );
   }
 
-  getResponseStats(): Observable<ResponseStatistics> {
-    return forkJoin(this.getNumberOfHouseholds(), this.getNumberOfResponses()).pipe(
-      map(([numHouseholds, numResponses]) => {
-        return {
-          numHouseholds: numHouseholds,
-          numResponses: numResponses,
-        };
-      })
-    );
-  }
-
   getAccommodationStats(): Observable<RsvpStatistics> {
     const getAccommodationStats = this.functions.httpsCallable('getAccommodationStats');
     return getAccommodationStats({})
   }
-
-  // getAccomodationStats(): Observable<RsvpStatistics> {
-  //   const respondedHouseholds = this.firestore.collection(HOUSEHOLDS, ref =>
-  //     ref.where('response', '==', true));
-  //   return from(respondedHouseholds.get()).pipe(
-  //     map((results: firebase.firestore.QuerySnapshot) => {
-  //       const stats = {
-  //         total: 0,
-  //         distribution: new Map<Accommodation, number>([
-  //           [Accommodation.camping, 0],
-  //           [Accommodation.home, 0],
-  //           [Accommodation.hotel, 0]
-  //         ]),
-  //       };
-  //       if (!results.empty) {
-  //         results.forEach((result: QueryDocumentSnapshot) => {
-  //           const accommodation = result.data().accommodation;
-  //           stats.total += 1;
-  //           switch (accommodation) {
-  //             case Accommodation.camping:
-  //               const campingVal = stats.distribution.get(Accommodation.camping) + 1;
-  //               stats.distribution.set(Accommodation.camping, campingVal);
-  //               break;
-  //             case Accommodation.home:
-  //               const homeVal = stats.distribution.get(Accommodation.home) + 1;
-  //               stats.distribution.set(Accommodation.home, homeVal);
-  //               break;
-  //             case Accommodation.hotel:
-  //               const hotelVal = stats.distribution.get(Accommodation.hotel) + 1;
-  //               stats.distribution.set(Accommodation.camping, hotelVal);
-  //               break;
-  //           }
-  //         });
-  //       }
-  //       return stats;
-  //     })
-  //   );
-  // }
 
   getAdmin(email: string): Observable<Admin> {
     const adminRef = this.firestore.collection(ADMINS).doc(email);

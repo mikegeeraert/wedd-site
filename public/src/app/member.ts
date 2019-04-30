@@ -1,4 +1,10 @@
 
+export enum MemberType {
+  invitee = 'invitee',
+  plusOne = 'plusOne'
+}
+
+
 export class Member {
   id: string;
   type: MemberType;
@@ -23,12 +29,6 @@ export class Member {
   }
 
 }
-
-export enum MemberType {
-  invitee = 'invitee',
-  plusOne = 'plusOne'
-}
-
 
 export class PlusOne extends Member {
   parentId: string;

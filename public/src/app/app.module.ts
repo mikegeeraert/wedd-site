@@ -15,7 +15,7 @@ import {
   MatProgressBarModule,
   MatRadioModule, MatSnackBarModule,
   MatStepperModule, MatTableModule,
-  MatToolbarModule
+  MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -36,15 +36,14 @@ import { StepAttendanceComponent } from './rsvp-form/step-attendance/step-attend
 import { StepPlusOnesComponent } from './rsvp-form/step-plus-ones/step-plus-ones.component';
 import { StepPreferencesComponent } from './rsvp-form/step-preferences/step-preferences.component';
 import { OptionListComponent } from './rsvp-form/option-list/option-list.component';
-import { ResponseMeterComponent } from './info/response-statistics/response-meter/response-meter.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { AccommodationsChartComponent } from './info/response-statistics/accommodations-chart/accommodations-chart.component';
 import { ResponseStatisticsComponent } from './info/response-statistics/response-statistics.component';
 import { InfoComponent } from './info/info.component';
 import { CanViewRSVP } from './guards';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { environment } from '../environments/environment';
 import { MountainscapePageComponent } from './mountainscape-page/mountainscape-page.component';
+import { SongListComponent } from './info/response-statistics/song-list/song-list.component';
 
 const routes: Routes = [
   {path: 'our-story', component: OurStoryComponent},
@@ -65,12 +64,11 @@ const routes: Routes = [
     StepPlusOnesComponent,
     StepPreferencesComponent,
     OptionListComponent,
-    ResponseMeterComponent,
-    AccommodationsChartComponent,
     ResponseStatisticsComponent,
     InfoComponent,
     AuthenticateComponent,
     MountainscapePageComponent,
+    SongListComponent,
   ],
   imports: [
 
@@ -114,6 +112,7 @@ const routes: Routes = [
 
     // For Info Page
     MatExpansionModule,
+    MatTooltipModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDl6sYXZLEyYzEt9EDz6naQj9S-FtBt-kk'
     }),
