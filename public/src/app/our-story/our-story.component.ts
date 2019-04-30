@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component, OnInit,
 } from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {AuthenticationService} from '../authentication.service';
 import {FirestoreService} from '../firestore.service';
 import {switchMap} from 'rxjs/operators';
@@ -22,7 +22,12 @@ export class OurStoryComponent implements OnInit {
 
   ngOnInit(){
     this.householdId = this.userService.user.pipe(
-      switchMap(user => this.storageService.getHouseholdIdForEmail(user.uid))
+      switchMap(user => {
+        if (user) {
+          return this.storageService.getHouseholdIdForEmail(user.uid)
+        }
+        return of(null);
+      })
     )
   }
 

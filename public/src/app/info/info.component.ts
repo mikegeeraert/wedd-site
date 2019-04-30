@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {AuthenticationService} from '../authentication.service';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {FirestoreService} from '../firestore.service';
 import {switchMap} from 'rxjs/operators';
 import {tap} from 'rxjs/internal/operators';
@@ -22,7 +22,7 @@ export class InfoComponent implements OnInit {
   ngOnInit() {
 
     this.householdId = this.userService.user.pipe(
-      switchMap(user => this.storageService.getHouseholdIdForEmail(user.uid)),
+      switchMap(user => user ? this.storageService.getHouseholdIdForEmail(user.uid): of(null)),
     )
   }
 
