@@ -81,7 +81,7 @@ export const getAccommodationStats = functions.https.onCall(() => {
           if (responded) {
             stats.responses += 1;
           }
-          if (songs) {
+          if (songs && songs.length > 0) {
             allSongs.push(...songs)
           }
           switch (accommodation) {
@@ -109,17 +109,16 @@ export const getAccommodationStats = functions.https.onCall(() => {
 });
 
 
-function getRandomSongs(arr: string[], n: number): string[] {
+export function getRandomSongs(arr: string[], n: number): string[] {
   let numRand = n;
   let len = arr.length;
   const result = new Array(numRand),
     taken = new Array(numRand);
   if (numRand > len)
     throw new RangeError("getRandomSongs: more elements taken than available");
-  while (numRand--) {
+  while (--numRand) {
     const x = Math.floor(Math.random() * len);
     result[n] = arr[x in taken ? taken[x] : x];
-
     taken[x] = --len in taken ? taken[len] : len;
   }
   return result;
