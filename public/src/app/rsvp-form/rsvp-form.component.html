@@ -2,81 +2,80 @@
   <ms-title>RSVP</ms-title>
   <ms-subtitle *ngIf="household | async as h">{{h.greeting}}</ms-subtitle>
   <ms-content class="flex-container">
-      <ng-container *ngIf="household | async as h; else loadingState">
-        <form #rsvpForm="ngForm" class="form">
-          <mat-vertical-stepper [linear]="false" #stepper>
-            <mat-step>
-              <ng-template matStepLabel>Who's able to make it?</ng-template>
-              <mat-card>
-                <mat-card-content>
-                  <app-step-attendance [(members)]="h.members"></app-step-attendance>
-                </mat-card-content>
-                <mat-card-actions>
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-raised-button color="primary" matStepperNext>Next</button>
-                </mat-card-actions>
-              </mat-card>
-            </mat-step>
-            <mat-step *ngIf="h.allowedPlusOnes()">
-              <ng-template matStepLabel>Anyone Bringing a Plus One?</ng-template>
-              <mat-card>
-                <mat-card-content>
-                  <app-step-plus-ones [(members)]="h.members"></app-step-plus-ones>
-                </mat-card-content>
-                <mat-card-actions>
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-raised-button color="primary" matStepperNext>Next</button>
-                </mat-card-actions>
-              </mat-card>
-            </mat-step>
-            <mat-step>
-              <ng-template matStepLabel>Tell us some stuff we don't know</ng-template>
-              <mat-card>
-                <mat-card-content>
-                  <app-step-preferences
-                    [(accommodation)]="h.accommodation"
-                    [(songs)]="h.songs"
-                    [(drinks)]="h.drinks"
-                    [(dietaryRestrictions)]="h.dietaryRestrictions"
-                  ></app-step-preferences>
-                </mat-card-content>
-                <mat-card-actions>
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-raised-button color="primary" matStepperNext>Next</button>
-                </mat-card-actions>
-              </mat-card>
-            </mat-step>
-            <mat-step>
-              <ng-template matStepLabel>All Done!</ng-template>
-              <mat-card>
-                <mat-card-content>
-                  Thanks for helping us out! If anything changes, you can come back to here and change your answers later.
-                  <br>
-                  Can't wait to see you there!
-                  <br>
-                  <br>
-                  - Michael & Taylor
-                </mat-card-content>
-                <mat-card-actions>
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-raised-button color="primary" type="submit" (click)="onSubmit(h)">Save</button>
-                </mat-card-actions>
-              </mat-card>
-            </mat-step>
-          </mat-vertical-stepper>
-        </form>
-      </ng-container>
-      <ng-template #loadingState>
-        <div class="flex-container">
-          <ng-container [ngSwitch]="state">
-            <ng-container *ngSwitchCase=1>
-              <mat-spinner></mat-spinner>
-            </ng-container>
-            <ng-container *ngSwitchCase=2>
-              Error Loading Form
-            </ng-container>
+    <ng-container *ngIf="household | async as h; else loadingState">
+      <form #rsvpForm="ngForm" class="form">
+        <mat-vertical-stepper [linear]="false" #stepper>
+          <mat-step>
+            <ng-template matStepLabel>Who's able to make it?</ng-template>
+            <mat-card>
+              <mat-card-content>
+                <app-step-attendance [(members)]="h.members"></app-step-attendance>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" matStepperNext>Next</button>
+              </mat-card-actions>
+            </mat-card>
+          </mat-step>
+          <mat-step *ngIf="h.allowedPlusOnes()">
+            <ng-template matStepLabel>Anyone Bringing a Plus One?</ng-template>
+            <mat-card>
+              <mat-card-content>
+                <app-step-plus-ones [(members)]="h.members"></app-step-plus-ones>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" matStepperNext>Next</button>
+              </mat-card-actions>
+            </mat-card>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Tell us some stuff we don't know</ng-template>
+            <mat-card>
+              <mat-card-content>
+                <app-step-preferences
+                  [(accommodation)]="h.accommodation"
+                  [(songs)]="h.songs"
+                  [(drinks)]="h.drinks"
+                  [(dietaryRestrictions)]="h.dietaryRestrictions"
+                ></app-step-preferences>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button matStepperPrevious>Back</button>
+              </mat-card-actions>
+            </mat-card>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>All Done!</ng-template>
+            <mat-card>
+              <mat-card-content>
+                Thanks for helping us out! If anything changes, you can come back to here and change your answers later.
+                <br>
+                Can't wait to see you there!
+                <br>
+                <br>
+                - Michael & Taylor
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" type="submit" (click)="onSubmit(h)">Save</button>
+              </mat-card-actions>
+            </mat-card>
+          </mat-step>
+        </mat-vertical-stepper>
+      </form>
+    </ng-container>
+    <ng-template #loadingState>
+      <div class="flex-container">
+        <ng-container [ngSwitch]="state">
+          <ng-container *ngSwitchCase=1>
+            <mat-spinner></mat-spinner>
           </ng-container>
-        </div>
-      </ng-template>
+          <ng-container *ngSwitchCase=2>
+            Error Loading Form
+          </ng-container>
+        </ng-container>
+      </div>
+    </ng-template>
   </ms-content>
 </mountainscape-page>

@@ -20,7 +20,6 @@ export class InfoComponent implements OnInit {
               private storageService: FirestoreService) { }
 
   ngOnInit() {
-
     this.householdId = this.userService.user.pipe(
       switchMap(user => user ? this.storageService.getHouseholdIdForEmail(user.uid): of(null)),
     )
@@ -29,7 +28,6 @@ export class InfoComponent implements OnInit {
   getDirections(name: string, placeID: string) {
     const args = `&destination=${name}&destination_place_id=${placeID}&dir_action=navigate`;
     const url = `https://www.google.com/maps/dir/?api=1${args}`;
-    console.log(url);
     this.document.location.href = url;
   }
 }
