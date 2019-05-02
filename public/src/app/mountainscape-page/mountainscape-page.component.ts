@@ -45,10 +45,6 @@ export class MountainscapePageComponent implements OnInit, OnDestroy {
     this.userHouseholdId$ = this.authenticationService.user.pipe(
       switchMap(user => !!user ? this.firestoreService.getHouseholdIdForEmail(user.uid): of(null))
     );
-    let userAgent = navigator.userAgent;
-    if(userAgent.indexOf("Firefox") > -1){
-      this.renderer.setStyle(this.container.nativeElement, 'height', '100%');
-    }
   }
 
   parallax(x: any) {

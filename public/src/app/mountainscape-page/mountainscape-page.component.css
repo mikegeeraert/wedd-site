@@ -7,7 +7,7 @@
 .mountain {
   width: 100%;
   height: 300px;
-  position: absolute;
+  position: relative;
   background-image: url("./../../assets/Mountain1.png");
   background-repeat: repeat-x;
   background-position-x: center;
@@ -16,16 +16,16 @@
 .tree-one {
   width: 100%;
   height: 300px;
-  position: absolute;
-  top: 30px;
+  position: relative;
+  top: -300px;
   background-repeat: repeat-x;
   background-position-x: center;
   background-image: url("./../../assets/Treeline1.png");
 }
 .tree-border {
   width: 100%;
-  position:absolute;
-  top: 60px;
+  position:relative;
+  top: -550px;
 }
 .tree-two {
   width: 100%;
@@ -37,7 +37,6 @@
 
 .undergrowth {
   width: 100%;
-  height: 200px;
   padding-bottom: 100px;
   position: relative;
   top: -1px;
@@ -62,7 +61,7 @@
 }
 
 .title-group {
-  position: absolute;
+  position: relative;
   top: -70px;
 }
 
@@ -85,8 +84,8 @@
 }
 .content {
   -webkit-transform: translate3D(0,0,0);
-  position: absolute;
-  top: 360px;
+  position: relative;
+  top: -800px;
   min-height: 400px;
   width: 100%;
 }
