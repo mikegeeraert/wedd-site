@@ -1,8 +1,3 @@
-@font-face {
-  font-family: "Lao MN";
-  src: url("./../../assets/LaoMN.TTC");
-}
-
 ms-content {
   display: flex;
   flex-direction: column;

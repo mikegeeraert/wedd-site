@@ -12,7 +12,6 @@ import {switchMap} from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'Taylor and Michael\'s Wedding';
   mobileQuery: MediaQueryList;
 
   userHouseholdId$: Observable<string>;
@@ -22,7 +21,6 @@ export class AppComponent implements OnInit, OnDestroy {
               private authenticationService: AuthenticationService,
               changeDetectorRef: ChangeDetectorRef,
               media: MediaMatcher) {
-
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -39,11 +37,6 @@ export class AppComponent implements OnInit, OnDestroy {
   fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
 
   private _mobileQueryListener: () => void;
-
-  onActivate() {
-    console.log("activated");
-    window.scrollTo(0,0);
-  }
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);

@@ -2,5 +2,25 @@
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+
+@font-face {
+  font-family: NeoRetro;
+  font-display: swap;
+  src: url("./assets/NEORETRO.woff");
+}
+
+@font-face {
+  font-family: LucidaBrite;
+  font-display: swap;
+  src: url("./assets/LBRITE.TTF");
+}
+
+@font-face {
+  font-family: "Lao MN";
+  font-display: swap;
+  src: url("./assets/LaoMN.TTC");
+}
+
+
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Roboto', sans-serif; }
