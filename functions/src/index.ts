@@ -116,9 +116,9 @@ export function getRandomSongs(arr: string[], n: number): string[] {
     taken = new Array(numRand);
   if (numRand > len)
     throw new RangeError("getRandomSongs: more elements taken than available");
-  while (--numRand) {
+  while (numRand--) {
     const x = Math.floor(Math.random() * len);
-    result[n] = arr[x in taken ? taken[x] : x];
+    result[numRand] = arr[x in taken ? taken[x] : x];
     taken[x] = --len in taken ? taken[len] : len;
   }
   return result;
