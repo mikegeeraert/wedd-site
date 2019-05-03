@@ -66,7 +66,7 @@ export class ResponseStatisticsComponent implements OnInit {
   }
 
   getResponsePercentage(stats: RsvpStatistics): number {
-    return Math.round(stats.responses/stats.households*100)
+    return Math.round(stats.responses / stats.households * 100);
   }
 
   getFormattedAccommodations(stats: RsvpStatistics): any[] {
