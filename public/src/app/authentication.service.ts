@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import {combineLatest, from, Observable, of, ReplaySubject} from 'rxjs';
-import {fromPromise} from 'rxjs/internal/observable/fromPromise';
+import {combineLatest, from, Observable, of} from 'rxjs';
 import * as firebase from 'firebase';
-import {catchError, map, mapTo, tap} from 'rxjs/internal/operators';
+import {catchError, map, mapTo} from 'rxjs/operators';
 import {FirestoreService} from './firestore.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireFunctions } from '@angular/fire/functions';
@@ -30,7 +29,7 @@ export class AuthenticationService {
 
   signInWithAuthToken(token: string): Observable<firebase.auth.UserCredential> {
     const result = this.auth.auth.signInWithCustomToken(token);
-    return fromPromise(result)
+    return from(result);
   }
 
   adminLogin(email: string, password: string): Observable<boolean> {
@@ -38,7 +37,7 @@ export class AuthenticationService {
     const isAdmin = this.isAdmin(email);
     return combineLatest(signInResult, isAdmin).pipe(
       map(([signInResult, isAdmin]) => signInResult && isAdmin)
-    )
+    );
   }
 
   isAdmin(email: string): Observable<boolean> {

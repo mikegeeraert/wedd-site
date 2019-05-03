@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 
-import { FirestoreService } from "./firestore.service";
-import { MediaMatcher } from "@angular/cdk/layout";
+import { FirestoreService } from './firestore.service';
+import { MediaMatcher } from '@angular/cdk/layout';
 import { AuthenticationService } from './authentication.service';
 import {Observable, of} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
@@ -12,7 +12,9 @@ import {switchMap} from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
+  private _mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
+  fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
 
   userHouseholdId$: Observable<string>;
 
@@ -29,14 +31,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userHouseholdId$ = this.authenticationService.user.pipe(
-      switchMap(user => !!user ? this.firestoreService.getHouseholdIdForEmail(user.uid): of(null))
-    )
+      switchMap(user => !!user ? this.firestoreService.getHouseholdIdForEmail(user.uid) : of(null))
+    );
 
   }
-
-  fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
-
-  private _mobileQueryListener: () => void;
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
