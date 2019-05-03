@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {RsvpStatistics} from '../../statistics';
 import {catchError, map, tap} from 'rxjs/internal/operators';
-import {Observable, of} from 'rxjs';
+import {interval, Observable, of} from 'rxjs';
 import {FirestoreService} from '../../firestore.service';
 
 enum State {
@@ -20,6 +20,16 @@ enum State {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResponseStatisticsComponent implements OnInit {
+
+  loadingMessage$: Observable<string>;
+
+  loadingMessages = [
+    'determining relevant statistics',
+    'evaluating your facial expression',
+    'playing tic-tac-toe with dave',
+    'reducing dataset for comprehension',
+    'recycling previous results',
+  ];
 
   @Input() householdId: string;
 
@@ -43,6 +53,10 @@ export class ResponseStatisticsComponent implements OnInit {
         this.state = State.error;
         return of(null);
       }),
+    );
+    this.loadingMessage$ = interval(1500).pipe(
+      // Take modulo of i so we repeat list
+      map(i => this.loadingMessages[i % this.loadingMessages.length])
     );
 
   }
