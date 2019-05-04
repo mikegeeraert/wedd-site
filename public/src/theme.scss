@@ -73,6 +73,8 @@ $md-secondarygreen: (
 );
 
 
+$custom-typography: mat-typography-config($font-family: '"LucidaBrite", sans-serif;');
+@include mat-core($custom-typography);
 
 $my-theme-primary: mat-palette($md-primarybrown);
 $my-theme-accent:  mat-palette($md-secondarygreen);

@@ -1,0 +1,114 @@
+h2 {
+  font-family: LucidaBrite;
+  padding: 0 20px;
+  text-align: center;
+}
+
+ms-content {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+}
+
+.name-blocks {
+  padding-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.name-block {
+  width: 160px;
+  height: 40px;
+}
+
+.name {
+  width: 100px;
+  padding: 10px;
+  text-align: center;
+  font-size: 20px;
+  font-family: Lobster, cursive;
+  color: #c6c4c2;
+}
+
+.left {
+  left: 80px;
+}
+
+.right {
+  right: 60px;
+}
+
+.name-icon {
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+  overflow: hidden;
+  position: relative;
+  top: -54px;
+}
+
+.name-block.left {
+}
+
+.name-block.right {
+}
+
+.name-block.left .name-icon {
+  left: 90px;
+}
+
+.name-block.right .name-icon {
+}
+
+.name-block.right .name {
+  position: relative;
+  left: 40px;
+}
+
+.name-icon img {
+  position: relative;
+  top: 4px;
+  left: 4px;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+}
+
+.taylor {
+  background: #676767;
+}
+
+.michael {
+  background: #252525;
+}
+
+.stat-set {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart {
+  width: 100%;
+  height: 300px;
+}
+
+.donut-chart h3 {
+  font-family: LucidaBrite;
+  text-align: center;
+}
+
+.donut-chart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 210px;
+}
+.chart-group {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}

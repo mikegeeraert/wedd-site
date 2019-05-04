@@ -11,8 +11,6 @@ enum State {
 }
 
 
-
-
 @Component({
   selector: 'app-response-statistics',
   templateUrl: './response-statistics.component.html',
@@ -48,7 +46,7 @@ export class ResponseStatisticsComponent implements OnInit {
     this.state = State.loading;
 
     this.statistics = this.storage.getAccommodationStats().pipe(
-      tap(_ => this.state = State.success),
+      tap(() => this.state = State.success),
       catchError(() => {
         this.state = State.error;
         return of(null);

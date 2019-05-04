@@ -44,12 +44,14 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
 import { environment } from '../environments/environment';
 import { MountainscapePageComponent } from './mountainscape-page/mountainscape-page.component';
 import { SongListComponent } from './info/response-statistics/song-list/song-list.component';
+import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
   {path: 'our-story', component: OurStoryComponent},
   {path: 'info', component: InfoComponent},
   {path: 'rsvp/:userId', component: RsvpFormComponent, canActivate: [CanViewRSVP]},
   {path: 'authenticate', component: AuthenticateComponent},
+  {path: 'about', component: AboutComponent},
   {path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
   {path: '**', redirectTo: 'our-story'},
 ];
@@ -69,6 +71,7 @@ const routes: Routes = [
     AuthenticateComponent,
     MountainscapePageComponent,
     SongListComponent,
+    AboutComponent,
   ],
   imports: [
 
@@ -82,7 +85,6 @@ const routes: Routes = [
     MatSidenavModule,
     RouterModule.forRoot(
       routes,
-      //{ enableTracing: true } // <-- debugging purposes only
     ),
     MatTableModule,
 

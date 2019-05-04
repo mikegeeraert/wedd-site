@@ -21,6 +21,12 @@
   src: url("./assets/LaoMN.TTC");
 }
 
+@font-face {
+  font-family: Lobster;
+  font-display: swap;
+  src: url("./assets/Lobster_1.3.otf");
+}
+
 
 html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto', sans-serif; }
+body { margin: 0; }

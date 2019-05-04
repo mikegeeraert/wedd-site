@@ -1,0 +1,92 @@
+<mountainscape-page>
+  <ms-title>About</ms-title>
+  <ms-subtitle>Taylor and Michael</ms-subtitle>
+  <ms-content>
+    <h2>We asked the bridal party a few questions about the bride and groom. This is what we found out:</h2>
+    <div class="name-blocks">
+      <div class="name-block left">
+        <div class="name taylor mat-elevation-z2">
+          Taylor
+        </div>
+        <div class="name-icon taylor mat-elevation-z2">
+          <img src="../../assets/taylor.jpg">
+        </div>
+      </div>
+      <div class="name-block right">
+        <div class="name michael mat-elevation-z2">
+          Michael
+        </div>
+        <div class="name-icon michael mat-elevation-z2">
+          <img src="../../assets/michael.jpg">
+        </div>
+      </div>
+    </div>
+    <div class="stat-set">
+      <h2>Who is more...</h2>
+        <div class="chart">
+            <ngx-charts-bar-horizontal-normalized
+              [results]="traits$ | async"
+              [scheme]="colorScheme"
+              [showGridLines]="false"
+              [yAxis]="true"
+              [legend]="false">
+            </ngx-charts-bar-horizontal-normalized>
+        </div>
+    </div>
+    <div class="stat-set">
+      <h2>Who is more likely to survive...</h2>
+      <div class="chart-group">
+        <div class="donut-chart">
+          <h3>A Horror Movie</h3>
+          <ngx-charts-pie-chart
+            [view]="[150,150]"
+          [results]="horror$ | async"
+          [scheme]="colorScheme"
+          [doughnut]="true">
+          </ngx-charts-pie-chart>
+        </div>
+        <div class="donut-chart">
+          <h3>A Zombie Apocolypse</h3>
+          <ngx-charts-pie-chart
+            [view]="[150,150]"
+            [results]="zombie$ | async"
+            [scheme]="colorScheme"
+            [doughnut]="true">
+          </ngx-charts-pie-chart>
+        </div>
+      </div>
+    </div>
+    <div class="stat-set">
+      <h2>Who is most likely to win...</h2>
+      <div class="chart-group">
+        <div class="donut-chart">
+          <h3>A Halloween Heist</h3>
+          <ngx-charts-pie-chart
+            [view]="[150,150]"
+            [results]="halloween$ | async"
+            [scheme]="colorScheme"
+            [doughnut]="true">
+          </ngx-charts-pie-chart>
+        </div>
+        <div class="donut-chart">
+          <h3>Fear Factor</h3>
+          <ngx-charts-pie-chart
+            [view]="[150,150]"
+            [results]="fearFactor$ | async"
+            [scheme]="colorScheme"
+            [doughnut]="true">
+          </ngx-charts-pie-chart>
+        </div>
+        <div class="donut-chart">
+          <h3>Rock Paper Scissors</h3>
+          <ngx-charts-pie-chart
+            [view]="[150,150]"
+            [results]="rockPaperScissors$ | async"
+            [scheme]="colorScheme"
+            [doughnut]="true">
+          </ngx-charts-pie-chart>
+        </div>
+      </div>
+    </div>
+  </ms-content>
+</mountainscape-page>
