@@ -7,9 +7,11 @@ export enum MemberType {
 
 export class Member {
   id: string;
+  householdId: string;
   type: MemberType;
   first: string;
   last: string;
+  email: string;
   isComing: boolean;
   allowedPlusOne: boolean;
   bringingPlusOne: boolean;
@@ -18,9 +20,11 @@ export class Member {
 
   constructor(id: string, data: {[field: string]: any}) {
     this.id = id;
+    this.householdId = data.householdId || '';
     this.type  = data.type || MemberType.invitee;
     this.first = data.first || '';
     this.last = data.last || '';
+    this.email = data.email || '';
     this.isComing = !!data.isComing;
     this.allowedPlusOne = !!data.allowedPlusOne;
     this.bringingPlusOne = !!data.hasPlusOne;

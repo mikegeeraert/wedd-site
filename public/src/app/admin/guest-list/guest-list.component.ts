@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../firestore.service';
 import { Member } from '../../member';
-import {BehaviorSubject, Observable, timer} from 'rxjs';
-import {debounce, switchMap} from 'rxjs/operators';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {switchMap} from 'rxjs/operators';
 
 
 @Component({
@@ -13,7 +13,7 @@ import {debounce, switchMap} from 'rxjs/operators';
 export class GuestListComponent implements OnInit {
 
   dataSource: Observable<Member[]>;
-  displayedColumns: string[] = ['first', 'last', 'coming'];
+  displayedColumns: string[] = ['first', 'last', 'coming', 'rsvp-link'];
 
   searchTerm$$ = new BehaviorSubject('');
   searchTerm: string;
@@ -29,6 +29,10 @@ export class GuestListComponent implements OnInit {
 
   search() {
     this.searchTerm$$.next(this.searchTerm)
+  }
+
+  formatRsvpLink(member: Member): string {
+    return member.email ? `https://geeraertwedding.ca/authenticate?email=${member.email}&householdId=${member.householdId}` : '';
   }
 
 }
