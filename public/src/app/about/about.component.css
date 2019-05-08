@@ -1,7 +1,7 @@
 h2 {
   font-family: LucidaBrite;
   padding: 0 20px;
-  text-align: center;
+  text-align: left;
 }
 
 ms-content {
@@ -62,8 +62,13 @@ ms-content {
 .name-block.right .name-icon {
 }
 
+.name-block.left .name {
+  text-align: left
+}
+
 .name-block.right .name {
   position: relative;
+  text-align: right;
   left: 40px;
 }
 

@@ -24,7 +24,7 @@ export class AboutComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.traits$ = of(traits).pipe(startWith([]), delay(1000));
+    this.traits$ = of(traits).pipe(startWith([]), delay(1500));
     this.horror$ = of(horrorMovie).pipe(startWith([]), delay(1500));
     this.zombie$ = of(zombie).pipe(startWith([]), delay(2000));
     this.rockPaperScissors$ = of(rockPaperScissors).pipe(startWith([]), delay(2500));

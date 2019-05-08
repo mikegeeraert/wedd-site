@@ -4,11 +4,11 @@ export const traits = [
     'series': [
       {
         'name': 'Taylor',
-        'value': 40
+        'value': 50
       },
       {
         'name': 'Michael',
-        'value': 60
+        'value': 50
       },
     ]
   },
@@ -17,11 +17,11 @@ export const traits = [
     'series': [
       {
         'name': 'Taylor',
-        'value': 60
+        'value': 83
       },
       {
         'name': 'Michael',
-        'value': 40
+        'value': 17
       },
     ]
   },
@@ -30,11 +30,11 @@ export const traits = [
     'series': [
       {
         'name': 'Taylor',
-        'value': 15
+        'value': 17
       },
       {
         'name': 'Michael',
-        'value': 85
+        'value': 83
       },
     ]
   },
@@ -43,11 +43,11 @@ export const traits = [
     'series': [
       {
         'name': 'Taylor',
-        'value': 65
+        'value': 83
       },
       {
         'name': 'Michael',
-        'value': 35
+        'value': 17
       },
     ]
   },
@@ -56,11 +56,11 @@ export const traits = [
     'series': [
       {
         'name': 'Taylor',
-        'value': 40
+        'value': 83
       },
       {
         'name': 'Michael',
-        'value': 60
+        'value': 17
       },
     ]
   },
@@ -69,11 +69,11 @@ export const traits = [
     'series': [
       {
         'name': 'Taylor',
-        'value': 45
+        'value': 0
       },
       {
         'name': 'Michael',
-        'value': 55
+        'value': 100
       },
     ]
   },
