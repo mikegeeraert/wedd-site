@@ -21,8 +21,8 @@ export class InfoComponent implements OnInit {
 
   ngOnInit() {
     this.householdId = this.userService.user.pipe(
-      switchMap(user => user ? this.storageService.getHouseholdIdForEmail(user.uid): of(null)),
-    )
+      switchMap(user => user ? this.storageService.getHouseholdIdForEmail(user.uid) : of(null)),
+    );
   }
 
   getDirections(name: string, placeID: string) {
