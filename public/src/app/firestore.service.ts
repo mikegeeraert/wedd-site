@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import {combineLatest, forkJoin, from, Observable, of} from 'rxjs';
-import { Accommodation, Household } from './household';
+import { Household } from './household';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import { Member, MemberType, PlusOne } from './member';
-import { RsvpStatistics, ResponseStatistics } from './statistics';
+import { RsvpStatistics } from './statistics';
 import { AngularFirestore } from '@angular/fire/firestore';
 
-import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;
 import {Admin} from './admin';
 import {AngularFireFunctions} from '@angular/fire/functions';
 import * as moment from 'moment';
@@ -33,7 +32,7 @@ export class FirestoreService {
         }
         return householdId;
       }),
-    )
+    );
   }
 
   listMembers(searchTerm: string): Observable<Member[]> {
@@ -41,15 +40,14 @@ export class FirestoreService {
     let members: Observable<Member[]>;
 
     // if no search term, return all guests
-    if (searchTerm == '') {
+    if (searchTerm === '') {
       members = this.firestore.collection(GUESTS,
         ref => ref.where('type', '==', MemberType.invitee.valueOf())
       ).get().pipe(
         map(results => this.fillMembersList(results))
       );
-    }
+    } else {
     // if search term, return guests with full match on first or last name
-    else {
       const firstMatch = this.firestore.collection(GUESTS, ref => ref.
       where('type', '==', MemberType.invitee.valueOf()).
       where('first', '==', searchTerm));
@@ -213,7 +211,7 @@ export class FirestoreService {
 
   getAccommodationStats(): Observable<RsvpStatistics> {
     const getAccommodationStats = this.functions.httpsCallable('getAccommodationStats');
-    return getAccommodationStats({})
+    return getAccommodationStats({});
   }
 
   getAdmin(email: string): Observable<Admin> {
@@ -228,7 +226,7 @@ export class FirestoreService {
         }
         return adminObj;
       })
-    )
+    );
   }
 
   fillMembersList(querySnapshot: firebase.firestore.QuerySnapshot): Member[] {

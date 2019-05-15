@@ -1,6 +1,7 @@
 
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import {renderInviteBody} from './invite-template';
 
 // generate this file at https://console.firebase.google.com/u/0/project/wedding-49e7e/settings/serviceaccounts/adminsdk
 const serviceAccount = require('./../serviceAccountKey.json'); // Needs to be deployed to functions environment
@@ -44,10 +45,10 @@ export const authenticateWithEmail = functions.https.onCall((data, context) => {
   if (data.emailAddress && data.householdId) {
 
     // Check that email Address belongs to someone in that household first
-    const matchingGuestRef = db.collection('guests').where('householdId','==', data.householdId).where('email', '==', data.emailAddress);
+    const matchingGuestRef = db.collection('guests').where('householdId', '==', data.householdId).where('email', '==', data.emailAddress);
     const isValidGuest = matchingGuestRef.get().then( results => results.empty ? false : true);
     if (!isValidGuest) {
-      throw new functions.https.HttpsError('permission-denied', 'Not a valid guest')
+      throw new functions.https.HttpsError('permission-denied', 'Not a valid guest');
     }
 
     // Create custom token and return token if successful
@@ -57,8 +58,8 @@ export const authenticateWithEmail = functions.https.onCall((data, context) => {
         }
       )
       .catch(function(error) {
-        console.log("Error creating custom token:", error);
-        throw new functions.https.HttpsError('permission-denied', error.toString())
+        console.log('Error creating custom token:', error);
+        throw new functions.https.HttpsError('permission-denied', error.toString());
       });
   } else {
     throw new functions.https.HttpsError('invalid-argument', 'either emailAddress or householdId were not passed to function in data');
@@ -82,7 +83,7 @@ export const getAccommodationStats = functions.https.onCall(() => {
             stats.responses += 1;
           }
           if (songs && songs.length > 0) {
-            allSongs.push(...songs)
+            allSongs.push(...songs);
           }
           switch (accommodation) {
             case Accommodation.camping:
@@ -98,7 +99,7 @@ export const getAccommodationStats = functions.https.onCall(() => {
         });
         const songsLength = allSongs.length;
         if (songsLength >= 5) {
-          stats.fiveSongs = getRandomSongs(allSongs, 5)
+          stats.fiveSongs = getRandomSongs(allSongs, 5);
         } else {
           stats.fiveSongs = allSongs;
         }
@@ -114,8 +115,9 @@ export function getRandomSongs(arr: string[], n: number): string[] {
   let len = arr.length;
   const result = new Array(numRand),
     taken = new Array(numRand);
-  if (numRand > len)
-    throw new RangeError("getRandomSongs: more elements taken than available");
+  if (numRand > len) {
+    throw new RangeError('getRandomSongs: more elements taken than available');
+  }
   while (numRand--) {
     const x = Math.floor(Math.random() * len);
     result[numRand] = arr[x in taken ? taken[x] : x];
@@ -123,3 +125,12 @@ export function getRandomSongs(arr: string[], n: number): string[] {
   }
   return result;
 }
+
+// noinspection JSUnusedGlobalSymbols
+export const generateInviteBody = functions.https.onCall((data, context) => {
+  if (data.emailAddress && data.householdId) {
+    return renderInviteBody(data.householdId, data.emailAddress);
+  } else {
+    throw new functions.https.HttpsError('invalid-argument', 'either emailAddress or householdId were not passed to function in data');
+  }
+});
