@@ -199,6 +199,20 @@ h3 {
   margin: 20px;
 }
 
+.footer-bar {
+  font-family: Lobster;
+  font-size: 20px;
+  color: rgb(242, 243, 246);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  min-height: 50px;
+  background-color: rgba(32, 28, 26, 1);
+  padding: 20px 0;
+}
+
 @media screen and (max-width: 39.9375em) {
   .timeline-header {
     align-self: normal;

@@ -39,7 +39,7 @@
   width: 100%;
   padding-bottom: 100px;
   position: relative;
-  top: -1px;
+  margin: -1px;
   background-color: rgb(55, 62, 40);
   display: flex;
   align-items: center;
