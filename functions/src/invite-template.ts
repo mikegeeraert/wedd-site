@@ -125,7 +125,7 @@ export function renderInviteBody(householdId: string, email: string): string {
             height="100%"
             valign="top"
             bgcolor="">
-            <div style="text-align: center;"><span style="color:#333333;"><span style="font-size:14px;">Michael Joseph Geeraert and Taylor Rae Price would love to celebrate their marriage with you on September 14th, 2019 in Cochrane/Bragg Creek<br>Please RSVP no later than July 31st. See our website for more details.</span></span></div>
+            <div style="text-align: center;"><span style="color:#333333;"><span style="font-size:14px;">Michael Geeraert and Taylor Price would love to celebrate their marriage with you on September 14th, 2019 in Cochrane/Bragg Creek<br>Please RSVP no later than July 31st. See our website for more details.</span></span></div>
         </td>
       </tr>
     </table>
