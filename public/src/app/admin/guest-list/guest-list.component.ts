@@ -15,7 +15,7 @@ import {AngularFireFunctions} from '@angular/fire/functions';
 export class GuestListComponent implements OnInit {
 
   dataSource: Observable<Member[]>;
-  displayedColumns: string[] = ['first', 'last', 'email', 'rsvp-link', 'invite'];
+  displayedColumns: string[] = ['first', 'last', 'email', 'isComing', 'rsvp-link', 'invite'];
 
   searchTerm$$ = new BehaviorSubject('');
   searchTerm: string;
