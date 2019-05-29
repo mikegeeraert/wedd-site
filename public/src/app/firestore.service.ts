@@ -59,19 +59,32 @@ export class FirestoreService {
         map(([lastMatch, firstMatch]) => {
           const results = this.fillMembersList(lastMatch);
           results.push(...this.fillMembersList(firstMatch));
-          return results
+          return results;
         })
       );
     }
     return members.pipe(
-      //Sort alphabetically by last name
+      // Sort alphabetically by last name
       map((membersObjs: Member[]) => membersObjs.sort((a, b) => a.last.localeCompare(b.last)))
+    );
+  }
+
+  listHouseholds(): Observable<Household[]> {
+    const households = this.firestore.collection(HOUSEHOLDS).get().pipe(
+      map( result => this.fillHouseholdList(result))
+    );
+    const members = this.firestore.collection(GUESTS).get().pipe(
+      map(result => this.fillMembersList(result))
+    );
+    return combineLatest([households, members]).pipe(
+      map(([hs, ms]) => hs.map( household => this.sortMembersIntoHousehold(household, ms))),
+      map(hs => hs.sort((a, b) => a.name.localeCompare(b.name)))
+
     );
   }
 
   getHousehold(id: string): Observable<Household> {
     const householdRef = this.firestore.collection(HOUSEHOLDS).doc(id);
-    const attendeesRef = this.firestore.collection(GUESTS, ref => ref.where('householdId', '==', id));
     const membersRef = this.firestore.collection(GUESTS, ref => ref.
       where('householdId', '==', id).
       where('type', '==', MemberType.invitee.valueOf()
@@ -229,12 +242,25 @@ export class FirestoreService {
     );
   }
 
+  fillHouseholdList(querySnapshot: firebase.firestore.QuerySnapshot): Household[] {
+    const households = [];
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach( result => households.push(new Household(result.id, result.data())));
+    }
+    return households;
+  }
+
   fillMembersList(querySnapshot: firebase.firestore.QuerySnapshot): Member[] {
     const members = [];
     if (!querySnapshot.empty) {
       querySnapshot.forEach(result => members.push(new Member(result.id, result.data())));
     }
     return members;
+  }
+
+  sortMembersIntoHousehold(household: Household, members: Member[]): Household {
+    household.members =  members.filter(member => member.householdId === household.id);
+    return household;
   }
 
 }

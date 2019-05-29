@@ -1,4 +1,5 @@
 import {Member} from './member';
+import * as moment from 'moment';
 
 export class Household {
   id: string;
@@ -8,6 +9,7 @@ export class Household {
   songs: string[];
   drinks: string[];
   dietaryRestrictions: string;
+  response: moment.Moment;
   private rawGreeting: string;
 
   constructor(id: string, data: {[field: string]: any})  {
@@ -19,6 +21,7 @@ export class Household {
     this.songs = data.songs || [];
     this.drinks = data.drinks || [];
     this.dietaryRestrictions = data.dietaryRestrictions || [];
+    this.response = data.response ? moment(data.response) : null;
   }
 
   allowedPlusOnes(): boolean {
@@ -26,7 +29,7 @@ export class Household {
   }
 
   get greeting(): string {
-    return this.rawGreeting ? this.rawGreeting : `Hey ${this.name}'s`;
+    return this.rawGreeting ? this.rawGreeting : `Hey ${this.name}s`;
   }
 }
 

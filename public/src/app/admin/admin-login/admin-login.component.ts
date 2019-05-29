@@ -34,15 +34,15 @@ export class AdminLoginComponent implements OnInit {
   onSubmit() {
     const values = this.login.value;
     this.authService.adminLogin(values.email, values.password).subscribe(
-      success => {
-        this.router.navigate(['admin','guest-list'])
+      () => {
+        this.router.navigate(['admin', 'home']);
     },
-      err => {
-      this.snackBar.open("Your password is wrong, or your user doesn't exist", null,{
+      () => {
+      this.snackBar.open('Your password is wrong, or your user doesn\'t exist', null, {
         duration: 2000,
         politeness: 'assertive',
-      })
-    })
+      });
+    });
   }
 
 }

@@ -6,10 +6,12 @@ import { AdminRoutingModule } from './admin-routing.module';
 import {
   MatButtonModule,
   MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule,
-  MatTableModule
+  MatTableModule, MatTabsModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {IsAdmin} from './guards';
+import { HouseholdListComponent } from './household-list/household-list.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   imports: [
@@ -24,12 +26,15 @@ import {IsAdmin} from './guards';
     MatSnackBarModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTabsModule,
     ReactiveFormsModule,
     FormsModule,
   ],
   declarations: [
     AdminLoginComponent,
     GuestListComponent,
+    HouseholdListComponent,
+    HomeComponent,
   ],
   providers: [
     IsAdmin
