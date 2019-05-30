@@ -83,6 +83,13 @@ export class FirestoreService {
     );
   }
 
+  setHouseholdResponseTime(householdId: string, time: moment.Moment) {
+    const householdRef = this.firestore.collection(HOUSEHOLDS).doc(householdId);
+    const result = householdRef.update({
+      response: time.format(),
+    });
+  }
+
   getHousehold(id: string): Observable<Household> {
     const householdRef = this.firestore.collection(HOUSEHOLDS).doc(id);
     const membersRef = this.firestore.collection(GUESTS, ref => ref.

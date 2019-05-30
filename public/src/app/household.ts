@@ -20,7 +20,7 @@ export class Household {
     this.accommodation = data.accommodation;
     this.songs = data.songs || [];
     this.drinks = data.drinks || [];
-    this.dietaryRestrictions = data.dietaryRestrictions || [];
+    this.dietaryRestrictions = data.dietaryRestrictions || null;
     this.response = data.response ? moment(data.response) : null;
   }
 
@@ -30,6 +30,14 @@ export class Household {
 
   get greeting(): string {
     return this.rawGreeting ? this.rawGreeting : `Hey ${this.name}s`;
+  }
+
+  attending(): Member[] {
+    return this.members.filter(member => member.isComing);
+  }
+
+  missing(): Member[] {
+    return this.members.filter(member => !member.isComing);
   }
 }
 

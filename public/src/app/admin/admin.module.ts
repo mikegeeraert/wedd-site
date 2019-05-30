@@ -5,7 +5,7 @@ import { GuestListComponent } from './guest-list/guest-list.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import {
   MatButtonModule,
-  MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule,
+  MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatProgressSpinnerModule, MatSnackBarModule,
   MatTableModule, MatTabsModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -27,6 +27,8 @@ import { HomeComponent } from './home/home.component';
     MatFormFieldModule,
     MatInputModule,
     MatTabsModule,
+    MatListModule,
+
     ReactiveFormsModule,
     FormsModule,
   ],

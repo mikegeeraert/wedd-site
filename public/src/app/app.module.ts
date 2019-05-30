@@ -17,7 +17,7 @@ import {
   MatStepperModule, MatTableModule,
   MatToolbarModule, MatTooltipModule
 } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { AngularFireModule } from '@angular/fire';
@@ -87,7 +87,6 @@ const routes: Routes = [
       routes,
     ),
     MatTableModule,
-
     // For Charting
     NgxChartsModule,
 

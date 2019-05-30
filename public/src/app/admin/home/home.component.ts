@@ -10,7 +10,6 @@ export class HomeComponent implements OnInit {
     {label: 'Households', path: 'households'},
     {label: 'Guests', path: 'guest-list'}
   ];
-  activeLink = this.links[0];
 
   constructor() { }
 

@@ -1,6 +1,6 @@
 <div class="flex-container">
   <ng-container *ngIf="dataSource | async as households; else loading">
-    <table mat-table [dataSource]="households" class="full-width">
+    <table mat-table [dataSource]="households" class="full-width" multiTemplateDataRows>
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Family </th>
         <td mat-cell *matCellDef="let household"> {{household.name}} </td>
@@ -9,30 +9,60 @@
         <th mat-header-cell *matHeaderCellDef>  </th>
         <td mat-cell *matCellDef="let household"> {{formatFirstNames(household.members)}} </td>
       </ng-container>
-      <ng-container matColumnDef="response">
-        <th mat-header-cell *matHeaderCellDef> Response </th>
-        <td mat-cell *matCellDef="let household"> {{formatResponseDate(household.response)}} </td>
+      <ng-container matColumnDef="coming">
+        <th mat-header-cell *matHeaderCellDef> Coming </th>
+        <td mat-cell class="centered" *matCellDef="let household"> {{numAttending(household)}} </td>
       </ng-container>
-      <!--&lt;!&ndash; Expanded Content Column - The detail row is made up of this one column that spans across all columns &ndash;&gt;-->
-      <!--<ng-container matColumnDef="expandedDetail">-->
-        <!--<td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">-->
-          <!--<div class="example-element-detail"-->
-               <!--[@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">-->
-            <!--<div class="example-element-diagram">-->
-              <!--<div class="example-element-position"> {{element.position}} </div>-->
-              <!--<div class="example-element-symbol"> {{element.symbol}} </div>-->
-              <!--<div class="example-element-name"> {{element.name}} </div>-->
-              <!--<div class="example-element-weight"> {{element.weight}} </div>-->
-            <!--</div>-->
-            <!--<div class="example-element-description">-->
-              <!--{{element.description}}-->
-              <!--<span class="example-element-description-attribution"> &#45;&#45; Wikipedia </span>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</td>-->
-      <!--</ng-container>-->
+      <ng-container matColumnDef="missing">
+        <th mat-header-cell *matHeaderCellDef> Missing </th>
+        <td mat-cell class="centered" *matCellDef="let household"> {{numMissing(household)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="accommodations">
+        <th mat-header-cell *matHeaderCellDef> Accommodation </th>
+        <td mat-cell class="centered" *matCellDef="let household">
+          <ng-container [ngSwitch]="household.accommodation">
+            <mat-icon *ngSwitchCase="'hotel'">hotel</mat-icon>
+            <mat-icon *ngSwitchCase="'home'">home</mat-icon>
+            <mat-icon *ngSwitchCase="'camping'">landscape</mat-icon>
+          </ng-container>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="requests">
+        <th mat-header-cell *matHeaderCellDef> Requests </th>
+        <td mat-cell class="centered" *matCellDef="let household">
+          <mat-icon *ngIf="household.songs.length">music_note</mat-icon>
+          <mat-icon *ngIf="household.dietaryRestrictions">local_dining</mat-icon>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="response">
+        <th mat-header-cell class="centered" *matHeaderCellDef> Response </th>
+        <td mat-cell class="centered" *matCellDef="let household"> {{formatResponseDate(household.response)}} </td>
+      </ng-container>
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let hh" [attr.colspan]="displayedColumns.length">
+          <div class="example-element-detail"
+               [@detailExpand]="hh == expandedHousehold ? 'expanded' : 'collapsed'">
+            <div *ngIf="numAttending(hh)">
+              <h3>Coming</h3>
+              <mat-list>
+                <mat-list-item *ngFor="let member of hh.attending()"> {{member.first}}</mat-list-item>
+              </mat-list>
+            </div>
+            <div *ngIf="numMissing(hh)">
+              <h3>Missing</h3>
+              <mat-list>
+                <mat-list-item *ngFor="let member of hh.attending()"> {{member.first}}</mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+        </td>
+      </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let household; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let household; columns: displayedColumns;"
+          [class.example-expanded-row]="expandedHousehold === hh"
+          (click)="expandedHousehold = expandedHousehold === hh ? null : hh"></tr>
+      <tr mat-row *matRowDef="let hh; columns: ['expandedDetail']" class="example-detail-row"></tr>
     </table>
   </ng-container>
   <ng-template #loading>
