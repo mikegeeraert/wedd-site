@@ -1,0 +1,22 @@
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+table {
+  width: 100%;
+}
+
+
+.mat-column-firstNames {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 450px) {
+  .mat-column-firstNames {
+    max-width: 100px;
+  }
+}

@@ -5,12 +5,14 @@ import { GuestListComponent } from './guest-list/guest-list.component';
 import { IsAdmin } from './guards';
 import {HomeComponent} from './home/home.component';
 import {HouseholdListComponent} from './household-list/household-list.component';
+import {SongListComponent} from './song-list/song-list.component';
 
 const routes: Routes = [
   {path: 'login', component: AdminLoginComponent},
   {path: 'home', component: HomeComponent, canActivate: [IsAdmin], children: [
       {path: 'households', component: HouseholdListComponent},
       {path: 'guest-list', component: GuestListComponent},
+      {path: 'song-list', component: SongListComponent},
     ]},
   {path: '**', redirectTo: 'login'}
 ];

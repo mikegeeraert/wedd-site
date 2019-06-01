@@ -25,7 +25,8 @@ export class Member {
     this.first = data.first || '';
     this.last = data.last || '';
     this.email = data.email || '';
-    this.isComing = !!data.isComing;
+    // if isComing is not set in firebase, we haven't received a response yet
+    this.isComing = data.isComing !== undefined ? data.isComing : null;
     this.allowedPlusOne = !!data.allowedPlusOne;
     this.bringingPlusOne = !!data.hasPlusOne;
     this.plusOne = data.PlusOne || null;

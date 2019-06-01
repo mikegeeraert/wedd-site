@@ -12,6 +12,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {IsAdmin} from './guards';
 import { HouseholdListComponent } from './household-list/household-list.component';
 import { HomeComponent } from './home/home.component';
+import { SongListComponent } from './song-list/song-list.component';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { HomeComponent } from './home/home.component';
     GuestListComponent,
     HouseholdListComponent,
     HomeComponent,
+    SongListComponent,
   ],
   providers: [
     IsAdmin

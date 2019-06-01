@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   links = [
     {label: 'Households', path: 'households'},
-    {label: 'Guests', path: 'guest-list'}
+    {label: 'Guests', path: 'guest-list'},
+    {label: 'Song Suggestions', path: 'song-list'}
   ];
 
   constructor() { }
