@@ -7,8 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "dev": "ng build; cd ../;sudo firebase serve --only hosting,functions;"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {

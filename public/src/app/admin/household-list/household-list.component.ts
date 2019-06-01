@@ -5,6 +5,7 @@ import { Household } from '../../household';
 import * as moment from 'moment';
 import {Member} from '../../member';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {map} from 'rxjs/operators';
 import {tap} from 'rxjs/internal/operators';
 
 @Component({
@@ -23,16 +24,26 @@ import {tap} from 'rxjs/internal/operators';
 export class HouseholdListComponent implements OnInit {
 
   dataSource: Observable<Household[]>;
-  displayedColumns: string[] = ['name', 'first', 'coming', 'missing', 'response', 'time'];
+  totalComing: Observable<number>;
+  totalMissing: Observable<number>;
+  displayedColumns: string[] = ['name', 'first', 'response', 'coming', 'missing', 'time'];
 
   constructor(private firestoreService: FirestoreService) { }
 
   ngOnInit() {
     this.dataSource = this.firestoreService.listHouseholds();
+    this.totalComing = this.dataSource.pipe(
+      map(households => households.reduce((acc, household) => acc + this.numAttending(household), 0)),
+      tap(console.log)
+    );
+    this.totalMissing = this.dataSource.pipe(
+      map(households => households.reduce((acc, household) => acc + this.numMissing(household), 0)),
+      tap(console.log)
+    );
   }
 
   formatResponseDate(response: moment.Moment): string {
-    return response ? response.format('MMMM Do YYYY, h:mm:ss a') : ' - ';
+    return response ? response.format('MMMM Do, h:mm a') : ' - ';
   }
 
   formatFirstNames(members: Member[]): string {
@@ -58,6 +69,10 @@ export class HouseholdListComponent implements OnInit {
     } else {
       return household.dietaryRestrictions !== null && household.dietaryRestrictions !== '';
     }
+  }
+
+  getTotalComing(): Observable<number> {
+    return
   }
 
   setHouseholdResponseTime(householdId: string, time: string) {
