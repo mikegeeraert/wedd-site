@@ -159,7 +159,7 @@ export class FirestoreService {
       accommodation: household.accommodation || null,
       songs: household.songs || [],
       drinks: household.drinks || [],
-      dietaryRestrictions: household.dietaryRestrictions || [],
+      dietaryRestrictions: household.dietaryRestrictions || '',
       response: moment().format(),
     });
 

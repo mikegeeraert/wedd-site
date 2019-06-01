@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { FirestoreService } from '../../firestore.service';
 import { Observable } from 'rxjs';
 import { Household } from '../../household';
 import * as moment from 'moment';
 import {Member} from '../../member';
-import {tap} from 'rxjs/internal/operators';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {tap} from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-household-list',
@@ -18,12 +18,12 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HouseholdListComponent implements OnInit {
 
   dataSource: Observable<Household[]>;
-  displayedColumns: string[] = ['name', 'first', 'coming', 'missing', 'requests', 'accommodations', 'response'];
-
+  displayedColumns: string[] = ['name', 'first', 'coming', 'missing', 'response', 'time'];
 
   constructor(private firestoreService: FirestoreService) { }
 
@@ -39,12 +39,25 @@ export class HouseholdListComponent implements OnInit {
     return members.map(member => member.first).join(', ');
   }
 
+  formatSongList(songs: string[]): string {
+    return songs.join(', ');
+
+  }
+
   numAttending(household: Household): number {
     return household.response ? household.attending().length : null;
   }
 
   numMissing(household: Household): number {
     return household.response ? household.missing().length : null;
+  }
+
+  hasDietaryRestrictions(household: Household): boolean {
+    if (Array.isArray(household.dietaryRestrictions)) {
+      return !!household.dietaryRestrictions.length;
+    } else {
+      return household.dietaryRestrictions !== null && household.dietaryRestrictions !== '';
+    }
   }
 
   setHouseholdResponseTime(householdId: string, time: string) {
