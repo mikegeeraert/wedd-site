@@ -74,12 +74,20 @@ export class FirestoreService {
     const households = this.firestore.collection(HOUSEHOLDS,
       ref => this.applyListHouseholdsFilters(ref, filters)
     ).get().pipe(
-      map( result => this.fillHouseholdList(result))
+      map( result => this.fillHouseholdList(result)),
+      // Client-side filtering for households that have responded or not - firestore doesn't support this kind of query
+      map(householdList => {
+        if (filters.response !== undefined && filters.response != null) {
+          householdList = householdList.filter(household => !!household.response === filters.response);
+        }
+        return householdList;
+      })
     );
     const members = this.firestore.collection(GUESTS).get().pipe(
       map(result => this.fillMembersList(result))
     );
     return combineLatest([households, members]).pipe(
+
       map(([hs, ms]) => hs.map( household => this.sortMembersIntoHousehold(household, ms))),
       map(hs => hs.sort((a, b) => a.name.localeCompare(b.name)))
     );

@@ -4,6 +4,7 @@ import * as moment from 'moment';
 export interface ListHouseholdsFilters {
   accommodation?: string;
   name?: string;
+  response?: boolean;
 }
 
 export class Household {

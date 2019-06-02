@@ -54,24 +54,28 @@ export class HouseholdListComponent implements OnInit {
   }
 
   filterTokensToFilters(filterTokens: string[]): ListHouseholdsFilters {
-    const filters = {accommodation: null, name: null};
+    const filters = {accommodation: null, name: null, response: null};
     filterTokens.forEach(token => {
       const tokenComponents = token.split(':');
       if (tokenComponents.length < 2) {
         return;
       }
       if (tokenComponents[0] === 'accommodation') {
-        filters.accommodation = tokenComponents[1];
+        filters.accommodation = tokenComponents[1].toLowerCase();
       }
       if (tokenComponents[0] === 'name') {
         filters.name = tokenComponents[1];
+      }
+      if (tokenComponents[0] === 'response') {
+        // convert string value to boolean
+        filters.response = JSON.parse(tokenComponents[1].toLowerCase());
       }
     });
     return filters;
   }
 
   areFilterTokenListsDistinct(p: ListHouseholdsFilters, q: ListHouseholdsFilters ): boolean {
-    return p.name === q.name && p.accommodation === q.accommodation;
+    return p.name === q.name && p.accommodation === q.accommodation && p.response === q.response;
   }
 
   formatResponseDate(response: moment.Moment): string {
