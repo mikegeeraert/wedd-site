@@ -26,7 +26,7 @@ export class SongListComponent implements OnInit {
   constructor(private firestoreService: FirestoreService) { }
 
   ngOnInit() {
-    this.dataSource = this.firestoreService.listHouseholds().pipe(
+    this.dataSource = this.firestoreService.listHouseholds({}).pipe(
       map(households => households.reduce(
         (suggestions, household) => {
           suggestions.push(...this.songsToSongSuggestions(household, household.songs));

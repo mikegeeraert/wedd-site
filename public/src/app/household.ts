@@ -1,6 +1,11 @@
 import {Member} from './member';
 import * as moment from 'moment';
 
+export interface ListHouseholdsFilters {
+  accommodation?: string;
+  name?: string;
+}
+
 export class Household {
   id: string;
   name: string;

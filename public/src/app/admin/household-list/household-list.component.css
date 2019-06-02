@@ -7,15 +7,15 @@ table {
   width: 100%;
 }
 
+app-chip-list {
+  width: 100%;
+}
+
 .mat-column-first {
   max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.mat-column-response {
-  text-align: center;
 }
 
 .mat-column-time {
@@ -42,10 +42,12 @@ tr.household-element-row:not(.household-expanded-row):active {
 .household-detail {
   overflow: hidden;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .response-detail {
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   align-items: start;

@@ -13,6 +13,9 @@ import {IsAdmin} from './guards';
 import { HouseholdListComponent } from './household-list/household-list.component';
 import { HomeComponent } from './home/home.component';
 import { SongListComponent } from './song-list/song-list.component';
+import {ChipListComponent} from '../core/chip-list/chip-list.component';
+import {AppModule} from '../app.module';
+import {CoreModule} from '../core/core.module';
 
 @NgModule({
   imports: [
@@ -32,6 +35,8 @@ import { SongListComponent } from './song-list/song-list.component';
 
     ReactiveFormsModule,
     FormsModule,
+
+    CoreModule,
   ],
   declarations: [
     AdminLoginComponent,

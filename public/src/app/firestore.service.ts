@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import {combineLatest, forkJoin, from, Observable, of} from 'rxjs';
-import { Household } from './household';
+import {Household, ListHouseholdsFilters} from './household';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import { Member, MemberType, PlusOne } from './member';
 import { RsvpStatistics } from './statistics';
-import { AngularFirestore } from '@angular/fire/firestore';
+import {AngularFirestore, CollectionReference, Query} from '@angular/fire/firestore';
 
 import {Admin} from './admin';
 import {AngularFireFunctions} from '@angular/fire/functions';
 import * as moment from 'moment';
+import {QueryFn} from '@angular/fire/firestore/interfaces';
 
 const HOUSEHOLDS = 'households';
 const GUESTS = 'guests';
@@ -69,8 +70,10 @@ export class FirestoreService {
     );
   }
 
-  listHouseholds(): Observable<Household[]> {
-    const households = this.firestore.collection(HOUSEHOLDS).get().pipe(
+  listHouseholds(filters: ListHouseholdsFilters): Observable<Household[]> {
+    const households = this.firestore.collection(HOUSEHOLDS,
+      ref => this.applyListHouseholdsFilters(ref, filters)
+    ).get().pipe(
       map( result => this.fillHouseholdList(result))
     );
     const members = this.firestore.collection(GUESTS).get().pipe(
@@ -79,8 +82,18 @@ export class FirestoreService {
     return combineLatest([households, members]).pipe(
       map(([hs, ms]) => hs.map( household => this.sortMembersIntoHousehold(household, ms))),
       map(hs => hs.sort((a, b) => a.name.localeCompare(b.name)))
-
     );
+  }
+
+  applyListHouseholdsFilters(ref: CollectionReference, filters: ListHouseholdsFilters): Query {
+    let query: Query = ref;
+    if (filters.accommodation && filters.accommodation !== '') {
+      query = query.where('accommodation', '==', filters.accommodation);
+    }
+    if (filters.name && filters.name !== '') {
+      query = query.where('name', '==', filters.name);
+    }
+    return query;
   }
 
   setHouseholdResponseTime(householdId: string, time: moment.Moment) {

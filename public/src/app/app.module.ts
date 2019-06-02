@@ -31,7 +31,7 @@ import { RsvpFormComponent } from './rsvp-form/rsvp-form.component';
 import { OurStoryComponent } from './our-story/our-story.component';
 import {  RouterModule, Routes} from '@angular/router';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChipListComponent } from './rsvp-form/chip-list/chip-list.component';
+import { ChipListComponent } from './core/chip-list/chip-list.component';
 import { StepAttendanceComponent } from './rsvp-form/step-attendance/step-attendance.component';
 import { StepPlusOnesComponent } from './rsvp-form/step-plus-ones/step-plus-ones.component';
 import { StepPreferencesComponent } from './rsvp-form/step-preferences/step-preferences.component';
@@ -45,6 +45,7 @@ import { environment } from '../environments/environment';
 import { MountainscapePageComponent } from './mountainscape-page/mountainscape-page.component';
 import { SongListComponent } from './info/response-statistics/song-list/song-list.component';
 import { AboutComponent } from './about/about.component';
+import {CoreModule} from './core/core.module';
 
 const routes: Routes = [
   {path: 'our-story', component: OurStoryComponent},
@@ -61,7 +62,6 @@ const routes: Routes = [
     AppComponent,
     RsvpFormComponent,
     OurStoryComponent,
-    ChipListComponent,
     StepAttendanceComponent,
     StepPlusOnesComponent,
     StepPreferencesComponent,
@@ -74,6 +74,7 @@ const routes: Routes = [
     AboutComponent,
   ],
   imports: [
+    CoreModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

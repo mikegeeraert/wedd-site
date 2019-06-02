@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { FirestoreService } from '../../firestore.service';
-import { Observable } from 'rxjs';
-import { Household } from '../../household';
+import {BehaviorSubject, interval, Observable} from 'rxjs';
+import {Household, ListHouseholdsFilters} from '../../household';
 import * as moment from 'moment';
 import {Member} from '../../member';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {map} from 'rxjs/operators';
-import {tap} from 'rxjs/internal/operators';
+import {map, switchMap, tap, debounce} from 'rxjs/operators';
+import {distinctUntilChanged} from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-household-list',
@@ -23,23 +23,49 @@ import {tap} from 'rxjs/internal/operators';
 })
 export class HouseholdListComponent implements OnInit {
 
+  filterTokens: string[] = [];
+  filtersTokens$$ = new BehaviorSubject<string[]>([]);
+
   dataSource: Observable<Household[]>;
   totalComing: Observable<number>;
   totalMissing: Observable<number>;
-  displayedColumns: string[] = ['name', 'first', 'response', 'coming', 'missing', 'time'];
+  displayedColumns: string[] = ['name', 'first', 'response', 'coming', 'missing'];
 
   constructor(private firestoreService: FirestoreService) { }
 
   ngOnInit() {
-    this.dataSource = this.firestoreService.listHouseholds();
+    this.dataSource = this.filtersTokens$$.pipe(
+      debounce(() => interval(1000)),
+      map(filterTokens => this.filterTokenstoFilters(filterTokens)),
+      switchMap(filters => this.firestoreService.listHouseholds(filters))
+    );
     this.totalComing = this.dataSource.pipe(
       map(households => households.reduce((acc, household) => acc + this.numAttending(household), 0)),
-      tap(console.log)
     );
     this.totalMissing = this.dataSource.pipe(
       map(households => households.reduce((acc, household) => acc + this.numMissing(household), 0)),
-      tap(console.log)
     );
+  }
+
+  search() {
+    this.filtersTokens$$.next(this.filterTokens);
+  }
+
+  filterTokenstoFilters(filterTokens: string[]): ListHouseholdsFilters {
+    const filters = {accommodation: null, name: null};
+    filterTokens.forEach(token => {
+      const tokenComponents = token.split(':');
+      if (tokenComponents.length < 2) {
+        return;
+      }
+      if (tokenComponents[0] === 'accommodation') {
+        filters.accommodation = tokenComponents[1];
+      }
+      if (tokenComponents[0] === 'name') {
+        filters.name = tokenComponents[1];
+      }
+    });
+    return filters;
   }
 
   formatResponseDate(response: moment.Moment): string {
@@ -69,10 +95,6 @@ export class HouseholdListComponent implements OnInit {
     } else {
       return household.dietaryRestrictions !== null && household.dietaryRestrictions !== '';
     }
-  }
-
-  getTotalComing(): Observable<number> {
-    return
   }
 
   setHouseholdResponseTime(householdId: string, time: string) {
