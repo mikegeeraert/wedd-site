@@ -11,9 +11,10 @@ export class IsAdmin implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
     const user = this.authenticationService.user;
     return user.pipe(
-      map(user => {
+      map(adminUser => {
         // Assumption is that only users with email/password logins are admins
-        return !!user.email || this.router.createUrlTree(['our-story'])})
-    )
+        return !!adminUser.email || this.router.createUrlTree(['admin', 'login']);
+      })
+    );
   }
 }

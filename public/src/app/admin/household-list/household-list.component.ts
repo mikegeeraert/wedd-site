@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { FirestoreService } from '../../firestore.service';
-import {BehaviorSubject, interval, Observable} from 'rxjs';
+import {BehaviorSubject, interval, Observable, Subject} from 'rxjs';
 import {Household, ListHouseholdsFilters} from '../../household';
 import * as moment from 'moment';
 import {Member} from '../../member';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {map, switchMap, tap, debounce} from 'rxjs/operators';
-import {distinctUntilChanged} from 'rxjs/internal/operators';
+import {map, switchMap, tap, distinctUntilChanged, shareReplay, startWith} from 'rxjs/operators';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-household-list',
@@ -22,27 +22,29 @@ import {distinctUntilChanged} from 'rxjs/internal/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HouseholdListComponent implements OnInit {
-
   filterTokens: string[] = [];
-  filtersTokens$$ = new BehaviorSubject<string[]>([]);
+  filtersTokens$$ = new Subject<string[]>();
 
   dataSource: Observable<Household[]>;
-  totalComing: Observable<number>;
-  totalMissing: Observable<number>;
+  totalComing$: Observable<number>;
+  totalMissing$: Observable<number>;
   displayedColumns: string[] = ['name', 'first', 'response', 'coming', 'missing'];
 
   constructor(private firestoreService: FirestoreService) { }
 
   ngOnInit() {
     this.dataSource = this.filtersTokens$$.pipe(
-      debounce(() => interval(1000)),
-      map(filterTokens => this.filterTokenstoFilters(filterTokens)),
-      switchMap(filters => this.firestoreService.listHouseholds(filters))
+      startWith([]),
+      map(filterTokens => this.filterTokensToFilters(filterTokens)),
+      distinctUntilChanged(this.areFilterTokenListsDistinct),
+      switchMap(filters => this.firestoreService.listHouseholds(filters)),
+      shareReplay(1),
     );
-    this.totalComing = this.dataSource.pipe(
+
+    this.totalComing$ = this.dataSource.pipe(
       map(households => households.reduce((acc, household) => acc + this.numAttending(household), 0)),
     );
-    this.totalMissing = this.dataSource.pipe(
+    this.totalMissing$ = this.dataSource.pipe(
       map(households => households.reduce((acc, household) => acc + this.numMissing(household), 0)),
     );
   }
@@ -51,7 +53,7 @@ export class HouseholdListComponent implements OnInit {
     this.filtersTokens$$.next(this.filterTokens);
   }
 
-  filterTokenstoFilters(filterTokens: string[]): ListHouseholdsFilters {
+  filterTokensToFilters(filterTokens: string[]): ListHouseholdsFilters {
     const filters = {accommodation: null, name: null};
     filterTokens.forEach(token => {
       const tokenComponents = token.split(':');
@@ -66,6 +68,10 @@ export class HouseholdListComponent implements OnInit {
       }
     });
     return filters;
+  }
+
+  areFilterTokenListsDistinct(p: ListHouseholdsFilters, q: ListHouseholdsFilters ): boolean {
+    return p.name === q.name && p.accommodation === q.accommodation;
   }
 
   formatResponseDate(response: moment.Moment): string {

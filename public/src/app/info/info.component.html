@@ -87,169 +87,179 @@
         </div>
       </div>
     </div>
-    <div class="more-info">
-      <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <b> Get Directions </b>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div class="directions-container">
-            <h3>St. Mary's Parish</h3>
-            <div class="location">
-              <div class="address">
-                <p>
-                  <b>Address</b><br>
-                  10 River Heights Dr<br>
-                  Cochrane, AB T4C 0N8
-                </p>
-                <button mat-raised-button (click)="getDirections('St+Marys+Parish', 'ChIJA0esjpA_cVMRzSU4jPY9TUE')">Get Directions</button>
-              </div>
-              <agm-map
-                class="map" [latitude]="51.1649302" [longitude]="-114.4693305"
-                [zoom]="13"
-                [gestureHandling]="'none'"
-                [scaleControl]="false"
-                [rotateControl]="false"
-                [zoomControl]="false"
-                [streetViewControl]="false"
-              >
-                <agm-marker [latitude]="51.1649302" [longitude]="-114.4693305"></agm-marker>
-              </agm-map>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <b> Get Directions </b>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="directions-container">
+          <h3>St. Mary's Parish</h3>
+          <div class="location">
+            <div class="address">
+              <p>
+                <b>Address</b><br>
+                10 River Heights Dr<br>
+                Cochrane, AB T4C 0N8
+              </p>
+              <button mat-raised-button (click)="getDirections('St+Marys+Parish', 'ChIJA0esjpA_cVMRzSU4jPY9TUE')">Get Directions</button>
             </div>
-            <mat-divider></mat-divider>
-            <h3>Bragg Creek Community Center</h3>
-            <div class="location">
-              <div class="address">
-                <p>
-                  <b>Address</b><br>
-                  23 White Ave<br>
-                  Bragg Creek, AB T0L 0K0<br>
-                </p>
-                <button mat-raised-button (click)="getDirections('Bragg+Creek+Community+Center', 'ChIJEQ8H97sacVMRJmQw56y_6nU')">Get Directions</button>
-              </div>
-              <agm-map
-                class="map"
-                [latitude]="51.1716296" [longitude]="-114.7524017"
-                [zoom]="13"
-                [gestureHandling]="'none'"
-                [scaleControl]="false"
-                [rotateControl]="false"
-                [zoomControl]="false"
-                [streetViewControl]="false"
-              >
-                <agm-marker [latitude]="51.1716296" [longitude]="-114.7524017"></agm-marker>
-              </agm-map>
-            </div>
-            <mat-divider></mat-divider>
-            <h3>River Cove Campground</h3>
-            <div class="location">
-              <div class="address">
-                <p>
-                  <b>Address</b><br>
-                  Kananaskis, AB T0L 0K0
-                </p>
-                <button mat-raised-button (click)="getDirections('River+Cove+Campground', 'ChIJg_MfrCkDcVMRyO-m33ARlNo')">Get Directions</button>
-              </div>
-              <agm-map
-                class="map" [latitude]="50.896209" [longitude]="-114.696851"
-                [zoom]="13"
-                [gestureHandling]="'none'"
-                [scaleControl]="false"
-                [rotateControl]="false"
-                [zoomControl]="false"
-                [streetViewControl]="false"
-              >
-                <agm-marker [latitude]="50.896209" [longitude]="-114.696851"></agm-marker>
-              </agm-map>
-            </div>
-
+            <agm-map
+              class="map" [latitude]="51.1649302" [longitude]="-114.4693305"
+              [zoom]="13"
+              [gestureHandling]="'none'"
+              [scaleControl]="false"
+              [rotateControl]="false"
+              [zoomControl]="false"
+              [streetViewControl]="false"
+            >
+              <agm-marker [latitude]="51.1649302" [longitude]="-114.4693305"></agm-marker>
+            </agm-map>
           </div>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <b> Transportation Options</b>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <h3>Campground Shuttle</h3>
-          <p>
-            For all those staying or parking at River Cove campground, we are providing a school bus shuttle to and from the reception
-            <br>
-            <br>
-            <b>Shuttle To Reception: </b> September 14th, 3:30 pm
-            <br>
-            <b>Shuttle From Reception: </b> September 15th, 12:00 am
-          </p>
           <mat-divider></mat-divider>
-          <h3>Parking Rules</h3>
-          <p>
-            If you are driving yourself, be aware that church is held at the same venue in the morning.
-            The community center has asked that we minimize the amount of cars in the parking lot overnight.
-            So, if you plan on leaving your car overnight, there should be street parking available nearby!
-          </p>
+          <h3>Bragg Creek Community Center</h3>
+          <div class="location">
+            <div class="address">
+              <p>
+                <b>Address</b><br>
+                23 White Ave<br>
+                Bragg Creek, AB T0L 0K0<br>
+              </p>
+              <button mat-raised-button (click)="getDirections('Bragg+Creek+Community+Center', 'ChIJEQ8H97sacVMRJmQw56y_6nU')">Get Directions</button>
+            </div>
+            <agm-map
+              class="map"
+              [latitude]="51.1716296" [longitude]="-114.7524017"
+              [zoom]="13"
+              [gestureHandling]="'none'"
+              [scaleControl]="false"
+              [rotateControl]="false"
+              [zoomControl]="false"
+              [streetViewControl]="false"
+            >
+              <agm-marker [latitude]="51.1716296" [longitude]="-114.7524017"></agm-marker>
+            </agm-map>
+          </div>
           <mat-divider></mat-divider>
-          <h3>Taxi Service</h3>
-          <p>
-            If you'd rather go home on your own accord but will be too silly to drive we recommended calling some local taxi services.
-            We did a bit of research ourselves, and below are a couple options:
-          </p>
-          <div class="taxi-buttons">
-            <a mat-raised-button href="tel:403-932-0044">
-              Taxi4U <mat-icon>phone</mat-icon>
-            </a>
-            <a mat-raised-button href="tel:403-851-8888">
-              Cochrane Taxi <mat-icon>phone</mat-icon>
-            </a>
-            <a mat-raised-button href="tel:587-576-4433">
-              Cochrane Cabs <mat-icon>phone</mat-icon>
-            </a>
+          <h3>River Cove Campground</h3>
+          <div class="location">
+            <div class="address">
+              <p>
+                <b>Address</b><br>
+                Kananaskis, AB T0L 0K0
+              </p>
+              <button mat-raised-button (click)="getDirections('River+Cove+Campground', 'ChIJg_MfrCkDcVMRyO-m33ARlNo')">Get Directions</button>
+            </div>
+            <agm-map
+              class="map" [latitude]="50.896209" [longitude]="-114.696851"
+              [zoom]="13"
+              [gestureHandling]="'none'"
+              [scaleControl]="false"
+              [rotateControl]="false"
+              [zoomControl]="false"
+              [streetViewControl]="false"
+            >
+              <agm-marker [latitude]="50.896209" [longitude]="-114.696851"></agm-marker>
+            </agm-map>
           </div>
 
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <b> Camping Info</b>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <h3>Days</h3>
-          <b>Check In:</b> September 13th, 4 pm
-            <br>
-          <b>Check Out:</b> September 16th, 2 pm
-          <h3>Amenities</h3>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <b> Transportation Options</b>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <h3>Campground Shuttle</h3>
+        <p>
+          For all those staying or parking at River Cove campground, we are providing a school bus shuttle to and from the reception
+        </p>
           <mat-list>
-            <mat-list-item>Camp in style in your (up to) 40ft trailer or bring a tent</mat-list-item>
-            <mat-list-item>Pit toilets on site or coin operated showers a short drive away</mat-list-item>
-            <mat-list-item>Enjoy nature and disconnect (i.e. no power)</mat-list-item>
-            <mat-list-item>Fire pits available</mat-list-item>
-            <mat-list-item>Pump water available (we recommend bringing drinking water)</mat-list-item>
+            <mat-list-item>
+              <b matLine>Shuttle To Reception:</b>
+              <p matLine>Saturday, September 14th, 3:30 pm</p>
+            </mat-list-item>
+            <mat-list-item>
+              <b matLine>Shuttle From Reception: </b>
+              <p matLine>Sunday September 15th, 12:00 am</p>
+            </mat-list-item>
           </mat-list>
-          <div class="taxi-buttons">
-            <a mat-raised-button href="https://www.albertaparks.ca/parks/kananaskis/elbow-river-pra/information-facilities/group-use/river-cove/">Campground Website</a>
-          </div>
-          <mat-divider></mat-divider>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <b> Registry</b>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <p>
-             We are so excited to have everyone join us on our wedding day and we truly couldn't ask for anything more than to see you (and your best dance moves) at our wedding!
-            Some of you have asked us what we would like as a gift; after living together for over a year we have all the basics covered. Instead we would ask for help towards a few
-            big ticket items to help us start our life together such as:
-            - Appliances that aren't as old as we are
-            - A new roof that might not blow away
-            - Owning a slightly larger share of our home
-            - Splurging a bit on our honeymoon to the Pacific West Coast.
-            If you would like to gift us money to one of these specifically please let us know in a card (or anyway you choose really). Otherwise, please be our guest and know we are just happy to have you with us on our special day!
-          </p>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </div>
+        <mat-divider></mat-divider>
+        <h3>Parking Rules</h3>
+        <p>
+          If you are driving yourself, be aware that church is held at the same venue in the morning.
+          The community center has asked that we minimize the amount of cars in the parking lot overnight.
+          So, if you plan on leaving your car overnight, there should be street parking available nearby!
+        </p>
+        <mat-divider></mat-divider>
+        <h3>Taxi Service</h3>
+        <p>
+          If you'd rather go home on your own accord but will be too silly to drive we recommended calling some local taxi services.
+          We did a bit of research ourselves, and below are a couple options:
+        </p>
+        <div class="taxi-buttons">
+          <a mat-raised-button href="tel:403-932-0044">
+            Taxi4U <mat-icon>phone</mat-icon>
+          </a>
+          <a mat-raised-button href="tel:403-851-8888">
+            Cochrane Taxi <mat-icon>phone</mat-icon>
+          </a>
+          <a mat-raised-button href="tel:587-576-4433">
+            Cochrane Cabs <mat-icon>phone</mat-icon>
+          </a>
+        </div>
+
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <b> Camping Info</b>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <h3>Days</h3>
+        <mat-list>
+          <mat-list-item>
+            <b matLine>Check In:</b>
+            <p matLine>Friday, September 13th, 4 pm</p>
+          </mat-list-item>
+          <mat-list-item>
+            <b matLine>Check Out:</b>
+            <p matLine>Monday, September 16th, 2 pm</p>
+          </mat-list-item>
+        </mat-list>
+        <mat-divider></mat-divider>
+        <h3>Amenities</h3>
+        <mat-list>
+          <mat-list-item>Camp in style in your (up to) 40ft trailer or bring a tent</mat-list-item>
+          <mat-list-item>Pit toilets on site or coin operated showers a short drive away</mat-list-item>
+          <mat-list-item>Enjoy nature and disconnect (i.e. no power)</mat-list-item>
+          <mat-list-item>Fire pits available</mat-list-item>
+          <mat-list-item>Pump water available (we recommend bringing drinking water)</mat-list-item>
+        </mat-list>
+        <div class="taxi-buttons">
+          <a mat-raised-button href="https://www.albertaparks.ca/parks/kananaskis/elbow-river-pra/information-facilities/group-use/river-cove/">Campground Website</a>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <b> Registry</b>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>
+           We are so excited to have everyone join us on our wedding day and we truly couldn't ask for anything more than to see you (and your best dance moves) at our wedding!
+          Some of you have asked us what we would like as a gift; after living together for over a year we have all the basics covered. Instead we would ask for help towards a few
+          big ticket items to help us start our life together such as:
+          - Appliances that aren't as old as we are
+          - A new roof that might not blow away
+          - Owning a slightly larger share of our home
+          - Splurging a bit on our honeymoon to the Pacific West Coast.
+          If you would like to gift us money to one of these specifically please let us know in a card (or anyway you choose really). Otherwise, please be our guest and know we are just happy to have you with us on our special day!
+        </p>
+      </mat-expansion-panel>
+    </mat-accordion>
     <div class="footer-bar">
       Design Concept and Fonts by Kristi Gibson
     </div>

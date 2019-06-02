@@ -168,15 +168,14 @@ h3 {
   padding: 0 40px 0 0;
 }
 
-.more-info {
-  width: 100%;
+mat-accordion {
   max-width: 1000px;
   margin-bottom: 20px;
 }
 
-.more-info mat-expansion-panel {
+mat-expansion-panel {
   font-family: LucidaBrite;
-  margin: 0 20px;
+  font-size: 14px;
 }
 
 .map {
@@ -186,7 +185,7 @@ h3 {
 
 ::ng-deep .agm-map-container-inner {
   border-radius: 50%;
-  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.30), 0 5px 12px rgba(0,0,0,0.22)
 }
 
 .taxi-buttons {
