@@ -2,6 +2,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import {renderInviteBody} from './invite-template';
+import {renderReminderBody} from './reminder-template';
 
 // generate this file at https://console.firebase.google.com/u/0/project/wedding-49e7e/settings/serviceaccounts/adminsdk
 const serviceAccount = require('./../serviceAccountKey.json'); // Needs to be deployed to functions environment
@@ -130,6 +131,15 @@ export function getRandomSongs(arr: string[], n: number): string[] {
 export const generateInviteBody = functions.https.onCall((data, context) => {
   if (data.emailAddress && data.householdId) {
     return renderInviteBody(data.householdId, data.emailAddress);
+  } else {
+    throw new functions.https.HttpsError('invalid-argument', 'either emailAddress or householdId were not passed to function in data');
+  }
+});
+
+// noinspection JSUnusedGlobalSymbols
+export const generateReminderBody = functions.https.onCall((data, context) => {
+  if (data.emailAddress && data.householdId) {
+    return renderReminderBody(data.householdId, data.emailAddress);
   } else {
     throw new functions.https.HttpsError('invalid-argument', 'either emailAddress or householdId were not passed to function in data');
   }

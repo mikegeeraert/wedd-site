@@ -8,7 +8,7 @@ households_collection_ref = db.collection(u'households')
 guests_collection_ref = db.collection(u'guests')
 # Read csv into a tree structure
 with open('guests.csv') as csvfile:
-	reader = csv.DictReader(csvfile)
+	reader = csv.DictReader(csvfile)	
 	households = {}
 	for row in reader:
 		print(row[u'first_name'], row[u'last_name'])
