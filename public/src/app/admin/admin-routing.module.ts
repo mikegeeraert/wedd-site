@@ -13,6 +13,7 @@ const routes: Routes = [
       {path: 'households', component: HouseholdListComponent},
       {path: 'guest-list', component: GuestListComponent},
       {path: 'song-list', component: SongListComponent},
+      {path: '**', redirectTo: 'households'},
     ]},
   {path: '**', redirectTo: 'login'}
 ];
