@@ -7,6 +7,11 @@
   width: 100%;
 }
 
+.mat-column-actions {
+  text-align: right;
+}
+
+
 .table-loading {
   margin: 20px;
 }

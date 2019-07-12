@@ -15,30 +15,39 @@
         <th mat-header-cell *matHeaderCellDef> Last </th>
         <td mat-cell *matCellDef="let member"> {{member.last}} </td>
       </ng-container>
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let member"> {{member.email}} </td>
-      </ng-container>
       <ng-container matColumnDef="isComing">
         <th mat-header-cell *matHeaderCellDef> Coming </th>
-        <td mat-cell *matCellDef="let member"> {{member.isComing}} </td>
+        <td mat-cell *matCellDef="let member">
+          <mat-icon *ngIf="member.isComing">
+            thumb_up_alt
+          </mat-icon>
+          <mat-icon *ngIf="member.isComing === false">
+            thumb_down_alt
+          </mat-icon>
+        </td>
       </ng-container>
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let member">
-          <button mat-button [matMenuTriggerFor]="menu">
+          <button mat-button
+                  [matMenuTriggerFor]="menu"
+                  [disabled]="!member.email"
+          >
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item
-              *ngIf="member.email"
+            <p mat-menu-item> {{member.email}}</p>
+            <a mat-menu-item
               href="{{formatRsvpLink(member)}}">
               <mat-icon>link</mat-icon> RSVP Link
+            </a>
+            <button mat-menu-item
+              (click)="downloadInviteHtml(member)">
+              <mat-icon>get_app</mat-icon> Invite
             </button>
             <button mat-menu-item
-              *ngIf="member.email != ''"
-              (click)="downloadHtml(member)">
-              <mat-icon>code</mat-icon> Invite Html
+                    (click)="downloadReminderHtml(member)">
+              <mat-icon>get_app</mat-icon> Reminder
             </button>
           </mat-menu>
         </td>

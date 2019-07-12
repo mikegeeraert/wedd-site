@@ -15,7 +15,7 @@ import {AngularFireFunctions} from '@angular/fire/functions';
 export class GuestListComponent implements OnInit {
 
   dataSource: Observable<Member[]>;
-  displayedColumns: string[] = ['first', 'last', 'email', 'isComing', 'actions'];
+  displayedColumns: string[] = ['first', 'last', 'isComing', 'actions'];
 
   searchTerm$$ = new BehaviorSubject('');
   searchTerm: string;
@@ -37,8 +37,14 @@ export class GuestListComponent implements OnInit {
     return member.email ? `https://geeraertwedding.ca/authenticate?email=${member.email}&householdId=${member.householdId}` : '';
   }
 
-  downloadHtml(member: Member): void {
+  downloadInviteHtml(member: Member): void {
     const authFunction = this.functions.httpsCallable('generateInviteBody');
+    authFunction({emailAddress: member.email, householdId: member.householdId}).
+    subscribe(inviteBody => this.download(`${member.first}-${member.last}.html`, inviteBody));
+  }
+
+  downloadReminderHtml(member: Member): void {
+    const authFunction = this.functions.httpsCallable('generateReminderBody');
     authFunction({emailAddress: member.email, householdId: member.householdId}).
     subscribe(inviteBody => this.download(`${member.first}-${member.last}.html`, inviteBody));
   }
